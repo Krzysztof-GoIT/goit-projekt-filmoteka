@@ -23,8 +23,7 @@ font-size: 14px;
 .footer-wrapper {
     display: flex;
     justify-content: center;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    font-size: 16px;
 }
 }
 
