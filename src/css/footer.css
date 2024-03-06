@@ -5,6 +5,11 @@ background-color: #F7F7F7;
 margin: 0 auto;
 }
 
+@media screen and (min-width: 320px) {
+.footer-container {
+        width: 320px;
+}}
+
 .footer-wrapper{
 text-align: center;
 padding-top: 30px;
@@ -31,9 +36,6 @@ margin-bottom: 10px;
 
 }
 
-.footer-modal-students{
-
-}
 
 .footer-btn{
     text-decoration: underline;
