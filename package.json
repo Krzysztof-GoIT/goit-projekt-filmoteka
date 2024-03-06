@@ -15,7 +15,7 @@
   "author": "GRUPA 1 <krzysztof-goit@fabrykait.net>",
   "license": "ISC",
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.8.3",
+    "@parcel/transformer-sass": "^2.12.0",
     "parcel": "^2.12.0",
     "posthtml-include": "^1.7.4"
   }
