@@ -1,2 +1,30 @@
 .pagination {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: auto 0;
+    border: none;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0, 5;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+.pagination a.active {
+    background-color: #ff6c28;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
 }
