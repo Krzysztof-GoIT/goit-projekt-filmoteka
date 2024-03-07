@@ -55,3 +55,6 @@ const getGenres = genreIds => {
 
 // Eksportujemy funkcję renderGallery jako domyślną
 export default renderGallery;
+
+// Wywołujemy funkcję renderGallery po załadowaniu strony
+window.addEventListener('DOMContentLoaded', renderGallery);
