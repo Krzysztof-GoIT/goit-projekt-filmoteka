@@ -18,7 +18,7 @@ export const addToQueue = movieDetails => {
     const isMovieInQueue = queuedMovies.find(movie => movie.id === movieDetails.id);
     if (!isMovieInQueue) {
         queuedMovies.push(movieDetails);
-        localStorage.setItem('queuedMovies', JSON.stringify(watchedMovies));
+        localStorage.setItem('queuedMovies', JSON.stringify(queuedMovies));
         console.log (`Added "${movieDetails.title}" to Queue `);
     } else {
         console.log (`"${movieDetails.title}" is already in Queue`);
