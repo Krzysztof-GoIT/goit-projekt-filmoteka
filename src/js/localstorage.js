@@ -1,29 +1,28 @@
 import { fetchMovieDetails, fetchTrendingMovies, genresName , fetchSearchMovies } from './api';
 import renderGallery from './gallery';
-          // Dodanie przycisku "Watched" i "Add to watched"
-          // pożniej można to ewentualnie zastąpić jak powstana przyciski
-const watchedButton = document.createElement('button');
-        watchedButton.innerText = 'Watched';
-        watchedButton.addEventListener('click', () => addToWatchedMovies(movieDetails));
-        card.appendChild(watchedButton);
 
-const addToWatchedMovies = movieDetails => {
-     // Pobierz listę obejrzanych filmów z localStorage lub utwórz nową listę, jeśli nie istnieje
-    const watchedMovies = JSON.parse(localStorage.getItem('watchedMowies')) || [];
-    const existingMovie = watchedMovies.find(movie => movie.id === movieDetails.id);
-    if (!existingMovie) {
-        watchedMovies.push(movieDetails);
-        localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
-    }
+export const addToWatchedMovies = movieDetails => {
+  // Pobierz listę obejrzanych filmów z localStorage lub utwórz nową listę, jeśli nie istnieje
+  const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+  const isMovieAlreadyWatched = watchedMovies.find(movie => movie.id === movieDetails.id);
+  // Jeśli film jeszcze nie został obejrzany, dodaj go do listy
+  if (!isMovieAlreadyWatched) {
+    watchedMovies.push(movieDetails);
+    localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
+    return(`Added "${movieDetails.title}" to Watched Movies`);
+  } else {
+    return (`"${movieDetails.title}" is already in Watched Movies`);
+  }
 };
 
-const displayWatchedMovies = () => {
-    // Pobierz listę obejrzanych filmów z localStorage
-    const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
-
-    // Wyświetl listę obejrzanych filmów w dowolny sposób
-    console.log('Watched Movies:', watchedMovies);
+export const addToQueue = movieDetails => {
+    const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
+    const isMovieInQueue = queuedMovies.find(movie => movie.id === movieDetails.id);
+    if (!isMovieInQueue) {
+        queuedMovies.push(movieDetails);
+        localStorage.setItem('queuedMovies', JSON.stringify(watchedMovies));
+        return (`Added "${movieDetails.title}" to Queue `);
+    } else {
+        return (`"${movieDetails.title}" is already in Queue`);
+    }
 }
-
-export { displayWatchedMovies };
-displayWatchedMovies();
