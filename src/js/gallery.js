@@ -1,4 +1,6 @@
-import { fetchTrendingMovies } from './api'; // Poprawienie nazwy importu z api.js
+// gallery.js
+
+import { fetchMovieDetails, fetchTrendingMovies, genresName } from './api';
 
 const renderGallery = async () => {
   try {
@@ -14,7 +16,7 @@ const renderGallery = async () => {
       .map(movie => {
         // Utworzenie elementu karty filmu
         const movieCard = `
-          <div class="movie-card">
+          <div class="movie-card" data-movie-id="${movie.id}">
             <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${
           movie.title
         }" class="movie-poster">
@@ -30,6 +32,16 @@ const renderGallery = async () => {
         return movieCard;
       })
       .join('');
+
+    // Dodanie obsługi zdarzenia kliknięcia dla każdej karty filmu
+    const movieCards = document.querySelectorAll('.movie-card');
+    movieCards.forEach(card => {
+      card.addEventListener('click', async () => {
+        const movieId = card.dataset.movieId;
+        const movieDetails = await fetchMovieDetails(movieId);
+        displayMovieDetails(movieDetails);
+      });
+    });
   } catch (error) {
     console.error('Error fetching trending movies:', error);
   }
@@ -37,20 +49,20 @@ const renderGallery = async () => {
 
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
 const getGenres = genreIds => {
-  // Dane o gatunkach filmowych - możesz przenieść do oddzielnego pliku lub wywołać z funkcji fetchGenres z api.js
-  const genresData = {
-    28: 'Action',
-    12: 'Adventure',
-    16: 'Animation',
-    35: 'Comedy',
-    // i tak dalej...
-  };
-
-  // Pobranie nazw gatunków dla każdego identyfikatora gatunku
-  const genres = genreIds.map(genreId => genresData[genreId]);
+  // Pobranie nazw gatunków z listy genresName zdefiniowanej w api.js
+  const genres = genreIds.map(genreId => {
+    const foundGenre = genresName.find(genre => genre.id === genreId);
+    return foundGenre ? foundGenre.name : '';
+  });
 
   // Zwrócenie połączonej listy gatunków
   return genres.join(', ');
+};
+
+// Funkcja do wyświetlania szczegółowych informacji o filmie w modalu
+const displayMovieDetails = movieDetails => {
+  // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
+  console.log(movieDetails);
 };
 
 // Eksportujemy funkcję renderGallery jako domyślną
