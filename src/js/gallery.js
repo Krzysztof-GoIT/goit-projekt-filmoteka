@@ -1,6 +1,33 @@
 // gallery.js
 
 import { fetchMovieDetails, fetchTrendingMovies, genresName } from './api';
+import { addToWatchedMovies } from './localstorage';
+// Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
+const getGenres = genreIds => {
+  // Pobranie nazw gatunków z listy genresName zdefiniowanej w api.js
+  const genres = genreIds.map(genreId => {
+    const foundGenre = genresName.find(genre => genre.id === genreId);
+    return foundGenre ? foundGenre.name : '';
+  });
+
+  // Zwrócenie połączonej listy gatunków
+  return genres.join(', ');
+};
+
+
+
+const displayWatchedMovies = () => {
+  // Pobierz listę obejrzanych filmów z localStorage
+  const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+
+  // Wyświetl listę obejrzanych filmów w dowolny sposób
+  console.log('Watched Movies:', watchedMovies);
+};
+
+const displayMovieDetails = movieDetails => {
+  // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
+  console.log(movieDetails);
+};
 
 const renderGallery = async () => {
   try {
@@ -17,15 +44,10 @@ const renderGallery = async () => {
         // Utworzenie elementu karty filmu
         const movieCard = `
           <div class="movie-card" data-movie-id="${movie.id}">
-            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${
-          movie.title
-        }" class="movie-poster">
+            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" class="movie-poster">
             <div class="movie-details">
               <p class="movie-title">${movie.title}</p>
-              <p class="movie-info">${getGenres(movie.genre_ids)} | ${movie.release_date.slice(
-          0,
-          4,
-        )}</p>
+              <p class="movie-info">${getGenres(movie.genre_ids)} | ${movie.release_date.slice(0, 4)}</p>
             </div>
           </div>
         `;
@@ -40,6 +62,12 @@ const renderGallery = async () => {
         const movieId = card.dataset.movieId;
         const movieDetails = await fetchMovieDetails(movieId);
         displayMovieDetails(movieDetails);
+
+        // Dodanie przycisku "Watched" i "Add to watched"
+        const watchedButton = document.createElement('button');
+        watchedButton.innerText = 'Watched';
+        watchedButton.addEventListener('click', () => addToWatchedMovies(movieDetails));
+        card.appendChild(watchedButton);
       });
     });
   } catch (error) {
@@ -47,26 +75,8 @@ const renderGallery = async () => {
   }
 };
 
-// Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
-const getGenres = genreIds => {
-  // Pobranie nazw gatunków z listy genresName zdefiniowanej w api.js
-  const genres = genreIds.map(genreId => {
-    const foundGenre = genresName.find(genre => genre.id === genreId);
-    return foundGenre ? foundGenre.name : '';
-  });
-
-  // Zwrócenie połączonej listy gatunków
-  return genres.join(', ');
-};
-
-// Funkcja do wyświetlania szczegółowych informacji o filmie w modalu
-const displayMovieDetails = movieDetails => {
-  // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
-  console.log(movieDetails);
-};
-
-// Eksportujemy funkcję renderGallery jako domyślną
-export default renderGallery;
-
 // Wywołujemy funkcję renderGallery po załadowaniu strony
-window.addEventListener('DOMContentLoaded', renderGallery);
+window.addEventListener('DOMContentLoaded', () => {
+  renderGallery();
+  displayWatchedMovies();
+});
