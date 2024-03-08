@@ -1,7 +1,7 @@
 // gallery.js
 
 import { fetchMovieDetails, fetchTrendingMovies, genresName } from './api';
-import { addToWatchedMovies } from './localstorage';
+import { addToQueue, addToWatchedMovies } from './localstorage';
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
 const getGenres = genreIds => {
   // Pobranie nazw gatunków z listy genresName zdefiniowanej w api.js
@@ -65,9 +65,16 @@ const renderGallery = async () => {
 
         // Dodanie przycisku "Watched" i "Add to watched"
         const watchedButton = document.createElement('button');
-        watchedButton.innerText = 'Watched';
+        watchedButton.innerText = 'Add to Watched';
         watchedButton.addEventListener('click', () => addToWatchedMovies(movieDetails));
         card.appendChild(watchedButton);
+
+        const queuedButton = document.createElement('button');
+        queuedButton.innerHTML = 'Add to Queue';
+        queuedButton.addEventListener('click', () => addToQueue(movieDetails));
+        card.appendChild(queuedButton);
+
+        
       });
     });
   } catch (error) {
