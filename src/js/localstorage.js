@@ -1,5 +1,3 @@
-import { fetchMovieDetails, fetchTrendingMovies, genresName , fetchSearchMovies } from './api';
-import renderGallery from './gallery';
 
 export const addToWatchedMovies = movieDetails => {
   // Pobierz listę obejrzanych filmów z localStorage lub utwórz nową listę, jeśli nie istnieje
@@ -9,9 +7,9 @@ export const addToWatchedMovies = movieDetails => {
   if (!isMovieAlreadyWatched) {
     watchedMovies.push(movieDetails);
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
-    return(`Added "${movieDetails.title}" to Watched Movies`);
+    console.log (`Added "${movieDetails.title}" to Watched Movies`);
   } else {
-    return (`"${movieDetails.title}" is already in Watched Movies`);
+    console.log(`"${movieDetails.title}" is already in Watched Movies`);
   }
 };
 
@@ -21,8 +19,8 @@ export const addToQueue = movieDetails => {
     if (!isMovieInQueue) {
         queuedMovies.push(movieDetails);
         localStorage.setItem('queuedMovies', JSON.stringify(watchedMovies));
-        return (`Added "${movieDetails.title}" to Queue `);
+        console.log (`Added "${movieDetails.title}" to Queue `);
     } else {
-        return (`"${movieDetails.title}" is already in Queue`);
+        console.log (`"${movieDetails.title}" is already in Queue`);
     }
 }
