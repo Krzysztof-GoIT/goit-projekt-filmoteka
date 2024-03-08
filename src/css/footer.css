@@ -1,8 +1,9 @@
 .footer {
-background-color: #F7F7F7;
+  background-color: #f7f7f7;
 }
-.footer-container{
-margin: 0 auto;
+
+.footer-container {
+  margin: 0 auto;
 }
 
 .footer-wrapper{
@@ -15,7 +16,7 @@ font-size: 14px;
 }
 
 @media screen and (min-width: 768px) {
-.footer-wrapper {
+  .footer-wrapper {
     display: flex;
     justify-content: center;
     padding-top: 30px;
@@ -23,11 +24,11 @@ font-size: 14px;
 
     font-size: 16px;
     line-height: 1.19;
-}
+  }
 }
 
-.copyRights{
-margin-bottom: 10px;
+.copyRights {
+  margin-bottom: 10px;
 }
 
 .footer-btn{
@@ -37,5 +38,4 @@ margin-bottom: 10px;
     border: none;
     display: inline-block;
     background: transparent;
-
 }
