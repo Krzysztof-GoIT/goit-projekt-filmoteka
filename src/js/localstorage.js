@@ -25,6 +25,7 @@ export const addToWatchedMovies = movieDetails => {
 export const addToQueue = movieDetails => {
   const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
   const isMovieInQueue = queuedMovies.find(movie => movie.id === movieDetails.id);
+  
     //pobierz liste filmów z obejrzanych z local storage zeby ussunąć w razie wu
     const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
     if (!isMovieInQueue) {
