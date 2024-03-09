@@ -10,17 +10,21 @@ const toggleVisibility = (elementToShow, elementToHide) => {
     elementToShow.style.display = 'block';
     elementToHide.style.display = 'none';
 };
-    toggleVisibility(headerSearch, myLibrary);
+toggleVisibility(headerSearch, myLibrary);
+    homeLink.classList.add('active');
 
 const homeButtonClick = (event) => {
     event.preventDefault(); 
     toggleVisibility(headerSearch, myLibrary);
-  
+    homeLink.classList.add('active');
+    libraryLink.classList.remove('active');
 };
 
 const myLibraryButtonClick = (event) => {
     event.preventDefault(); 
     toggleVisibility(myLibrary, headerSearch);
+    homeLink.classList.remove('active');
+    libraryLink.classList.add('active');
 
 };
 
