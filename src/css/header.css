@@ -19,6 +19,9 @@ header {
   align-items: center;
   text-decoration: none;
 }
+.header-navi a.active {
+text-decoration: underline 2.5px #FF001B;
+}
 .header-navi {
   display: flex;
   gap: 39px;
