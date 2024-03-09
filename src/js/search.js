@@ -38,12 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
               if (movie.poster_path) {
                 posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
               } else {
-                posterPath = 'img/kolaz-w-tle-filmu.png';
+                posterPath = './img/kolaz-w-tle-filmu.png';
               }
 
               // const posterPath = movie.poster_path
               //   ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-              //   : './../img/kolaz-w-tle-filmu.png';
+              //   : './img/kolaz-w-tle-filmu.png';
 
               // Utworzenie elementu karty filmu
               const movieCard = `
@@ -133,7 +133,7 @@ const clearGallery = () => {
 // galleryContainer.innerHTML = searchResults
 //   .map(movie => {
 //     // Sprawdzenie czy plakat istnieje
-//     const posterPath = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'img/kolaz-w-tle-filmu.png';
+//     const posterPath = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : './img/kolaz-w-tle-filmu.png';
 
 //     // Utworzenie elementu karty filmu
 //     const movieCard = `
@@ -153,7 +153,7 @@ const clearGallery = () => {
 // galleryContainer.innerHTML = movies
 //   .map(movie => {
 //     // Sprawdzenie czy plakat istnieje
-//     const posterPath = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'img/kolaz-w-tle-filmu.png';
+//     const posterPath = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : './img/kolaz-w-tle-filmu.png';
 
 //     // Utworzenie elementu karty filmu
 //     const movieCard = `
