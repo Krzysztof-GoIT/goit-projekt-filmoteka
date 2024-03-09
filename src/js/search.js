@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
               if (movie.poster_path) {
                 posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
               } else {
-                posterPath = '../../img/kolaz-w-tle-filmu.png';
+                posterPath = 'img/kolaz-w-tle-filmu.png';
               }
 
               // const posterPath = movie.poster_path
