@@ -7,25 +7,24 @@ const myLibrary = document.querySelector('.header-library');
 const headerSearch = document.querySelector('.header-search');
 
 const toggleVisibility = (elementToShow, elementToHide) => {
-    elementToShow.style.display = 'block';
-    elementToHide.style.display = 'none';
+  elementToShow.style.visibility = 'visible';
+  elementToHide.style.visibility = 'hidden';
 };
 toggleVisibility(headerSearch, myLibrary);
-    homeLink.classList.add('active');
+homeLink.classList.add('active');
 
-const homeButtonClick = (event) => {
-    event.preventDefault(); 
-    toggleVisibility(headerSearch, myLibrary);
-    homeLink.classList.add('active');
-    libraryLink.classList.remove('active');
+const homeButtonClick = event => {
+  event.preventDefault();
+  toggleVisibility(headerSearch, myLibrary);
+  homeLink.classList.add('active');
+  libraryLink.classList.remove('active');
 };
 
-const myLibraryButtonClick = (event) => {
-    event.preventDefault(); 
-    toggleVisibility(myLibrary, headerSearch);
-    homeLink.classList.remove('active');
-    libraryLink.classList.add('active');
-
+const myLibraryButtonClick = event => {
+  event.preventDefault();
+  toggleVisibility(myLibrary, headerSearch);
+  homeLink.classList.remove('active');
+  libraryLink.classList.add('active');
 };
 
 homeLink.addEventListener('click', homeButtonClick);
