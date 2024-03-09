@@ -10,7 +10,7 @@
 }
 
 .pagination a {
-    color: black;
+    color:var(--movieDetails-color);
     float: left;
     padding: 8px 16px;
     text-decoration: none;

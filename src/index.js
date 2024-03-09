@@ -6,3 +6,4 @@ import './js/search';
 import './js/gallery';
 import './js/markup';
 import './js/localstorage';
+import './js/darkMode';

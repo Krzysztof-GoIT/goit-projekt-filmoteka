@@ -1,5 +1,4 @@
 // gallery.js
-
 import { fetchMovieDetails, fetchTrendingMovies, genresName } from './api';
 import { addToQueue, addToWatchedMovies } from './localstorage';
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
