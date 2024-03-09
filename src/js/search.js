@@ -38,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
               if (movie.poster_path) {
                 posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
               } else {
-                posterPath = './img/kolaz-w-tle-filmu.png';
+                posterPath =
+                  'https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.png?raw=true';
               }
 
               // const posterPath = movie.poster_path
