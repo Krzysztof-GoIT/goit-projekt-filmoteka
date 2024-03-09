@@ -6,19 +6,22 @@
   margin: 0 auto;
 }
 
-.footer-wrapper {
-  text-align: center;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  color: #545454;
-  font-family: 'Roboto';
-  font-size: 14px;
+.footer-wrapper{
+text-align: center;
+padding-top: 29px;
+padding-bottom: 28px;
+color: #545454;
+font-family: 'Roboto';
+font-size: 14px;
 }
 
 @media screen and (min-width: 768px) {
   .footer-wrapper {
     display: flex;
     justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+
     font-size: 16px;
     line-height: 1.19;
   }
@@ -28,10 +31,11 @@
   margin-bottom: 10px;
 }
 
-.footer-btn {
-  text-decoration: underline;
-  color: #545454;
-  background: #f7f7f7;
-  cursor: pointer;
-  border: none;
+.footer-btn{
+    text-decoration: underline;
+    color:#545454 ;
+    cursor: pointer;
+    border: none;
+    display: inline-block;
+    background: transparent;
 }
