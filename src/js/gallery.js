@@ -24,6 +24,14 @@ const displayWatchedMovies = () => {
   console.log('Watched Movies:', watchedMovies);
 };
 
+const displayQueuedMovies = () => {
+  // Pobierz listę dodanych do kolejki filmów z localStorage
+  const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
+
+  // Wyświetl listę obejrzanych filmów w dowolny sposób
+  console.log('Queued Movies :', queuedMovies);
+};
+
 const displayMovieDetails = movieDetails => {
   // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
   console.log(movieDetails);
@@ -86,4 +94,17 @@ const renderGallery = async () => {
 window.addEventListener('DOMContentLoaded', () => {
   renderGallery();
   displayWatchedMovies();
+  displayQueuedMovies();
+
+
+ const libraryWatchedButton = document.getElementById('library-watched');
+  libraryWatchedButton.addEventListener('click', () => {
+    // Wywołujemy funkcję wyświetlającą obejrzane filmy
+    displayWatchedMovies();
+  });
+
+  const libraryQueuedButton = document.getElementById('library-queue');
+  libraryQueuedButton.addEventListener('click', () => {
+    displayQueuedMovies()
+  })
 });
