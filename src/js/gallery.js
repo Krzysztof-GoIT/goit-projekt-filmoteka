@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchForm = document.getElementById('search-form');
   const searchInput = document.querySelector('.search-form input');
   const notResult = document.getElementById('not-result');
+  searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
 
   searchForm.addEventListener('submit', async event => {
     event.preventDefault();
