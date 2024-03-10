@@ -1,6 +1,6 @@
 export const addToWatchedMovies = movieDetails => {
   // Pobierz listę obejrzanych filmów z localStorage lub utwórz nową listę, jeśli nie istnieje
-  var watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+  const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
   const isMovieAlreadyWatched = watchedMovies.find(movie => movie.id === movieDetails.id);
 
   //pobierz liste filmów z kolejki z local storage zeby ussunąć w razie wuz
@@ -20,7 +20,7 @@ export const addToWatchedMovies = movieDetails => {
 };
 
 export const addToQueue = movieDetails => {
-  var queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
+  const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
   const isMovieInQueue = queuedMovies.find(movie => movie.id === movieDetails.id);
 
   //pobierz liste filmów z obejrzanych z local storage zeby ussunąć w razie wu
