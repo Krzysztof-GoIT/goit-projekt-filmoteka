@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?Family=Roboto:wght@500,700&display=swap');
 
-.modal1 {
+.footer-modal-container {
     display: none;
     background-color: rgb(20, 20, 20);
     overflow: hidden;
@@ -26,7 +26,7 @@
 }
 
 .footer-modal-scroll {
-    color: blue;
+    color:#ffc909;
     font-size: 3vw;
     line-height: 1.5rem;
     font-weight: bold;
@@ -36,9 +36,26 @@
 
 
 }
-h1,h2,h3 {
+.h1-footer-modal {
     text-align: center;
 }
+.h2-footer-modal{
+        text-align: center
+}
+.h3-footer-modal{
+        text-align: center
+}
+.h4-footer-modal{
+        text-align: center
+}
+.P-footer-modal{
+        text-align: center
+}
+
+.footer-close-modal-button{
+font-size: 20px;
+}
+
 @keyframes scroll {
     from { top:0;  transform: translateZ(0) rotateX(20deg);
     to { top: -7500px; transform: translateZ(-2500px) rotateX(21deg);}

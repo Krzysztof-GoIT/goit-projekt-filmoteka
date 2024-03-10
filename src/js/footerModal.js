@@ -1,18 +1,19 @@
+const footerModal = document.getElementById("footer-Modal");
 
-function openModal1() {
-    let modal = document.getElementById('myModal');
+const openFooterModal = () => {
+    let modal = document.getElementById("footerModal");
     modal.style.display = 'block';
     document.addEventListener('keydown', closeModalOnEsc);
-}
+};
 
-function closeModal1() {
-    let modal = document.getElementById('myModal');
+const closeFooterModal = () => {
+    let modal = document.getElementById("footer-close-modal");
     modal.style.display = 'none';
     document.removeEventListener('keydown', closeModalOnEsc);
-}
+};
 
-function closeModalOnEsc(event) {
+const closeModalOnEsc = (event) => {
     if (event.key === 'Escape') {
-        closeModal1();
+        closeFooterModal();
     }
-}
+};
