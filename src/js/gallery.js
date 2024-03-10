@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const response = await fetchSearchMovies(searchQuery, 1);
         renderGallery(response);
         searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
-        if (searchResults.length > 0) {
+        if (response.results.length > 0) {
           notResult.style.display = 'none'; // Ukrycie komunikatu o braku wyników
         } else {
           notResult.style.display = 'block'; // Wyświetlenie komunikatu o braku wyników
