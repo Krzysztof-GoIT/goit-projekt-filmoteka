@@ -44,6 +44,33 @@ const getHomepage = async pageNo => {
   }
 };
 
+const getSearch = async (searchQuery, pageNo) => {
+  try {
+    const response = await szukajFunkcja(searchQuery, pageNo);
+    renderGallery(response);
+  } catch (error) {
+    console.error('Error fetching trending movies:', error);
+  }
+};
+
+const getWatched = async pageNo => {
+  try {
+    const response = await renderWatchedPages(pageNo);
+    renderGallery(response);
+  } catch (error) {
+    console.error('Error fetching trending movies:', error);
+  }
+};
+
+const getQued = async pageNo => {
+  try {
+    const response = await renderQuedPages(pageNo);
+    renderGallery(response);
+  } catch (error) {
+    console.error('Error fetching trending movies:', error);
+  }
+};
+
 const renderGallery = dataGallery => {
   try {
     // Pobranie danych o najbardziej popularnych filmach
