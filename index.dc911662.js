@@ -5012,12 +5012,12 @@ window.addEventListener("DOMContentLoaded", ()=>{
     renderGallery();
     displayWatchedMovies();
     displayQueuedMovies();
-    const libraryWatchedButton = document.getElementById("library-watched");
+    const libraryWatchedButton = document.getElementById("watchedModal");
     libraryWatchedButton.addEventListener("click", ()=>{
         // Wywołujemy funkcję wyświetlającą obejrzane filmy
         displayWatchedMovies();
     });
-    const libraryQueuedButton = document.getElementById("library-queue");
+    const libraryQueuedButton = document.getElementById("queueModal");
     libraryQueuedButton.addEventListener("click", ()=>{
         displayQueuedMovies();
     });
@@ -5113,4 +5113,4 @@ openModalBtns.forEach((btn)=>{
 
 },{}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.3db1c2be.js.map
+//# sourceMappingURL=index.dc911662.js.map
