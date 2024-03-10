@@ -7,6 +7,10 @@ header {
   display: block;
 }
 
+#headerBG {
+  background-size: 100%;
+}
+
 .header-navibox {
   justify-content: space-between;
   align-items: center;
@@ -271,4 +275,4 @@ input::placeholder {
   text-decoration: underline;
   display: inline-block;
 }
-/*# sourceMappingURL=index.33d29faf.css.map */
+/*# sourceMappingURL=index.91305776.css.map */
