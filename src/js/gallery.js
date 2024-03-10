@@ -14,8 +14,6 @@ const getGenres = genreIds => {
   return genres.join(', ');
 };
 
-
-
 const displayWatchedMovies = () => {
   // Pobierz listę obejrzanych filmów z localStorage
   const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
@@ -37,11 +35,19 @@ const displayMovieDetails = movieDetails => {
   console.log(movieDetails);
 };
 
-const renderGallery = async () => {
+const getHomepage = async pageNo => {
+  try {
+    const response = await fetchTrendingMovies(pageNo);
+    renderGallery(response);
+  } catch (error) {
+    console.error('Error fetching trending movies:', error);
+  }
+};
+
+const renderGallery = dataGallery => {
   try {
     // Pobranie danych o najbardziej popularnych filmach
-    const response = await fetchTrendingMovies(1);
-    const movies = response.results;
+    const movies = dataGallery.results;
 
     // Znalezienie kontenera dla galerii filmów
     const galleryContainer = document.getElementById('gallery-container');
@@ -127,8 +133,6 @@ const renderGallery = async () => {
         queuedButton.innerHTML = 'Add to Queue';
         queuedButton.addEventListener('click', () => addToQueue(movieDetails));
         card.appendChild(queuedButton);
-
-        
       });
     });
   } catch (error) {
@@ -138,12 +142,11 @@ const renderGallery = async () => {
 
 // Wywołujemy funkcję renderGallery po załadowaniu strony
 window.addEventListener('DOMContentLoaded', () => {
-  renderGallery();
+  getHomepage(1);
   displayWatchedMovies();
   displayQueuedMovies();
 
-
- const libraryWatchedButton = document.getElementById('watchedModal');
+  const libraryWatchedButton = document.getElementById('watchedModal');
   libraryWatchedButton.addEventListener('click', () => {
     // Wywołujemy funkcję wyświetlającą obejrzane filmy
     displayWatchedMovies();
@@ -151,6 +154,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const libraryQueuedButton = document.getElementById('queueModal');
   libraryQueuedButton.addEventListener('click', () => {
-    displayQueuedMovies()
-  })
+    displayQueuedMovies();
+  });
 });
