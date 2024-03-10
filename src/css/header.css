@@ -5,6 +5,9 @@ header {
   display: block;
   margin: 0;
 }
+#headerBG {
+  background-size: 100%;
+}
 .header-navibox {
   display: flex;
   justify-content: space-between;
@@ -20,7 +23,7 @@ header {
   text-decoration: none;
 }
 .header-navi a.active {
-text-decoration: underline 2.5px #FF001B;
+  text-decoration: underline 2.5px #ff001b;
 }
 .header-navi {
   display: flex;
