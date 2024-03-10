@@ -4770,14 +4770,12 @@ const getGenres = (genreIds)=>{
 const displayWatchedMovies = ()=>{
     // Pobierz listę obejrzanych filmów z localStorage
     const watchedMovies = JSON.parse(localStorage.getItem("watchedMovies")) || [];
-    // Wyświetl listę obejrzanych filmów w dowolny sposób
-    console.log("Watched Movies:", watchedMovies);
+    renderGallery(watchedMovies);
 };
 const displayQueuedMovies = ()=>{
     // Pobierz listę dodanych do kolejki filmów z localStorage
     const queuedMovies = JSON.parse(localStorage.getItem("queuedMovies")) || [];
-    // Wyświetl listę obejrzanych filmów w dowolny sposób
-    console.log("Queued Movies :", queuedMovies);
+    renderGallery(queuedMovies);
 };
 const displayMovieDetails = (movieDetails)=>{
     // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
@@ -4786,8 +4784,6 @@ const displayMovieDetails = (movieDetails)=>{
 ////Obsługa HomePage i Buttonów
 window.addEventListener("DOMContentLoaded", ()=>{
     getHomepage(1); // Wywołujemy funkcję wyświetlającą HomePage
-    displayWatchedMovies();
-    displayQueuedMovies();
     const libraryWatched = document.getElementById("watchedHeader");
     libraryWatched.addEventListener("click", ()=>{
         displayWatchedMovies();
@@ -4809,7 +4805,7 @@ window.addEventListener("DOMContentLoaded", ()=>{
 const getHomepage = async (pageNo)=>{
     try {
         const response = await (0, _api.fetchTrendingMovies)(pageNo);
-        renderGallery(response);
+        renderGallery(response.results);
     } catch (error) {
         console.error("Error fetching trending movies:", error);
     }
@@ -4824,7 +4820,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const searchQuery = searchInput.value.trim().toLowerCase().split(" ").join("+");
         if (searchQuery) try {
             const response = await (0, _api.fetchSearchMovies)(searchQuery, 1);
-            renderGallery(response);
+            renderGallery(response.results);
             searchInput.value = ""; // Wyczyszczenie pola wyszukiwania
             if (response.results.length > 0) notResult.style.display = "none"; // Ukrycie komunikatu o braku wyników
             else {
@@ -4840,7 +4836,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 const renderGallery = (dataGallery)=>{
     try {
         // Pobranie danych o najbardziej popularnych filmach
-        const movies = dataGallery.results;
+        const movies = dataGallery;
         // Znalezienie kontenera dla galerii filmów
         const galleryContainer = document.getElementById("gallery-container");
         // Sprawdzenie czy lista filmów nie jest pusta
@@ -4850,12 +4846,15 @@ const renderGallery = (dataGallery)=>{
                 let posterPath;
                 if (movie.poster_path) posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
                 else posterPath = "https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.png?raw=true";
+                let categories = "Witch out category";
+                if (movie.genre_ids) getGenres(movie.genre_ids);
+                else categories = movie.genres[0].name;
                 const movieCard = `
             <div class="movie-card" data-movie-id="${movie.id}">
             <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
             <div class="movie-details">
             <p class="movie-title">${movie.title}</p>
-            <p class="movie-info">${getGenres(movie.genre_ids)} | ${movie.release_date.slice(0, 4)}</p>
+            <p class="movie-info">${categories} | ${movie.release_date.slice(0, 4)}</p>
             </div>
             </div>
             `;
@@ -4988,4 +4987,4 @@ openModalBtns.forEach((btn)=>{
 
 },{}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.a8b7c5f5.js.map
+//# sourceMappingURL=index.84a4a447.js.map
