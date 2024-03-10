@@ -12,107 +12,118 @@ let options = {
   },
 };
 
-// Genres
-// https://api.themoviedb.org/3/genre/movie/list?language=en
-export async function fetchGenres() {
-  const endpointUrl = 'genre/movie/list';
-  const searchParams = new URLSearchParams({
-    language: 'en',
-  });
-  const url = new URL(`${BASE_URL}${endpointUrl}?${searchParams}`);
+// Funkcja do pokazywania loadera
+function showLoader() {
+  // Tutaj dodaj kod do pokazywania loadera na stronie
+  console.log('Loader is shown');
+}
 
-  const response = await axios.get(url, options);
-  // console.log('response: ', response);
-  return response.data;
+// Funkcja do ukrywania loadera
+function hideLoader() {
+  // Tutaj dodaj kod do ukrywania loadera na stronie
+  console.log('Loader is hidden');
+}
+
+// Funkcja do obsługi żądań asynchronicznych z loaderem
+async function handleAsyncRequest(requestFunction) {
+  try {
+    showLoader(); // Pokaż loader przed rozpoczęciem żądania
+
+    const response = await requestFunction();
+
+    hideLoader(); // Ukryj loader po pomyślnym zakończeniu żądania
+    return response;
+  } catch (error) {
+    console.error('Wystąpił błąd podczas wykonania żądania:', error);
+
+    hideLoader(); // Ukryj loader w przypadku błędu
+    throw error;
+  }
+}
+
+// Genres
+export async function fetchGenres() {
+  return handleAsyncRequest(async () => {
+    const endpointUrl = 'genre/movie/list';
+    const searchParams = new URLSearchParams({
+      language: 'en',
+    });
+    const url = new URL(`${BASE_URL}${endpointUrl}?${searchParams}`);
+    const response = await axios.get(url, options);
+    return response.data;
+  });
 }
 
 // Posters
-// https://image.tmdb.org/t/p/original/hu40Uxp9WtpL34jv3zyWLb5zEVY.jpg
 async function getPoster(posterUrl) {
-  options = {
-    method: 'GET',
-    // console.log('getPoster starts...');
-  };
-  const url = `POSTERS_URL${posterUrl}`;
-  const response = await axios(url, options);
-  // console.log('response: ', response);
-  return response.data;
+  return handleAsyncRequest(async () => {
+    options = {
+      method: 'GET',
+    };
+    const url = `POSTERS_URL${posterUrl}`;
+    const response = await axios(url, options);
+    return response.data;
+  });
 }
 
-// Trending:
-// https://api.themoviedb.org/3/trending/movie/day?language=en-US
+// Trending
 export async function fetchTrendingMovies(pageNo) {
-  options = {
-    method: 'GET',
-  };
-  // console.log('fetchPopularMovies starts...');
-  const endpointUrl = 'trending/movie/day';
-  const searchParams = new URLSearchParams({
-    api_key: API_KEY,
-    language: 'en-US',
-    page: pageNo,
+  return handleAsyncRequest(async () => {
+    const endpointUrl = 'trending/movie/day';
+    const searchParams = new URLSearchParams({
+      api_key: API_KEY,
+      language: 'en-US',
+      page: pageNo,
+    });
+    const url = `${BASE_URL}${endpointUrl}?${searchParams}`;
+    const response = await axios(url, options);
+    return response.data;
   });
-  const url = `${BASE_URL}${endpointUrl}?${searchParams}`;
-  const response = await axios(url, options);
-  // console.log('response: ', response);
-  return response.data;
 }
 
 // Search
-// https://api.themoviedb.org/3/search/movie?query=avengers&include_adult=false&language=en-US&page=1
 export async function fetchSearchMovies(keywords, pageNo) {
-  options = {
-    method: 'GET',
-  };
-  // console.log('fetchSearchMovies starts...');
-  const endpointUrl = 'search/movie';
-  const searchParams = new URLSearchParams({
-    api_key: API_KEY,
-    query: keywords,
-    include_adult: false,
-    language: 'en-US',
-    page: pageNo,
+  return handleAsyncRequest(async () => {
+    const endpointUrl = 'search/movie';
+    const searchParams = new URLSearchParams({
+      api_key: API_KEY,
+      query: keywords,
+      include_adult: false,
+      language: 'en-US',
+      page: pageNo,
+    });
+    const url = `${BASE_URL}${endpointUrl}?${searchParams}`;
+    const response = await axios(url, options);
+    return response.data;
   });
-  const url = `${BASE_URL}${endpointUrl}?${searchParams}`;
-  const response = await axios(url, options);
-  // console.log('response: ', response);
-  return response.data;
 }
 
 // Movie Details
-// https://api.themoviedb.org/3/movie/12345?language=en-US
 export async function fetchMovieDetails(movieId) {
-  options = {
-    method: 'GET',
-  };
-  // console.log('fetchMovieDetails starts...');
-  const endpointUrl = 'movie';
-  const searchParams = new URLSearchParams({
-    api_key: API_KEY,
-    language: 'en-US',
+  return handleAsyncRequest(async () => {
+    const endpointUrl = 'movie';
+    const searchParams = new URLSearchParams({
+      api_key: API_KEY,
+      language: 'en-US',
+    });
+    const url = `${BASE_URL}${endpointUrl}/${movieId}?${searchParams}`;
+    const response = await axios(url, options);
+    return response.data;
   });
-  const url = `${BASE_URL}${endpointUrl}/${movieId}?${searchParams}`;
-  const response = await axios(url, options);
-  // console.log('response: ', response);
-  return response.data;
 }
 
 // Movie Trailer
-// 'https://api.themoviedb.org/3/movie/123455/videos?language=en-US
 export async function fetchMovieTrailers(movieId) {
-  options = {
-    method: 'GET',
-  };
-  // console.log('fetchMovieDetails starts...');
-  const endpointUrl = 'movie';
-  const searchParams = new URLSearchParams({
-    api_key: API_KEY,
-    language: 'en-US',
+  return handleAsyncRequest(async () => {
+    const endpointUrl = 'movie';
+    const searchParams = new URLSearchParams({
+      api_key: API_KEY,
+      language: 'en-US',
+    });
+    const url = `${BASE_URL}${endpointUrl}/${movieId}/videos?${searchParams}`;
+    const response = await axios(url, options);
+    return response.data;
   });
-  const url = `${BASE_URL}${endpointUrl}/${movieId}/videos?${searchParams}`;
-  const response = await axios(url, options);
-  // console.log('response: ', response);
-  return response.data;
 }
 
 // GENRES_LIST
