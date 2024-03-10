@@ -7,7 +7,7 @@ const openFooterModal = () => {
 };
 
 const closeFooterModal = () => {
-    let modal = document.getElementById("footer-close-modal");
+    let modal = document.getElementById("footerModal");
     modal.style.display = 'none';
     document.removeEventListener('keydown', closeModalOnEsc);
 };
