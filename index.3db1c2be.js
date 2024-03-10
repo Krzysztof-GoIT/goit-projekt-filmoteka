@@ -5074,20 +5074,20 @@ const toggleVisibility = (elementToShow, elementToHide)=>{
 };
 toggleVisibility(headerSearch, myLibrary);
 homeLink.classList.add("active");
-headerBG.style.backgroundImage = 'url("/src/img/bg-image-home.png")';
+headerBG.style.backgroundImage = 'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-image-home.png?raw=true")';
 const homeButtonClick = (event)=>{
     event.preventDefault();
     toggleVisibility(headerSearch, myLibrary);
     homeLink.classList.add("active");
     libraryLink.classList.remove("active");
-    headerBG.style.backgroundImage = 'url("/src/img/bg-image-home.png")';
+    headerBG.style.backgroundImage = 'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-image-home.png?raw=true")';
 };
 const myLibraryButtonClick = (event)=>{
     event.preventDefault();
     toggleVisibility(myLibrary, headerSearch);
     homeLink.classList.remove("active");
     libraryLink.classList.add("active");
-    headerBG.style.backgroundImage = 'url("/src/img/bg-image-library.png")';
+    headerBG.style.backgroundImage = 'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-image-library.png?raw=true")';
 };
 homeLink.addEventListener("click", homeButtonClick);
 libraryLink.addEventListener("click", myLibraryButtonClick);
@@ -5113,4 +5113,4 @@ openModalBtns.forEach((btn)=>{
 
 },{}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.a447cdd1.js.map
+//# sourceMappingURL=index.3db1c2be.js.map
