@@ -1,46 +1,21 @@
-// gallery.js
-
-import { fetchMovieDetails, fetchTrendingMovies, genresName } from './api';
+import { fetchMovieDetails, fetchSearchMovies, fetchTrendingMovies, genresName } from './api';
 import { addToQueue, addToWatchedMovies } from './localstorage';
-// Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
-const getGenres = genreIds => {
-  // Pobranie nazw gatunków z listy genresName zdefiniowanej w api.js
-  const genres = genreIds.map(genreId => {
-    const foundGenre = genresName.find(genre => genre.id === genreId);
-    return foundGenre ? foundGenre.name : '';
-  });
 
-  // Zwrócenie połączonej listy gatunków
-  return genres.join(', ');
-};
+document.addEventListener('DOMContentLoaded', () => {
+  renderGallery('', 1); // Wyświetlenie popularnych filmów na stronie przy starcie
+});
 
-
-
-const displayWatchedMovies = () => {
-  // Pobierz listę obejrzanych filmów z localStorage
-  const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
-
-  // Wyświetl listę obejrzanych filmów w dowolny sposób
-  console.log('Watched Movies:', watchedMovies);
-};
-
-const displayQueuedMovies = () => {
-  // Pobierz listę dodanych do kolejki filmów z localStorage
-  const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
-
-  // Wyświetl listę obejrzanych filmów w dowolny sposób
-  console.log('Queued Movies :', queuedMovies);
-};
-
-const displayMovieDetails = movieDetails => {
-  // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
-  console.log(movieDetails);
-};
-
-const renderGallery = async () => {
+const renderGallery = async (searchQuery, pageNo) => {
   try {
-    // Pobranie danych o najbardziej popularnych filmach
-    const response = await fetchTrendingMovies(1);
+    let response;
+    if (searchQuery === '') {
+      // Pobranie danych o najbardziej popularnych filmach
+      response = await fetchTrendingMovies(pageNo);
+    } else {
+      // Pobranie wyników wyszukiwania
+      response = await fetchSearchMovies(searchQuery, pageNo);
+    }
+
     const movies = response.results;
 
     // Znalezienie kontenera dla galerii filmów
@@ -52,9 +27,13 @@ const renderGallery = async () => {
       galleryContainer.innerHTML = movies
         .map(movie => {
           // Sprawdź czy plakat istnieje
-          const posterPath = movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-            : 'plakat_zastepczy.jpg';
+          let posterPath;
+          if (movie.poster_path) {
+            posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+          } else {
+            posterPath =
+              'https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.png?raw=true';
+          }
 
           // Utworzenie elementu karty filmu
           const movieCard = `
@@ -82,33 +61,6 @@ const renderGallery = async () => {
       notResult.style.display = 'block';
     }
 
-    // // Wyświetlenie filmów
-    // galleryContainer.innerHTML = movies
-    //   .map(movie => {
-    //     // Sprawdź czy plakat istnieje
-    //     const posterPath = movie.poster_path
-    //       ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    //       : 'plakat_zastepczy.jpg';
-
-    //     // Utworzenie elementu karty filmu
-    //     const movieCard = `
-    //       <div class="movie-card" data-movie-id="${movie.id}">
-    //         <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${
-    //       movie.title
-    //     }" class="movie-poster">
-    //         <div class="movie-details">
-    //           <p class="movie-title">${movie.title}</p>
-    //           <p class="movie-info">${getGenres(movie.genre_ids)} | ${movie.release_date.slice(
-    //       0,
-    //       4,
-    //     )}</p>
-    //         </div>
-    //       </div>
-    //     `;
-    //     return movieCard;
-    //   })
-    //   .join('');
-
     // Obsługa zdarzenia kliknięcia dla każdej karty filmu
     const movieCards = document.querySelectorAll('.movie-card');
     movieCards.forEach(card => {
@@ -127,30 +79,42 @@ const renderGallery = async () => {
         queuedButton.innerHTML = 'Add to Queue';
         queuedButton.addEventListener('click', () => addToQueue(movieDetails));
         card.appendChild(queuedButton);
-
-        
       });
     });
   } catch (error) {
-    console.error('Error fetching trending movies:', error);
+    console.error('Error fetching movies:', error);
   }
 };
 
-// Wywołujemy funkcję renderGallery po załadowaniu strony
-window.addEventListener('DOMContentLoaded', () => {
-  renderGallery();
-  displayWatchedMovies();
-  displayQueuedMovies();
-
-
- const libraryWatchedButton = document.getElementById('library-watched');
-  libraryWatchedButton.addEventListener('click', () => {
-    // Wywołujemy funkcję wyświetlającą obejrzane filmy
-    displayWatchedMovies();
+// Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
+const getGenres = genreIds => {
+  // Pobranie nazw gatunków z listy genresName zdefiniowanej w api.js
+  const genres = genreIds.map(genreId => {
+    const foundGenre = genresName.find(genre => genre.id === genreId);
+    return foundGenre ? foundGenre.name : '';
   });
 
-  const libraryQueuedButton = document.getElementById('library-queue');
-  libraryQueuedButton.addEventListener('click', () => {
-    displayQueuedMovies()
-  })
+  // Zwrócenie połączonej listy gatunków
+  return genres.join(', ');
+};
+
+// Funkcja do wyświetlania szczegółowych informacji o filmie w modalu
+const displayMovieDetails = movieDetails => {
+  // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
+  console.log(movieDetails);
+};
+
+const clearGallery = () => {
+  const galleryContainer = document.getElementById('gallery-container');
+  galleryContainer.innerHTML = ''; // Wyczyszczenie zawartości galerii
+};
+
+// Obsługa wyszukiwania filmów
+const searchForm = document.getElementById('search-form');
+searchForm.addEventListener('submit', async event => {
+  event.preventDefault();
+  const searchInput = document.querySelector('.search-form input');
+  const searchQuery = searchInput.value.trim();
+  renderGallery(searchQuery, 1); // Wyświetlenie wyników wyszukiwania
+  searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
 });

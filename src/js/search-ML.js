@@ -48,14 +48,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
               // Utworzenie elementu karty filmu
               const movieCard = `
-    <div class="movie-card" data-movie-id="${movie.id}">
-      <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
-      <div class="movie-details">
-        <p class="movie-title">${movie.title}</p>
-        <p class="movie-info">${getGenres(movie.genre_ids)} | ${movie.release_date.slice(0, 4)}</p>
-      </div>
-    </div>
-  `;
+                <div class="movie-card" data-movie-id="${movie.id}">
+                  <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
+                  <div class="movie-details">
+                    <p class="movie-title">${movie.title}</p>
+                    <p class="movie-info">${getGenres(
+                      movie.genre_ids,
+                    )} | ${movie.release_date.slice(0, 4)}</p>
+                  </div>
+                </div>
+              `;
               return movieCard;
             })
             .join('');
