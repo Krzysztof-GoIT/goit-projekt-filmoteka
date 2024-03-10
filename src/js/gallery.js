@@ -35,15 +35,24 @@ const displayMovieDetails = movieDetails => {
   console.log(movieDetails);
 };
 
-////Obsługa HomePage i guzików hedera
+////Obsługa HomePage i Buttonów
 window.addEventListener('DOMContentLoaded', () => {
   getHomepage(1); // Wywołujemy funkcję wyświetlającą HomePage
   displayWatchedMovies();
   displayQueuedMovies();
 
+  const libraryWatched = document.getElementById('watchedHeader');
+  libraryWatched.addEventListener('click', () => {
+    displayWatchedMovies();
+  });
+
+  const libraryQueued = document.getElementById('queueHeader');
+  libraryQueued.addEventListener('click', () => {
+    displayQueuedMovies();
+  });
+
   const libraryWatchedButton = document.getElementById('watchedModal');
   libraryWatchedButton.addEventListener('click', () => {
-    // Wywołujemy funkcję wyświetlającą obejrzane filmy
     displayWatchedMovies();
   });
 
