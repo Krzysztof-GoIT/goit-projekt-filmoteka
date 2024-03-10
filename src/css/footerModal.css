@@ -1,17 +1,14 @@
 @import url('https://fonts.googleapis.com/css?Family=Roboto:wght@500,700&display=swap');
 
-.modal {
+.modal1 {
     display: none;
-}
-
-body {
-    background-color: rgb(20,20,20);
+    background-color: rgb(20, 20, 20);
     overflow: hidden;
     font-family: 'Roboto';
     margin: 50px 0 0 0;
 }
 
-body::after{
+.modal1::after{
     content: '';
     position: fixed;
     top: 0;
