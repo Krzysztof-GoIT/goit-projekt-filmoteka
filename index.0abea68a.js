@@ -4812,13 +4812,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const searchForm = document.getElementById("search-form");
     const searchInput = document.querySelector(".search-form input");
     const notResult = document.getElementById("not-result");
-    searchInput.value = ""; // Wyczyszczenie pola wyszukiwania
     searchForm.addEventListener("submit", async (event)=>{
         event.preventDefault();
         const searchQuery = searchInput.value.trim().toLowerCase().split(" ").join("+");
         if (searchQuery) try {
             const response = await (0, _api.fetchSearchMovies)(searchQuery, 1);
             renderGallery(response);
+            searchInput.value = ""; // Wyczyszczenie pola wyszukiwania
             if (searchResults.length > 0) notResult.style.display = "none"; // Ukrycie komunikatu o braku wyników
             else {
                 notResult.style.display = "block"; // Wyświetlenie komunikatu o braku wyników
@@ -4981,4 +4981,4 @@ openModalBtns.forEach((btn)=>{
 
 },{}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.bcc3f9c3.js.map
+//# sourceMappingURL=index.0abea68a.js.map
