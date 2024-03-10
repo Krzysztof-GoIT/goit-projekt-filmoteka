@@ -143,13 +143,13 @@ window.addEventListener('DOMContentLoaded', () => {
   displayQueuedMovies();
 
 
- const libraryWatchedButton = document.getElementById('library-watched');
+ const libraryWatchedButton = document.getElementById('watchedModal');
   libraryWatchedButton.addEventListener('click', () => {
     // Wywołujemy funkcję wyświetlającą obejrzane filmy
     displayWatchedMovies();
   });
 
-  const libraryQueuedButton = document.getElementById('library-queue');
+  const libraryQueuedButton = document.getElementById('queueModal');
   libraryQueuedButton.addEventListener('click', () => {
     displayQueuedMovies()
   })
