@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchForm = document.getElementById('search-form');
   const searchInput = document.querySelector('.search-form input');
   const notResult = document.getElementById('not-result');
-  searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
 
   searchForm.addEventListener('submit', async event => {
     event.preventDefault();
@@ -77,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const response = await fetchSearchMovies(searchQuery, 1);
         renderGallery(response);
+        searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
         if (searchResults.length > 0) {
           notResult.style.display = 'none'; // Ukrycie komunikatu o braku wyników
         } else {
