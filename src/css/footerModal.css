@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?Family=Roboto:wght@500,700&display=swap');
 
-.footer-modal-container {
+.footerModalContainer {
     display: none;
     background-color: rgb(20, 20, 20);
     overflow: hidden;
