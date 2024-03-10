@@ -1,7 +1,8 @@
 // gallery.js
 
-import { fetchMovieDetails, fetchTrendingMovies, genresName } from './api';
+import { fetchMovieDetails, fetchTrendingMovies, fetchSearchMovies, genresName } from './api';
 import { addToQueue, addToWatchedMovies } from './localstorage';
+
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
 const getGenres = genreIds => {
   // Pobranie nazw gatunków z listy genresName zdefiniowanej w api.js
@@ -9,12 +10,9 @@ const getGenres = genreIds => {
     const foundGenre = genresName.find(genre => genre.id === genreId);
     return foundGenre ? foundGenre.name : '';
   });
-
   // Zwrócenie połączonej listy gatunków
   return genres.join(', ');
 };
-
-
 
 const displayWatchedMovies = () => {
   // Pobierz listę obejrzanych filmów z localStorage
@@ -37,11 +35,66 @@ const displayMovieDetails = movieDetails => {
   console.log(movieDetails);
 };
 
-const renderGallery = async () => {
+////Obsługa HomePage i guzików hedera
+window.addEventListener('DOMContentLoaded', () => {
+  getHomepage(1); // Wywołujemy funkcję wyświetlającą HomePage
+  displayWatchedMovies();
+  displayQueuedMovies();
+
+  const libraryWatchedButton = document.getElementById('watchedModal');
+  libraryWatchedButton.addEventListener('click', () => {
+    // Wywołujemy funkcję wyświetlającą obejrzane filmy
+    displayWatchedMovies();
+  });
+
+  const libraryQueuedButton = document.getElementById('queueModal');
+  libraryQueuedButton.addEventListener('click', () => {
+    displayQueuedMovies();
+  });
+});
+
+//Generujemy trendings movie
+const getHomepage = async pageNo => {
+  try {
+    const response = await fetchTrendingMovies(pageNo);
+    renderGallery(response);
+  } catch (error) {
+    console.error('Error fetching trending movies:', error);
+  }
+};
+
+//Obsługa szukajki
+document.addEventListener('DOMContentLoaded', () => {
+  const searchForm = document.getElementById('search-form');
+  const searchInput = document.querySelector('.search-form input');
+  const notResult = document.getElementById('not-result');
+  searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
+
+  searchForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    const searchQuery = searchInput.value.trim().toLowerCase().split(' ').join('+');
+    if (searchQuery) {
+      try {
+        const response = await fetchSearchMovies(searchQuery, 1);
+        renderGallery(response);
+        if (searchResults.length > 0) {
+          notResult.style.display = 'none'; // Ukrycie komunikatu o braku wyników
+        } else {
+          notResult.style.display = 'block'; // Wyświetlenie komunikatu o braku wyników
+          clearGallery(); // Wyczyszczenie galerii
+        }
+      } catch (error) {
+        console.error('Error fetching search movies:', error);
+      }
+    }
+  });
+});
+
+// Renderowanie Galerii
+const renderGallery = dataGallery => {
   try {
     // Pobranie danych o najbardziej popularnych filmach
-    const response = await fetchTrendingMovies(1);
-    const movies = response.results;
+    const movies = dataGallery.results;
 
     // Znalezienie kontenera dla galerii filmów
     const galleryContainer = document.getElementById('gallery-container');
@@ -51,24 +104,25 @@ const renderGallery = async () => {
       // Wyświetlenie filmów
       galleryContainer.innerHTML = movies
         .map(movie => {
-          // Sprawdź czy plakat istnieje
-          const posterPath = movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-            : 'plakat_zastepczy.jpg';
-
-          // Utworzenie elementu karty filmu
+          let posterPath;
+          if (movie.poster_path) {
+            posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+          } else {
+            posterPath =
+              'https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.png?raw=true';
+          }
           const movieCard = `
             <div class="movie-card" data-movie-id="${movie.id}">
-              <img src="${posterPath}" alt="${movie.title}" class="movie-poster">
-              <div class="movie-details">
-                <p class="movie-title">${movie.title}</p>
-                <p class="movie-info">${getGenres(movie.genre_ids)} | ${movie.release_date.slice(
+            <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
+            <div class="movie-details">
+            <p class="movie-title">${movie.title}</p>
+            <p class="movie-info">${getGenres(movie.genre_ids)} | ${movie.release_date.slice(
             0,
             4,
           )}</p>
-              </div>
             </div>
-          `;
+            </div>
+            `;
           return movieCard;
         })
         .join('');
@@ -81,33 +135,6 @@ const renderGallery = async () => {
       const notResult = document.getElementById('not-result');
       notResult.style.display = 'block';
     }
-
-    // // Wyświetlenie filmów
-    // galleryContainer.innerHTML = movies
-    //   .map(movie => {
-    //     // Sprawdź czy plakat istnieje
-    //     const posterPath = movie.poster_path
-    //       ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-    //       : 'plakat_zastepczy.jpg';
-
-    //     // Utworzenie elementu karty filmu
-    //     const movieCard = `
-    //       <div class="movie-card" data-movie-id="${movie.id}">
-    //         <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${
-    //       movie.title
-    //     }" class="movie-poster">
-    //         <div class="movie-details">
-    //           <p class="movie-title">${movie.title}</p>
-    //           <p class="movie-info">${getGenres(movie.genre_ids)} | ${movie.release_date.slice(
-    //       0,
-    //       4,
-    //     )}</p>
-    //         </div>
-    //       </div>
-    //     `;
-    //     return movieCard;
-    //   })
-    //   .join('');
 
     // Obsługa zdarzenia kliknięcia dla każdej karty filmu
     const movieCards = document.querySelectorAll('.movie-card');
@@ -127,8 +154,6 @@ const renderGallery = async () => {
         queuedButton.innerHTML = 'Add to Queue';
         queuedButton.addEventListener('click', () => addToQueue(movieDetails));
         card.appendChild(queuedButton);
-
-        
       });
     });
   } catch (error) {
@@ -136,21 +161,8 @@ const renderGallery = async () => {
   }
 };
 
-// Wywołujemy funkcję renderGallery po załadowaniu strony
-window.addEventListener('DOMContentLoaded', () => {
-  renderGallery();
-  displayWatchedMovies();
-  displayQueuedMovies();
-
-
- const libraryWatchedButton = document.getElementById('watchedModal');
-  libraryWatchedButton.addEventListener('click', () => {
-    // Wywołujemy funkcję wyświetlającą obejrzane filmy
-    displayWatchedMovies();
-  });
-
-  const libraryQueuedButton = document.getElementById('queueModal');
-  libraryQueuedButton.addEventListener('click', () => {
-    displayQueuedMovies()
-  })
-});
+// Czyszczenie galerii
+const clearGallery = () => {
+  const galleryContainer = document.getElementById('gallery-container');
+  galleryContainer.innerHTML = ''; // Wyczyszczenie zawartości galerii
+};
