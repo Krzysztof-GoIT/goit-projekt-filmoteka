@@ -9,7 +9,22 @@ const toggleModal = (modalId) => {
 //    if (modal) {
 //     modal.style.visibility = modal.style.visibility === 'visible' ? 'hidden' : 'visible';
 //   }
-// };   
+// };
+
+
+
+
+
+// Funkcja obsługująca zdarzenie klawisza
+const handleKeyDown = (event) => {
+    if (event.key === 'Escape') {
+        const openModals = document.querySelectorAll('.modal[style="display: block;"]');
+        openModals.forEach((modal) => {
+            toggleModal(modal.id);
+        });
+    }
+};
+document.addEventListener('keydown', handleKeyDown);
 
 const openModalBtns = document.querySelectorAll('.openModalBtn');
 
