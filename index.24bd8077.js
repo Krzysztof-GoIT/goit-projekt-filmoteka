@@ -4819,7 +4819,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             const response = await (0, _api.fetchSearchMovies)(searchQuery, 1);
             renderGallery(response);
             searchInput.value = ""; // Wyczyszczenie pola wyszukiwania
-            if (searchResults.length > 0) notResult.style.display = "none"; // Ukrycie komunikatu o braku wyników
+            if (response.results.length > 0) notResult.style.display = "none"; // Ukrycie komunikatu o braku wyników
             else {
                 notResult.style.display = "block"; // Wyświetlenie komunikatu o braku wyników
                 clearGallery(); // Wyczyszczenie galerii
@@ -4981,4 +4981,4 @@ openModalBtns.forEach((btn)=>{
 
 },{}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.0abea68a.js.map
+//# sourceMappingURL=index.24bd8077.js.map
