@@ -11,21 +11,6 @@ const toggleModal = (modalId) => {
 //   }
 // };
 
-
-
-
-
-// Funkcja obsługująca zdarzenie klawisza
-const handleKeyDown = (event) => {
-    if (event.key === 'Escape') {
-        const openModals = document.querySelectorAll('.modal[style="display: block;"]');
-        openModals.forEach((modal) => {
-            toggleModal(modal.id);
-        });
-    }
-};
-document.addEventListener('keydown', handleKeyDown);
-
 const openModalBtns = document.querySelectorAll('.openModalBtn');
 
 // dla każdego przycisku otwórz modal
