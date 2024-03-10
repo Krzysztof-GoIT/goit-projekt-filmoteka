@@ -4783,14 +4783,21 @@ const displayMovieDetails = (movieDetails)=>{
     // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
     console.log(movieDetails);
 };
-////Obsługa HomePage i guzików hedera
+////Obsługa HomePage i Buttonów
 window.addEventListener("DOMContentLoaded", ()=>{
     getHomepage(1); // Wywołujemy funkcję wyświetlającą HomePage
     displayWatchedMovies();
     displayQueuedMovies();
+    const libraryWatched = document.getElementById("watchedHeader");
+    libraryWatched.addEventListener("click", ()=>{
+        displayWatchedMovies();
+    });
+    const libraryQueued = document.getElementById("queueHeader");
+    libraryQueued.addEventListener("click", ()=>{
+        displayQueuedMovies();
+    });
     const libraryWatchedButton = document.getElementById("watchedModal");
     libraryWatchedButton.addEventListener("click", ()=>{
-        // Wywołujemy funkcję wyświetlającą obejrzane filmy
         displayWatchedMovies();
     });
     const libraryQueuedButton = document.getElementById("queueModal");
@@ -4981,4 +4988,4 @@ openModalBtns.forEach((btn)=>{
 
 },{}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.24bd8077.js.map
+//# sourceMappingURL=index.a8b7c5f5.js.map
