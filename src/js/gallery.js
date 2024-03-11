@@ -153,6 +153,7 @@ const renderGallery = dataGallery => {
       card.addEventListener('click', async () => {
         const movieId = card.dataset.movieId;
         const movieDetails = await fetchMovieDetails(movieId);
+        openModal(movieDetails); //Aleksander Modal
         displayMovieDetails(movieDetails);
 
         // Dodanie przycisku "Watched" i "Add to watched"
@@ -185,4 +186,29 @@ document.addEventListener('DOMContentLoaded', () => {
 const clearGallery = () => {
   const galleryContainer = document.getElementById('gallery-container');
   galleryContainer.innerHTML = ''; // Wyczyszczenie zawartości galerii
+};
+
+//Aleksander Modal
+const openModal = movieData => {
+  const modal = document.getElementById('myModal');
+  modal.style.display = 'block';
+
+  const modalContent = document.getElementById('modalContent');
+  modalContent.innerHTML = `
+    <h2>${movieData.title}</h2>
+    <p><strong>Overview:</strong> ${movieData.overview}</p>
+    <p><strong>Release Date:</strong> ${movieData.release_date}</p>
+    <!-- Dodaj więcej danych, jeśli chcesz -->
+  `;
+
+  const span = document.getElementsByClassName('close')[0];
+  span.onclick = () => {
+    modal.style.display = 'none';
+  };
+
+  window.onclick = event => {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
 };
