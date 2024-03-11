@@ -4878,6 +4878,7 @@ const renderGallery = (dataGallery)=>{
             card.addEventListener("click", async ()=>{
                 const movieId = card.dataset.movieId;
                 const movieDetails = await (0, _api.fetchMovieDetails)(movieId);
+                openModal(movieDetails); //Aleksander Modal
                 displayMovieDetails(movieDetails);
                 // Dodanie przycisku "Watched" i "Add to watched"
                 const watchedButton = document.createElement("button");
@@ -4906,6 +4907,25 @@ document.addEventListener("DOMContentLoaded", ()=>{
 const clearGallery = ()=>{
     const galleryContainer = document.getElementById("gallery-container");
     galleryContainer.innerHTML = ""; // Wyczyszczenie zawartości galerii
+};
+//Aleksander Modal
+const openModal = (movieData)=>{
+    const modal = document.getElementById("myModal");
+    modal.style.display = "block";
+    const modalContent = document.getElementById("modalContent");
+    modalContent.innerHTML = `
+    <h2>${movieData.title}</h2>
+    <p><strong>Overview:</strong> ${movieData.overview}</p>
+    <p><strong>Release Date:</strong> ${movieData.release_date}</p>
+    <!-- Dodaj wi\u{119}cej danych, je\u{15B}li chcesz -->
+  `;
+    const span = document.getElementsByClassName("close")[0];
+    span.onclick = ()=>{
+        modal.style.display = "none";
+    };
+    window.onclick = (event)=>{
+        if (event.target == modal) modal.style.display = "none";
+    };
 };
 
 },{"./api":"5mmx6","./localstorage":"ippo7"}],"ippo7":[function(require,module,exports) {
@@ -4998,4 +5018,4 @@ openModalBtns.forEach((btn)=>{
 
 },{}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.24c81a81.js.map
+//# sourceMappingURL=index.0f660884.js.map
