@@ -1,6 +1,6 @@
 // gallery.js
 
-import { fetchMovieDetails, fetchSearchMovies, fetchTrendingMovies, genresName } from './api';
+import { fetchMovieDetails, fetchTrendingMovies, fetchSearchMovies, genresName } from './api';
 import { addToQueue, addToWatchedMovies } from './localstorage';
 
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
@@ -125,11 +125,6 @@ const renderGallery = dataGallery => {
             // Dodano warunek sprawdzający czy istnieje przynajmniej jeden gatunek
             categories = movie.genres[0].name;
           }
-
-          //   getGenres(movie.genre_ids);
-          // } else {
-          //   categories = movie.genres[0].name;
-          // }
 
           const movieCard = `
             <div class="movie-card" data-movie-id="${movie.id}">
