@@ -116,10 +116,17 @@ const renderGallery = dataGallery => {
           }
           let categories = 'Witch out category';
           if (movie.genre_ids) {
-            getGenres(movie.genre_ids);
-          } else {
+            categories = getGenres(movie.genre_ids); // Poprawiono przypisanie wyniku funkcji do zmiennej categories
+          } else if (movie.genres.length > 0) {
+            // Dodano warunek sprawdzający czy istnieje przynajmniej jeden gatunek
             categories = movie.genres[0].name;
           }
+
+          //   getGenres(movie.genre_ids);
+          // } else {
+          //   categories = movie.genres[0].name;
+          // }
+
           const movieCard = `
             <div class="movie-card" data-movie-id="${movie.id}">
             <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
