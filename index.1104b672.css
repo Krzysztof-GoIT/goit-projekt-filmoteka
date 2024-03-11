@@ -1,7 +1,7 @@
 @import "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap";
 header {
   background-color: #000;
-  border: .1px solid #0000;
+  border: .01px solid #0000;
   height: 216px;
   margin: 0;
   display: block;
@@ -14,8 +14,7 @@ header {
 .header-navibox {
   justify-content: space-between;
   align-items: center;
-  margin: 32px 40px;
-  padding: 0;
+  margin: 40px 20px;
   display: flex;
 }
 
@@ -25,6 +24,15 @@ header {
   padding: 0;
   text-decoration: none;
   display: flex;
+}
+
+header h2 {
+  opacity: 0;
+  color: #fff;
+  margin: 0;
+  font-family: Roboto;
+  font-size: 30px;
+  font-weight: 500;
 }
 
 .header-navi a.active {
@@ -44,45 +52,48 @@ header svg {
   margin: 0;
 }
 
-header h2 {
-  color: #fff;
-  margin: 0;
-  font-family: Roboto;
-  font-size: 30px;
-  line-height: 35px;
-}
-
 .header-navi a {
   color: #fff;
   text-transform: uppercase;
   font-family: Roboto;
   font-size: 12px;
-  line-height: 14px;
+  font-weight: 500;
   text-decoration: none;
 }
 
 .header-search {
-  justify-content: center;
-  margin-bottom: 80px;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
   display: flex;
 }
 
 .search-form {
-  border: 1px solid var(--light-brown);
   border-bottom: .5px solid #fff;
   justify-content: center;
   align-items: center;
-  gap: 15px;
-  width: 394px;
+  width: 280px;
   height: 20px;
-  margin-bottom: 20px;
   display: flex;
 }
 
 input {
   size: 100%;
+  color: #fff;
   background-color: #0000;
   border: none;
+  width: 380px;
+  margin: 0;
+}
+
+input:focus-within {
+  size: 100%;
+  color: #fff;
+  background-color: #0000;
+  outline: #0000;
+  flex-grow: 1;
   width: 380px;
   margin: 0;
 }
@@ -103,11 +114,91 @@ input::placeholder {
   color: #fff;
   font-family: Roboto;
   font-size: 14px;
-  line-height: 16px;
+  font-weight: 400;
 }
 
 .header-not-result {
   color: #ff001b;
+  width: 280px;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.header-library {
+  justify-content: center;
+  gap: 20px;
+  display: flex;
+}
+
+.library-button {
+  text-transform: uppercase;
+  text-align: center;
+  color: #fff;
+  background: none;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  width: 130px;
+  height: 44px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.33;
+}
+
+.library-button:focus, .library-button:hover {
+  background: #ff6b01;
+  border: none;
+  box-shadow: 0 8px 43px #ff6b0199;
+}
+
+@media screen and (width >= 768px) {
+  .header-navibox {
+    margin: 40px 32px;
+  }
+
+  header h2 {
+    opacity: 1;
+  }
+
+  .header-navi {
+    gap: 40px;
+  }
+
+  .search-form {
+    width: 336px;
+  }
+
+  .header-not-result {
+    width: 393px;
+  }
+
+  .header-library {
+    gap: 32px;
+  }
+
+  .header-search {
+    gap: 20px;
+  }
+
+  .library-button {
+    width: 152px;
+  }
+}
+
+@media screen and (width >= 1280px) {
+  .search-form {
+    width: 394px;
+  }
+
+  .header-library {
+    gap: 18px;
+  }
+
+  .library-button {
+    width: 147px;
+    height: 42px;
+  }
 }
 
 #gallery-container {
@@ -262,4 +353,4 @@ input::placeholder {
   text-decoration: underline;
   display: inline-block;
 }
-/*# sourceMappingURL=index.ab0fb766.css.map */
+/*# sourceMappingURL=index.1104b672.css.map */
