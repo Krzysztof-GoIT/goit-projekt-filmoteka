@@ -1,6 +1,6 @@
 // gallery.js
 
-import { fetchMovieDetails, fetchTrendingMovies, fetchSearchMovies, genresName } from './api';
+import { fetchMovieDetails, fetchSearchMovies, fetchTrendingMovies, genresName } from './api';
 import { addToQueue, addToWatchedMovies } from './localstorage';
 
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
@@ -172,3 +172,23 @@ const clearGallery = () => {
   const galleryContainer = document.getElementById('gallery-container');
   galleryContainer.innerHTML = ''; // Wyczyszczenie zawartości galerii
 };
+
+const scrollToTopButton = document.getElementById('scrollToTopButton');
+
+// Pokaż przycisk, gdy użytkownik przewinie stronę w dół
+window.addEventListener('scroll', () => {
+  if (window.pageYOffset > 100) {
+    // Możesz dostosować wartość, aby przycisk pojawił się po przewinięciu o określoną liczbę pikseli
+    scrollToTopButton.style.display = 'block';
+  } else {
+    scrollToTopButton.style.display = 'none';
+  }
+});
+
+// Obsługa zdarzenia kliknięcia przycisku
+scrollToTopButton.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth', // Działa w większości nowoczesnych przeglądarek, aby przewijać płynnie
+  });
+});
