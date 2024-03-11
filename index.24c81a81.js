@@ -4839,6 +4839,9 @@ const renderGallery = (dataGallery)=>{
         const movies = dataGallery;
         // Znalezienie kontenera dla galerii filmów
         const galleryContainer = document.getElementById("gallery-container");
+        // Ukrycie komunikatu o braku wyników na start
+        const notResult = document.getElementById("not-result");
+        notResult.style.display = "none";
         // Sprawdzenie czy lista filmów nie jest pusta
         if (movies.length > 0) {
             // Wyświetlenie filmów
@@ -4847,8 +4850,9 @@ const renderGallery = (dataGallery)=>{
                 if (movie.poster_path) posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
                 else posterPath = "https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.png?raw=true";
                 let categories = "Witch out category";
-                if (movie.genre_ids) getGenres(movie.genre_ids);
-                else categories = movie.genres[0].name;
+                if (movie.genre_ids) categories = getGenres(movie.genre_ids); // Poprawiono przypisanie wyniku funkcji do zmiennej categories
+                else if (movie.genres.length > 0) // Dodano warunek sprawdzający czy istnieje przynajmniej jeden gatunek
+                categories = movie.genres[0].name;
                 const movieCard = `
             <div class="movie-card" data-movie-id="${movie.id}">
             <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
@@ -4861,13 +4865,12 @@ const renderGallery = (dataGallery)=>{
                 return movieCard;
             }).join("");
             // Ukrycie komunikatu o braku wyników, jeśli lista filmów nie jest pusta
-            const notResult = document.getElementById("not-result");
             notResult.style.display = "none";
         } else {
             // Jeśli lista filmów jest pusta, wyświetl komunikat
             galleryContainer.innerHTML = "";
-            const notResult = document.getElementById("not-result");
-            notResult.style.display = "block";
+            notResult.style.display = "block"; // Wyświetlenie komunikatu o braku wyników
+            clearGallery(); // Wyczyszczenie galerii
         }
         // Obsługa zdarzenia kliknięcia dla każdej karty filmu
         const movieCards = document.querySelectorAll(".movie-card");
@@ -4889,8 +4892,16 @@ const renderGallery = (dataGallery)=>{
         });
     } catch (error) {
         console.error("Error fetching trending movies:", error);
+        // Wyświetlenie komunikatu o braku wyników w przypadku błędu
+        const notResult = document.getElementById("not-result");
+        notResult.style.display = "block";
     }
 };
+// Ukrycie komunikatu o braku wyników na start
+document.addEventListener("DOMContentLoaded", ()=>{
+    const notResult = document.getElementById("not-result");
+    notResult.style.display = "none";
+});
 // Czyszczenie galerii
 const clearGallery = ()=>{
     const galleryContainer = document.getElementById("gallery-container");
@@ -4987,4 +4998,4 @@ openModalBtns.forEach((btn)=>{
 
 },{}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.84a4a447.js.map
+//# sourceMappingURL=index.24c81a81.js.map
