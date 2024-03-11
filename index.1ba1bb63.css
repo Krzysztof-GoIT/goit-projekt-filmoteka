@@ -224,8 +224,6 @@ p {
 
 .movie-card:hover, .movie-card:focus {
   cursor: pointer;
-  transition: box-shadow .3s;
-  box-shadow: 8px 8px 24px #161616;
 }
 
 .movie-title {
@@ -260,7 +258,6 @@ p {
   #gallery-container {
     grid-template-columns: repeat(2, 1fr);
     justify-items: center;
-    gap: 32px;
     margin-top: 59px;
     display: grid;
   }
@@ -370,4 +367,4 @@ p {
   text-decoration: underline;
   display: inline-block;
 }
-/*# sourceMappingURL=index.c35191ee.css.map */
+/*# sourceMappingURL=index.1ba1bb63.css.map */
