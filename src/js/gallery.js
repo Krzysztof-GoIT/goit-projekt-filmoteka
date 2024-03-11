@@ -102,6 +102,10 @@ const renderGallery = dataGallery => {
     // Znalezienie kontenera dla galerii filmów
     const galleryContainer = document.getElementById('gallery-container');
 
+    // Ukrycie komunikatu o braku wyników na start
+    const notResult = document.getElementById('not-result');
+    notResult.style.display = 'none';
+
     // Sprawdzenie czy lista filmów nie jest pusta
     if (movies.length > 0) {
       // Wyświetlenie filmów
@@ -140,13 +144,12 @@ const renderGallery = dataGallery => {
         })
         .join('');
       // Ukrycie komunikatu o braku wyników, jeśli lista filmów nie jest pusta
-      const notResult = document.getElementById('not-result');
       notResult.style.display = 'none';
     } else {
       // Jeśli lista filmów jest pusta, wyświetl komunikat
       galleryContainer.innerHTML = '';
-      const notResult = document.getElementById('not-result');
-      notResult.style.display = 'block';
+      notResult.style.display = 'block'; // Wyświetlenie komunikatu o braku wyników
+      clearGallery(); // Wyczyszczenie galerii
     }
 
     // Obsługa zdarzenia kliknięcia dla każdej karty filmu
@@ -171,8 +174,17 @@ const renderGallery = dataGallery => {
     });
   } catch (error) {
     console.error('Error fetching trending movies:', error);
+    // Wyświetlenie komunikatu o braku wyników w przypadku błędu
+    const notResult = document.getElementById('not-result');
+    notResult.style.display = 'block';
   }
 };
+
+// Ukrycie komunikatu o braku wyników na start
+document.addEventListener('DOMContentLoaded', () => {
+  const notResult = document.getElementById('not-result');
+  notResult.style.display = 'none';
+});
 
 // Czyszczenie galerii
 const clearGallery = () => {
