@@ -4961,10 +4961,11 @@ parcelHelpers.export(exports, "addToWatchedMovies", ()=>addToWatchedMovies);
 parcelHelpers.export(exports, "addToQueue", ()=>addToQueue);
 const addToWatchedMovies = (movieDetails)=>{
     // Pobierz listę obejrzanych filmów z localStorage lub utwórz nową listę, jeśli nie istnieje
-    const watchedMovies = JSON.parse(localStorage.getItem("watchedMovies")) || [];
-    const isMovieAlreadyWatched = watchedMovies.find((movie)=>movie.id === movieDetails.id);
+    let watchedMovies = JSON.parse(localStorage.getItem("watchedMovies")) || [];
+    if (!Array.isArray(watchedMovies)) watchedMovies = [];
+    let isMovieAlreadyWatched = watchedMovies.find((movie)=>movie.id === movieDetails.id);
     //pobierz liste filmów z kolejki z local storage zeby ussunąć w razie wuz
-    const queuedMovies = JSON.parse(localStorage.getItem("queuedMovies")) || [];
+    let queuedMovies = JSON.parse(localStorage.getItem("queuedMovies")) || [];
     // Jeśli film jeszcze nie został obejrzany, dodaj go do listy
     if (!isMovieAlreadyWatched) {
         watchedMovies.push(movieDetails);
@@ -4973,13 +4974,14 @@ const addToWatchedMovies = (movieDetails)=>{
         //usuwa filmy jeśli znadjują sie w kolejce
         queuedMovies = queuedMovies.filter((movie)=>movie.id !== movieDetails.id);
         localStorage.setItem("queuedMovies", JSON.stringify(queuedMovies));
+        refreshView();
     } else console.log(`"${movieDetails.title}" is already in Watched Movies`);
 };
 const addToQueue = (movieDetails)=>{
-    const queuedMovies = JSON.parse(localStorage.getItem("queuedMovies")) || [];
-    const isMovieInQueue = queuedMovies.find((movie)=>movie.id === movieDetails.id);
+    let queuedMovies = JSON.parse(localStorage.getItem("queuedMovies")) || [];
+    let isMovieInQueue = queuedMovies.find((movie)=>movie.id === movieDetails.id);
     //pobierz liste filmów z obejrzanych z local storage zeby ussunąć w razie wu
-    const watchedMovies = JSON.parse(localStorage.getItem("watchedMovies")) || [];
+    let watchedMovies = JSON.parse(localStorage.getItem("watchedMovies")) || [];
     if (!isMovieInQueue) {
         queuedMovies.push(movieDetails);
         localStorage.setItem("queuedMovies", JSON.stringify(queuedMovies));
@@ -4987,7 +4989,12 @@ const addToQueue = (movieDetails)=>{
         //usuwa filmy dodane do obejrzanych
         watchedMovies = watchedMovies.filter((movie)=>movie.id !== movieDetails.id);
         localStorage.setItem("watchedMovies", JSON.stringify(watchedMovies));
+        refreshView();
     } else console.log(`"${movieDetails.title}" is already in Queue`);
+};
+const refreshView = ()=>{
+//Tutaj wstawię później funkcje która będzie odświerzać widok po zmianie 
+//Z queue do watched
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"6K7Vw":[function(require,module,exports) {
@@ -4999,9 +5006,17 @@ const homeLink = headerNaviElements[0].getElementsByTagName("a")[0];
 const libraryLink = headerNaviElements[0].getElementsByTagName("a")[1];
 const myLibrary = document.querySelector(".header-library");
 const headerSearch = document.querySelector(".header-search");
+const watchedButton = document.getElementById("watchedHeader");
+const logo = document.getElementById("logo");
 const toggleVisibility = (elementToShow, elementToHide)=>{
     elementToShow.style.visibility = "visible";
     elementToHide.style.visibility = "hidden";
+};
+const libraryClick = ()=>{
+    watchedHeader.click();
+};
+const homeClick = ()=>{
+    logo.click();
 };
 toggleVisibility(headerSearch, myLibrary);
 homeLink.classList.add("active");
@@ -5012,6 +5027,7 @@ const homeButtonClick = (event)=>{
     homeLink.classList.add("active");
     libraryLink.classList.remove("active");
     headerBG.style.backgroundImage = 'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-image-home.png?raw=true")';
+    homeClick(logo);
 };
 const myLibraryButtonClick = (event)=>{
     event.preventDefault();
@@ -5019,11 +5035,15 @@ const myLibraryButtonClick = (event)=>{
     homeLink.classList.remove("active");
     libraryLink.classList.add("active");
     headerBG.style.backgroundImage = 'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-image-library.png?raw=true")';
+    libraryClick(watchedButton);
 };
 homeLink.addEventListener("click", homeButtonClick);
 libraryLink.addEventListener("click", myLibraryButtonClick);
 
 },{}],"hLtdZ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "toggleModal", ()=>toggleModal);
 const toggleModal = (modalId)=>{
     const modal = document.getElementById(modalId);
     if (modal) modal.style.display = modal.style.display === "block" ? "none" : "block";
@@ -5037,11 +5057,11 @@ const openModalBtns = document.querySelectorAll(".openModalBtn");
 // dla każdego przycisku otwórz modal
 openModalBtns.forEach((btn)=>{
     btn.addEventListener("click", ()=>{
-        const modalId = btn.getAttribute("data-modal-id");
+        const modalId = btn.getAttribute("id");
         toggleModal(modalId);
     });
 });
 
-},{}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.35d025f0.js.map
+//# sourceMappingURL=index.c3893e23.js.map
