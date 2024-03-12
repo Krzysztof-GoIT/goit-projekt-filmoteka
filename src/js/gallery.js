@@ -2,6 +2,7 @@
 
 import { fetchMovieDetails, fetchSearchMovies, fetchTrendingMovies, genresName } from './api';
 import { addToQueue, addToWatchedMovies } from './localstorage';
+export let homePageNo = 0;
 
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
 const getGenres = genreIds => {
@@ -23,6 +24,8 @@ const displayWatchedMovies = () => {
         movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
       return { ...movie, categories };
     });
+    homePageNo = 0;
+    clearGallery();
     renderGallery(moviesWithGenres);
   } catch (error) {
     console.error('Error displaying watched movies:', error);
@@ -40,6 +43,8 @@ const displayQueuedMovies = () => {
         movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
       return { ...movie, categories };
     });
+    homePageNo = 0;
+    clearGallery();
     renderGallery(moviesWithGenres);
   } catch (error) {
     console.error('Error displaying queued movies:', error);
@@ -83,6 +88,7 @@ export const getHomepage = async pageNo => {
   try {
     const response = await fetchTrendingMovies(pageNo);
     renderGallery(response.results);
+    homePageNo = pageNo;
   } catch (error) {
     console.error('Error fetching trending movies:', error);
   }
@@ -131,7 +137,7 @@ const renderGallery = dataGallery => {
     // Sprawdzenie czy lista filmów nie jest pusta
     if (movies.length > 0) {
       // Wyświetlenie filmów
-      galleryContainer.innerHTML = movies
+      const newContent = movies
         .map(movie => {
           let posterPath;
           if (movie.poster_path) {
@@ -161,6 +167,8 @@ const renderGallery = dataGallery => {
           return movieCard;
         })
         .join('');
+      galleryContainer.insertAdjacentHTML('beforeend', newContent);
+
       // Ukrycie komunikatu o braku wyników, jeśli lista filmów nie jest pusta
       notResult.style.display = 'none';
     } else {
@@ -255,4 +263,38 @@ scrollToTopButton.addEventListener('click', () => {
     top: 0,
     behavior: 'smooth', // Działa w większości nowoczesnych przeglądarek, aby przewijać płynnie
   });
+});
+
+// Funkcja do sprawdzania, czy element jest blisko dolnej krawędzi okna przeglądarki
+function isNearBottom(element, threshold) {
+  const rect = element.getBoundingClientRect();
+  return rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + threshold;
+}
+
+// Event scroll na oknie przeglądarki
+const loadMoreContent = () => {
+  // Element, który monitorujemy, np. kontener na treści
+  const contentContainer = document.querySelector('.movie-card:last-child');
+  // Threshold - odległość od dolnej krawędzi, przy której chcemy zacząć ładować więcej treści
+  const threshold = 800; // w pikselach
+
+  // Sprawdzamy, czy element jest blisko dolnej krawędzi okna przeglądarki
+  if (isNearBottom(contentContainer, threshold)) {
+    // Jeśli tak, ładujemy więcej treści
+    if (homePageNo > 0) homePageNo++;
+    getHomepage(homePageNo);
+  }
+};
+const infinityScrool = document.getElementById("infinityScrool");
+
+// Obsługa zdarzenia kliknięcia przycisku
+infinityScrool.addEventListener('click', () => {
+  // Początkowe ładowanie treści
+  getHomepage(homePageNo);
+
+  // Event scroll na oknie przeglądarki po kliknięciu przycisku
+  window.addEventListener('scroll', loadMoreContent);
+
+  // Usuń obsługę zdarzenia kliknięcia przycisku, aby nie powtarzać ładowania po kliknięciu
+  infinityScrool.removeEventListener('click', loadMoreContent);
 });
