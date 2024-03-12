@@ -78,8 +78,10 @@
 .close {
   color: #aaaaaa;
   float: right;
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 70px;
+  font-weight: normal;
+  margin-top: 16px;
+  margin-right: 16px;
 }
 
 .close:hover,
@@ -87,53 +89,53 @@
   color: #000;
   text-decoration: none;
   cursor: pointer;
+  scale: 1.2;
 }
 
 .dev-tools-container {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    display: flex;
-    align-items: center;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
 }
 
 .dev-main-button {
-    width: 15px;
-    height: 15px;
-    padding: 0;
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 100%;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  width: 15px;
+  height: 15px;
+  padding: 0;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .dev-moving-button:hover {
-    background-color: #2980b9;
+  background-color: #2980b9;
 }
 
 .dev-button-bar {
-    display: none;
-    flex-direction: row;
-    align-items: center;
-    margin-left: 10px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .dev-button {
-    padding: 10px;
-    margin-right: 5px;
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 10px;
+  margin-right: 5px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .dev-button:hover {
-    background-color: #2980b9;
+  background-color: #2980b9;
 }
