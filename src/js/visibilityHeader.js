@@ -7,7 +7,8 @@ const libraryLink = headerNaviElements[0].getElementsByTagName('a')[1];
 
 const myLibrary = document.querySelector('.header-library');
 const headerSearch = document.querySelector('.header-search');
-const watchedButton = document.getElementById("watchedHeader")
+const watchedButton = document.getElementById("watchedHeader");
+const logo = document.getElementById("logo");
 import { getHomepage } from "./gallery";
 
 const toggleVisibility = (elementToShow, elementToHide) => {
@@ -44,5 +45,10 @@ const myLibraryButtonClick = event => {
   libraryClick(watchedButton);
 };
 
+
+
+logo.addEventListener('click', homeButtonClick)
 homeLink.addEventListener('click', homeButtonClick);
 libraryLink.addEventListener('click', myLibraryButtonClick);
+
+

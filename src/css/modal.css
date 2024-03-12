@@ -102,19 +102,21 @@
 }
 
 .dev-main-button {
-  width: 15px;
-  height: 15px;
   padding: 0;
-  background-color: #3498db;
+  background-color: transparent;
   color: #fff;
   border: none;
   border-radius: 100%;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 40px;
 }
 
 .dev-moving-button:hover {
-  background-color: #2980b9;
+  margin-left: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 20px;
 }
 
 .dev-button-bar {
@@ -129,10 +131,10 @@
 .dev-button {
   padding: 10px;
   margin-right: 5px;
-  background-color: #3498db;
+  background-color: #f2f7fb;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
