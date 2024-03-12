@@ -153,8 +153,9 @@ var _markup = require("./js/markup");
 var _localstorage = require("./js/localstorage");
 var _visibilityHeader = require("./js/visibilityHeader");
 var _onOffModal = require("./js/onOffModal");
+var _devTools = require("./js/devTools");
 
-},{"./sass/main.scss":"clpGj","./js/api":"5mmx6","./js/gallery":"bA31f","./js/markup":"6K7Vw","./js/localstorage":"ippo7","./js/visibilityHeader":"kxv7b","./js/onOffModal":"hLtdZ"}],"clpGj":[function() {},{}],"5mmx6":[function(require,module,exports) {
+},{"./sass/main.scss":"clpGj","./js/api":"5mmx6","./js/gallery":"bA31f","./js/markup":"6K7Vw","./js/localstorage":"ippo7","./js/visibilityHeader":"kxv7b","./js/onOffModal":"hLtdZ","./js/devTools":"kw7nM"}],"clpGj":[function() {},{}],"5mmx6":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 // Genres
@@ -5062,6 +5063,95 @@ openModalBtns.forEach((btn)=>{
     });
 });
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"kw7nM":[function(require,module,exports) {
+const devMainButton = document.getElementById("dev-mainButton");
+const devButtonBar = document.querySelector(".dev-button-bar");
+//wersja Pierwsza bez animacji
+// let isButtonBarVisible = false;
+// devMainButton.addEventListener('click', () => {
+//     if (isButtonBarVisible) {
+//         devButtonBar.style.display = "none"
+//     } else {
+//         devButtonBar.style.display = "flex"
+//     }
+// });
+// devMainButton.addEventListener('mouseenter', () => {
+//     devButtonBar.style.display = "flex";
+//     devButtonBar.style.opacity = "1";
+// });
+// devButtonBar.addEventListener('mouseleave', () => {
+//      devButtonBar.style.display = "none"
+// })
+//wersja druga a pojawiającą sie animacją
+// gsap.set(devButtonBar, { display: "none", opacity: 0 });
+// let isButtonBarVisible = false;
+// devMainButton.addEventListener('click', () => {
+//   isButtonBarVisible = !isButtonBarVisible;
+//   if (isButtonBarVisible) {
+//     gsap.to(devButtonBar, { display: "flex", opacity: 1, duration: 0.3, ease: 'power2.out' });
+//   } else {
+//     gsap.to(devButtonBar, { opacity: 0, duration: 0.3, ease: 'power2.out', onComplete: () => {
+//       devButtonBar.style.display = "none";
+//     } });
+//   }
+// });
+// devMainButton.addEventListener('mouseenter', () => {
+//   gsap.to(devButtonBar, { display: "flex", opacity: 1, duration: 0.3, ease: 'power2.out' });
+// });
+// devButtonBar.addEventListener('mouseleave', () => {
+//   if (!isButtonBarVisible) {
+//     gsap.to(devButtonBar, { opacity: 0, duration: 0.3, ease: 'power2.out', onComplete: () => {
+//       devButtonBar.style.display = "none";
+//     } });
+//   }
+// });
+//wersja trzecia w wysuwającą sie animacją z lewej do prawej
+gsap.set(devButtonBar, {
+    display: "none",
+    opacity: 0,
+    x: "-100%"
+});
+let isButtonBarVisible = false;
+devMainButton.addEventListener("click", ()=>{
+    isButtonBarVisible = !isButtonBarVisible;
+    if (isButtonBarVisible) gsap.to(devButtonBar, {
+        display: "flex",
+        opacity: 1,
+        x: "0%",
+        duration: 0.3,
+        ease: "power2.out"
+    });
+    else gsap.to(devButtonBar, {
+        opacity: 0,
+        x: "-100%",
+        duration: 0.3,
+        ease: "power2.out",
+        onComplete: ()=>{
+            devButtonBar.style.display = "none";
+        }
+    });
+});
+devMainButton.addEventListener("mouseenter", ()=>{
+    gsap.to(devButtonBar, {
+        display: "flex",
+        opacity: 1,
+        x: "0%",
+        duration: 0.3,
+        ease: "power2.out"
+    });
+});
+devButtonBar.addEventListener("mouseleave", ()=>{
+    if (!isButtonBarVisible) gsap.to(devButtonBar, {
+        opacity: 0,
+        x: "-100%",
+        duration: 0.3,
+        ease: "power2.out",
+        onComplete: ()=>{
+            devButtonBar.style.display = "none";
+        }
+    });
+});
 
-//# sourceMappingURL=index.c3893e23.js.map
+},{}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
+
+//# sourceMappingURL=index.2798cc68.js.map
