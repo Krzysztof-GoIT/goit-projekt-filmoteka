@@ -4768,20 +4768,46 @@ const getGenres = (genreIds)=>{
     return genres.join(", ");
 };
 const displayWatchedMovies = ()=>{
-    // Pobierz listę obejrzanych filmów z localStorage
-    const watchedMovies = JSON.parse(localStorage.getItem("watchedMovies")) || [];
-    renderGallery(watchedMovies);
+    try {
+        // Pobierz listę obejrzanych filmów z localStorage
+        const watchedMovies = JSON.parse(localStorage.getItem("watchedMovies")) || [];
+        const moviesWithGenres = watchedMovies.map((movie)=>{
+            const categories = movie.categories !== "Without category" ? movie.categories : getGenres(movie.genre_ids);
+            return {
+                ...movie,
+                categories
+            };
+        });
+        renderGallery(moviesWithGenres);
+    } catch (error) {
+        console.error("Error displaying watched movies:", error);
+    }
+// const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+// renderGallery(watchedMovies);
 };
 const displayQueuedMovies = ()=>{
-    // Pobierz listę dodanych do kolejki filmów z localStorage
-    const queuedMovies = JSON.parse(localStorage.getItem("queuedMovies")) || [];
-    renderGallery(queuedMovies);
+    try {
+        // Pobierz listę dodanych do kolejki filmów z localStorage
+        const queuedMovies = JSON.parse(localStorage.getItem("queuedMovies")) || [];
+        const moviesWithGenres = queuedMovies.map((movie)=>{
+            const categories = movie.categories !== "Without category" ? movie.categories : getGenres(movie.genre_ids);
+            return {
+                ...movie,
+                categories
+            };
+        });
+        renderGallery(moviesWithGenres);
+    } catch (error) {
+        console.error("Error displaying queued movies:", error);
+    }
+// const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
+// renderGallery(queuedMovies);
 };
 const displayMovieDetails = (movieDetails)=>{
     // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
     console.log(movieDetails);
 };
-////Obsługa HomePage i Buttonów
+//Obsługa HomePage i Buttonów
 window.addEventListener("DOMContentLoaded", ()=>{
     getHomepage(1); // Wywołujemy funkcję wyświetlającą HomePage
     const libraryWatched = document.getElementById("watchedHeader");
@@ -4849,19 +4875,19 @@ const renderGallery = (dataGallery)=>{
                 let posterPath;
                 if (movie.poster_path) posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
                 else posterPath = "https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.png?raw=true";
-                let categories = "Witch out category";
-                if (movie.genre_ids) categories = getGenres(movie.genre_ids); // Poprawiono przypisanie wyniku funkcji do zmiennej categories
-                else if (movie.genres.length > 0) // Dodano warunek sprawdzający czy istnieje przynajmniej jeden gatunek
-                categories = movie.genres[0].name;
+                let categories = "Without category";
+                let releaseYear = movie.release_date ? movie.release_date.slice(0, 4) : "Without date";
+                // Sprawdzenie czy istnieje przynajmniej jeden gatunek, jeśli nie to wyświtlany jest string 'Without category'
+                if (movie.genre_ids && movie.genre_ids.length > 0) categories = getGenres(movie.genre_ids);
                 const movieCard = `
-            <div class="movie-card" data-movie-id="${movie.id}">
-            <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
-            <div class="movie-details">
-            <p class="movie-title">${movie.title}</p>
-            <p class="movie-info">${categories} | ${movie.release_date.slice(0, 4)}</p>
-            </div>
-            </div>
-            `;
+          <div class="movie-card" data-movie-id="${movie.id}">
+          <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
+          <div class="movie-details">
+          <p class="movie-title">${movie.title}</p>
+          <p class="movie-info">${categories} | ${releaseYear}</p>
+          </div>
+          </div>
+          `;
                 return movieCard;
             }).join("");
             // Ukrycie komunikatu o braku wyników, jeśli lista filmów nie jest pusta
@@ -5018,4 +5044,4 @@ openModalBtns.forEach((btn)=>{
 
 },{}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.0f660884.js.map
+//# sourceMappingURL=index.35d025f0.js.map
