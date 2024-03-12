@@ -272,7 +272,7 @@ function isNearBottom(element, threshold) {
 }
 
 // Event scroll na oknie przeglądarki
-window.addEventListener('scroll', () => {
+const loadMoreContent = () => {
   // Element, który monitorujemy, np. kontener na treści
   const contentContainer = document.querySelector('.movie-card:last-child');
   // Threshold - odległość od dolnej krawędzi, przy której chcemy zacząć ładować więcej treści
@@ -284,4 +284,17 @@ window.addEventListener('scroll', () => {
     if (homePageNo > 0) homePageNo++;
     getHomepage(homePageNo);
   }
+};
+const infinityScrool = document.getElementById("infinityScrool");
+
+// Obsługa zdarzenia kliknięcia przycisku
+infinityScrool.addEventListener('click', () => {
+  // Początkowe ładowanie treści
+  getHomepage(homePageNo);
+
+  // Event scroll na oknie przeglądarki po kliknięciu przycisku
+  window.addEventListener('scroll', loadMoreContent);
+
+  // Usuń obsługę zdarzenia kliknięcia przycisku, aby nie powtarzać ładowania po kliknięciu
+  infinityScrool.removeEventListener('click', loadMoreContent);
 });
