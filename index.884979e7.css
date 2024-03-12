@@ -520,17 +520,19 @@ body, .movies {
 .dev-main-button {
   color: #fff;
   cursor: pointer;
-  background-color: #3498db;
+  background-color: #0000;
   border: none;
   border-radius: 100%;
-  width: 15px;
-  height: 15px;
   padding: 0;
+  font-size: 40px;
   transition: all .3s;
 }
 
 .dev-moving-button:hover {
-  background-color: #2980b9;
+  opacity: 0;
+  margin-left: 10px;
+  font-size: 20px;
+  transition: opacity .3s;
 }
 
 .dev-button-bar {
@@ -545,9 +547,9 @@ body, .movies {
 .dev-button {
   color: #fff;
   cursor: pointer;
-  background-color: #3498db;
+  background-color: #f2f7fb;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   margin-right: 5px;
   padding: 10px;
   transition: background-color .3s;
@@ -556,4 +558,4 @@ body, .movies {
 .dev-button:hover {
   background-color: #2980b9;
 }
-/*# sourceMappingURL=index.cac6aee4.css.map */
+/*# sourceMappingURL=index.884979e7.css.map */

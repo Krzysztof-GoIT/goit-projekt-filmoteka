@@ -5027,6 +5027,7 @@ const libraryLink = headerNaviElements[0].getElementsByTagName("a")[1];
 const myLibrary = document.querySelector(".header-library");
 const headerSearch = document.querySelector(".header-search");
 const watchedButton = document.getElementById("watchedHeader");
+const logo = document.getElementById("logo");
 const toggleVisibility = (elementToShow, elementToHide)=>{
     elementToShow.style.visibility = "visible";
     elementToHide.style.visibility = "hidden";
@@ -5053,6 +5054,7 @@ const myLibraryButtonClick = (event)=>{
     headerBG.style.backgroundImage = 'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-image-library.png?raw=true")';
     libraryClick(watchedButton);
 };
+logo.addEventListener("click", homeButtonClick);
 homeLink.addEventListener("click", homeButtonClick);
 libraryLink.addEventListener("click", myLibraryButtonClick);
 
@@ -5194,4 +5196,4 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.d325207e.js.map
+//# sourceMappingURL=index.397d59ab.js.map
