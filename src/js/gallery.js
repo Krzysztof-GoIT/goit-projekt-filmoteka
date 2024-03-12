@@ -2,6 +2,7 @@
 
 import { fetchMovieDetails, fetchSearchMovies, fetchTrendingMovies, genresName } from './api';
 import { addToQueue, addToWatchedMovies } from './localstorage';
+export let homePageNo = 0;
 
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
 const getGenres = genreIds => {
@@ -23,6 +24,8 @@ const displayWatchedMovies = () => {
         movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
       return { ...movie, categories };
     });
+    homePageNo = 0;
+    clearGallery();
     renderGallery(moviesWithGenres);
   } catch (error) {
     console.error('Error displaying watched movies:', error);
@@ -40,6 +43,8 @@ const displayQueuedMovies = () => {
         movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
       return { ...movie, categories };
     });
+    homePageNo = 0;
+    clearGallery();
     renderGallery(moviesWithGenres);
   } catch (error) {
     console.error('Error displaying queued movies:', error);
@@ -83,6 +88,7 @@ export const getHomepage = async pageNo => {
   try {
     const response = await fetchTrendingMovies(pageNo);
     renderGallery(response.results);
+    homePageNo = pageNo;
   } catch (error) {
     console.error('Error fetching trending movies:', error);
   }
@@ -131,7 +137,7 @@ const renderGallery = dataGallery => {
     // Sprawdzenie czy lista filmów nie jest pusta
     if (movies.length > 0) {
       // Wyświetlenie filmów
-      galleryContainer.innerHTML = movies
+      const newContent = movies
         .map(movie => {
           let posterPath;
           if (movie.poster_path) {
@@ -161,6 +167,8 @@ const renderGallery = dataGallery => {
           return movieCard;
         })
         .join('');
+      galleryContainer.insertAdjacentHTML('beforeend', newContent);
+
       // Ukrycie komunikatu o braku wyników, jeśli lista filmów nie jest pusta
       notResult.style.display = 'none';
     } else {
@@ -263,12 +271,6 @@ function isNearBottom(element, threshold) {
   return rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + threshold;
 }
 
-// Funkcja do ładowania więcej treści
-async function loadMoreContent() {
-  // Tutaj możesz dodać logikę do ładowania więcej treści, np. zapytanie do API
-  console.log('Ładowanie więcej treści...');
-}
-
 // Event scroll na oknie przeglądarki
 window.addEventListener('scroll', () => {
   // Element, który monitorujemy, np. kontener na treści
@@ -279,6 +281,7 @@ window.addEventListener('scroll', () => {
   // Sprawdzamy, czy element jest blisko dolnej krawędzi okna przeglądarki
   if (isNearBottom(contentContainer, threshold)) {
     // Jeśli tak, ładujemy więcej treści
-    loadMoreContent();
+    if (homePageNo > 0) homePageNo++;
+    getHomepage(homePageNo);
   }
 });
