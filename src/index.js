@@ -8,3 +8,4 @@ import './js/markup';
 import './js/localstorage';
 import './js/visibilityHeader';
 import './js/onOffModal';
+import './js/devTools';
