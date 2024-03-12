@@ -8,7 +8,7 @@ const libraryLink = headerNaviElements[0].getElementsByTagName('a')[1];
 const myLibrary = document.querySelector('.header-library');
 const headerSearch = document.querySelector('.header-search');
 const watchedButton = document.getElementById("watchedHeader")
-const logo = document.getElementById("logo")
+import { getHomepage } from "./gallery";
 
 const toggleVisibility = (elementToShow, elementToHide) => {
   elementToShow.style.visibility = 'visible';
@@ -19,9 +19,6 @@ const libraryClick = () => {
   watchedHeader.click()
 }
 
-const homeClick = () => {
-logo.click() 
-}
 
 toggleVisibility(headerSearch, myLibrary);
 homeLink.classList.add('active');
@@ -35,7 +32,7 @@ const homeButtonClick = event => {
   libraryLink.classList.remove('active');
   headerBG.style.backgroundImage =
     'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-image-home.png?raw=true")';
-  homeClick(logo)
+   getHomepage(1)
 };
 const myLibraryButtonClick = event => {
   event.preventDefault();
