@@ -348,7 +348,7 @@ body, .movies {
   align-items: center;
   margin: auto 0;
   padding: 8px 16px;
-  display: inline-block;
+  display: flex;
 }
 
 .pagination a {
@@ -429,6 +429,7 @@ body, .movies {
   pointer-events: none;
   visibility: hidden;
   opacity: 0;
+  display: none;
 }
 
 .modal-window {
@@ -548,4 +549,4 @@ body, .movies {
 .dev-button:hover {
   background-color: #2980b9;
 }
-/*# sourceMappingURL=index.d69d66cc.css.map */
+/*# sourceMappingURL=index.ddb6662e.css.map */
