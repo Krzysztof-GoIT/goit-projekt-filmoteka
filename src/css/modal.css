@@ -8,6 +8,7 @@
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
     visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .is-hidden {
   pointer-events: none;
   visibility: hidden;
@@ -23,6 +24,7 @@
   height: 940px;
   background-color: #fff;
 }
+
 .modal-close-button {
   background-color: transparent;
   align-items: center;
@@ -85,4 +87,53 @@
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+.dev-tools-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.dev-main-button {
+    width: 15px;
+    height: 15px;
+    padding: 0;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dev-moving-button:hover {
+    background-color: #2980b9;
+}
+
+.dev-button-bar {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+}
+
+.dev-button {
+    padding: 10px;
+    margin-right: 5px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dev-button:hover {
+    background-color: #2980b9;
 }
