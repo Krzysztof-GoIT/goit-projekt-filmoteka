@@ -79,7 +79,7 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 //Generujemy trendings movie
-const getHomepage = async pageNo => {
+export const getHomepage = async pageNo => {
   try {
     const response = await fetchTrendingMovies(pageNo);
     renderGallery(response.results);
