@@ -9,3 +9,4 @@ import './js/localstorage';
 import './js/visibilityHeader';
 import './js/onOffModal';
 import './js/devTools';
+import './js/darkMode';

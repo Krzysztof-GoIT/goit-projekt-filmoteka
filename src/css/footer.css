@@ -1,5 +1,5 @@
 .footer {
-  background-color: #f7f7f7;
+  background-color:var(--footer-bg);
 }
 
 .footer-container {
@@ -10,7 +10,7 @@
 text-align: center;
 padding-top: 29px;
 padding-bottom: 28px;
-color: #545454;
+color: var(--footer-text);
 font-family: 'Roboto';
 font-size: 14px;
 }
@@ -33,7 +33,7 @@ font-size: 14px;
 
 .footer-btn{
     text-decoration: underline;
-    color:#545454 ;
+    color:var(--footer-text) ;
     cursor: pointer;
     border: none;
     display: inline-block;
