@@ -4759,9 +4759,11 @@ exports.default = HttpStatusCode;
 // gallery.js
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "homePageNo", ()=>homePageNo);
 parcelHelpers.export(exports, "getHomepage", ()=>getHomepage);
 var _api = require("./api");
 var _localstorage = require("./localstorage");
+let homePageNo = 0;
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
 const getGenres = (genreIds)=>{
     // Pobranie nazw gatunków z listy genresName zdefiniowanej w api.js
@@ -4783,6 +4785,8 @@ const displayWatchedMovies = ()=>{
                 categories
             };
         });
+        homePageNo = 0;
+        clearGallery();
         renderGallery(moviesWithGenres);
     } catch (error) {
         console.error("Error displaying watched movies:", error);
@@ -4801,6 +4805,8 @@ const displayQueuedMovies = ()=>{
                 categories
             };
         });
+        homePageNo = 0;
+        clearGallery();
         renderGallery(moviesWithGenres);
     } catch (error) {
         console.error("Error displaying queued movies:", error);
@@ -4836,6 +4842,7 @@ const getHomepage = async (pageNo)=>{
     try {
         const response = await (0, _api.fetchTrendingMovies)(pageNo);
         renderGallery(response.results);
+        homePageNo = pageNo;
     } catch (error) {
         console.error("Error fetching trending movies:", error);
     }
@@ -4875,7 +4882,7 @@ const renderGallery = (dataGallery)=>{
         // Sprawdzenie czy lista filmów nie jest pusta
         if (movies.length > 0) {
             // Wyświetlenie filmów
-            galleryContainer.innerHTML = movies.map((movie)=>{
+            const newContent = movies.map((movie)=>{
                 let posterPath;
                 if (movie.poster_path) posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
                 else posterPath = "https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.png?raw=true";
@@ -4894,6 +4901,7 @@ const renderGallery = (dataGallery)=>{
           `;
                 return movieCard;
             }).join("");
+            galleryContainer.insertAdjacentHTML("beforeend", newContent);
             // Ukrycie komunikatu o braku wyników, jeśli lista filmów nie jest pusta
             notResult.style.display = "none";
         } else {
@@ -4971,6 +4979,34 @@ scrollToTopButton.addEventListener("click", ()=>{
         top: 0,
         behavior: "smooth"
     });
+});
+// Funkcja do sprawdzania, czy element jest blisko dolnej krawędzi okna przeglądarki
+function isNearBottom(element, threshold) {
+    const rect = element.getBoundingClientRect();
+    return rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + threshold;
+}
+// Event scroll na oknie przeglądarki
+const loadMoreContent = ()=>{
+    // Element, który monitorujemy, np. kontener na treści
+    const contentContainer = document.querySelector(".movie-card:last-child");
+    // Threshold - odległość od dolnej krawędzi, przy której chcemy zacząć ładować więcej treści
+    const threshold = 800; // w pikselach
+    // Sprawdzamy, czy element jest blisko dolnej krawędzi okna przeglądarki
+    if (isNearBottom(contentContainer, threshold)) {
+        // Jeśli tak, ładujemy więcej treści
+        if (homePageNo > 0) homePageNo++;
+        getHomepage(homePageNo);
+    }
+};
+const infinityScrool = document.getElementById("infinityScrool");
+// Obsługa zdarzenia kliknięcia przycisku
+infinityScrool.addEventListener("click", ()=>{
+    // Początkowe ładowanie treści
+    getHomepage(homePageNo);
+    // Event scroll na oknie przeglądarki po kliknięciu przycisku
+    window.addEventListener("scroll", loadMoreContent);
+    // Usuń obsługę zdarzenia kliknięcia przycisku, aby nie powtarzać ładowania po kliknięciu
+    infinityScrool.removeEventListener("click", loadMoreContent);
 });
 
 },{"./api":"5mmx6","./localstorage":"ippo7","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"ippo7":[function(require,module,exports) {
@@ -5198,4 +5234,4 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.9cc13dac.js.map
+//# sourceMappingURL=index.02a4a83c.js.map
