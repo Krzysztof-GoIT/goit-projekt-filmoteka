@@ -256,3 +256,29 @@ scrollToTopButton.addEventListener('click', () => {
     behavior: 'smooth', // Działa w większości nowoczesnych przeglądarek, aby przewijać płynnie
   });
 });
+
+// Funkcja do sprawdzania, czy element jest blisko dolnej krawędzi okna przeglądarki
+function isNearBottom(element, threshold) {
+  const rect = element.getBoundingClientRect();
+  return rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + threshold;
+}
+
+// Funkcja do ładowania więcej treści
+async function loadMoreContent() {
+  // Tutaj możesz dodać logikę do ładowania więcej treści, np. zapytanie do API
+  console.log('Ładowanie więcej treści...');
+}
+
+// Event scroll na oknie przeglądarki
+window.addEventListener('scroll', () => {
+  // Element, który monitorujemy, np. kontener na treści
+  const contentContainer = document.querySelector('.movie-card:last-child');
+  // Threshold - odległość od dolnej krawędzi, przy której chcemy zacząć ładować więcej treści
+  const threshold = 800; // w pikselach
+
+  // Sprawdzamy, czy element jest blisko dolnej krawędzi okna przeglądarki
+  if (isNearBottom(contentContainer, threshold)) {
+    // Jeśli tak, ładujemy więcej treści
+    loadMoreContent();
+  }
+});
