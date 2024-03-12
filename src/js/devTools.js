@@ -1,6 +1,8 @@
 
  const devMainButton = document.getElementById("dev-mainButton");
 const devButtonBar = document.querySelector('.dev-button-bar');
+const scroolToTop = document.getElementById("scroolToTop");
+const scroolToTopButton = document.getElementById("scrollToTopButton");
  
                             //wersja Pierwsza bez animacji
 
@@ -79,3 +81,15 @@ devButtonBar.addEventListener('mouseleave', () => {
     } });
   }
 });
+
+
+let isButtonVisible = true;
+
+scroolToTop.addEventListener('click', () => {
+  if (!isButtonVisible) {
+    scrollToTopButton.style.visibility = 'hidden';
+  } else {
+    scrollToTopButton.style.visibility = 'visible';
+  }
+  isButtonVisible = !isButtonVisible;
+})
