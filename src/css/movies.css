@@ -111,3 +111,23 @@ p {
   }
 }
 
+/* scrollToTop by Marek */
+#scrollToTopButton {
+  font-size: 0.9em;
+  position: fixed;
+  display: none;
+  bottom: 20px;
+  right: 20px;
+  display: none; /* Początkowo ukryj przycisk */
+  padding: 10px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 999; /* Ustawienie przycisk jest na wierzchu innych elementów */
+}
+
+#scrollToTopButton:hover {
+  background-color: #0056b3;
+}
