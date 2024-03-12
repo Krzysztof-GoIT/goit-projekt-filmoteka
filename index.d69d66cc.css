@@ -322,6 +322,7 @@ body, .movies {
 #scrollToTopButton {
   color: #fff;
   cursor: pointer;
+  visibility: hidden;
   z-index: 999;
   background-color: #007bff;
   border: none;
@@ -547,4 +548,4 @@ body, .movies {
 .dev-button:hover {
   background-color: #2980b9;
 }
-/*# sourceMappingURL=index.b1785ec4.css.map */
+/*# sourceMappingURL=index.d69d66cc.css.map */

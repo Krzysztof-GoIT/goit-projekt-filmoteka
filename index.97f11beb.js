@@ -5082,6 +5082,8 @@ openModalBtns.forEach((btn)=>{
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"kw7nM":[function(require,module,exports) {
 const devMainButton = document.getElementById("dev-mainButton");
 const devButtonBar = document.querySelector(".dev-button-bar");
+const scroolToTop = document.getElementById("scroolToTop");
+const scroolToTopButton = document.getElementById("scrollToTopButton");
 //wersja Pierwsza bez animacji
 // let isButtonBarVisible = false;
 // devMainButton.addEventListener('click', () => {
@@ -5167,6 +5169,12 @@ devButtonBar.addEventListener("mouseleave", ()=>{
         }
     });
 });
+let isButtonVisible = true;
+scroolToTop.addEventListener("click", ()=>{
+    if (!isButtonVisible) scrollToTopButton.style.visibility = "hidden";
+    else scrollToTopButton.style.visibility = "visible";
+    isButtonVisible = !isButtonVisible;
+});
 
 },{}],"3DurW":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -5187,4 +5195,4 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.c0f4578b.js.map
+//# sourceMappingURL=index.97f11beb.js.map
