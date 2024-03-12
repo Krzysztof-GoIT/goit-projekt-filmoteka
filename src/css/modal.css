@@ -79,8 +79,10 @@
 .close {
   color: #aaaaaa;
   float: right;
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 70px;
+  font-weight: normal;
+  margin-top: 16px;
+  margin-right: 16px;
 }
 
 .close:hover,
@@ -88,6 +90,7 @@
   color: #000;
   text-decoration: none;
   cursor: pointer;
+  scale: 1.2;
 }
 
 .dev-tools-container {
