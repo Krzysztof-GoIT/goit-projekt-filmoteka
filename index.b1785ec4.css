@@ -319,6 +319,25 @@ body, .movies {
   }
 }
 
+#scrollToTopButton {
+  color: #fff;
+  cursor: pointer;
+  z-index: 999;
+  background-color: #007bff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: .9em;
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+#scrollToTopButton:hover {
+  background-color: #0056b3;
+}
+
 .pagination {
   flex-shrink: 0, 5;
   color: var(--movieDetails-color);
@@ -528,4 +547,4 @@ body, .movies {
 .dev-button:hover {
   background-color: #2980b9;
 }
-/*# sourceMappingURL=index.0832694f.css.map */
+/*# sourceMappingURL=index.b1785ec4.css.map */

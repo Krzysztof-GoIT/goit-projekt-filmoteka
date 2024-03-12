@@ -4955,6 +4955,21 @@ const openModal = (movieData)=>{
         if (event.target == modal) modal.style.display = "none";
     };
 };
+//scrollToTop by Marek
+const scrollToTopButton = document.getElementById("scrollToTopButton");
+// Pokaż przycisk, gdy użytkownik przewinie stronę w dół
+window.addEventListener("scroll", ()=>{
+    if (window.pageYOffset > 100) // Możesz dostosować wartość, aby przycisk pojawił się po przewinięciu o określoną liczbę pikseli
+    scrollToTopButton.style.display = "block";
+    else scrollToTopButton.style.display = "none";
+});
+// Obsługa zdarzenia kliknięcia przycisku
+scrollToTopButton.addEventListener("click", ()=>{
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
 
 },{"./api":"5mmx6","./localstorage":"ippo7"}],"ippo7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -5172,4 +5187,4 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.7b45031d.js.map
+//# sourceMappingURL=index.c0f4578b.js.map
