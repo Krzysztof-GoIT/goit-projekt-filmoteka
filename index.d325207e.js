@@ -4757,6 +4757,9 @@ exports.default = HttpStatusCode;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"bA31f":[function(require,module,exports) {
 // gallery.js
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getHomepage", ()=>getHomepage);
 var _api = require("./api");
 var _localstorage = require("./localstorage");
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
@@ -4829,7 +4832,6 @@ window.addEventListener("DOMContentLoaded", ()=>{
         displayQueuedMovies();
     });
 });
-//Generujemy trendings movie
 const getHomepage = async (pageNo)=>{
     try {
         const response = await (0, _api.fetchTrendingMovies)(pageNo);
@@ -4971,7 +4973,7 @@ scrollToTopButton.addEventListener("click", ()=>{
     });
 });
 
-},{"./api":"5mmx6","./localstorage":"ippo7"}],"ippo7":[function(require,module,exports) {
+},{"./api":"5mmx6","./localstorage":"ippo7","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"ippo7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "addToWatchedMovies", ()=>addToWatchedMovies);
@@ -5017,6 +5019,7 @@ const refreshView = ()=>{
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"6K7Vw":[function(require,module,exports) {
 
 },{}],"kxv7b":[function(require,module,exports) {
+var _gallery = require("./gallery");
 const headerNaviElements = document.getElementsByClassName("header-navi");
 const headerBG = document.getElementById("headerBG");
 const homeLink = headerNaviElements[0].getElementsByTagName("a")[0];
@@ -5024,16 +5027,12 @@ const libraryLink = headerNaviElements[0].getElementsByTagName("a")[1];
 const myLibrary = document.querySelector(".header-library");
 const headerSearch = document.querySelector(".header-search");
 const watchedButton = document.getElementById("watchedHeader");
-const logo = document.getElementById("logo");
 const toggleVisibility = (elementToShow, elementToHide)=>{
     elementToShow.style.visibility = "visible";
     elementToHide.style.visibility = "hidden";
 };
 const libraryClick = ()=>{
     watchedHeader.click();
-};
-const homeClick = ()=>{
-    logo.click();
 };
 toggleVisibility(headerSearch, myLibrary);
 homeLink.classList.add("active");
@@ -5044,7 +5043,7 @@ const homeButtonClick = (event)=>{
     homeLink.classList.add("active");
     libraryLink.classList.remove("active");
     headerBG.style.backgroundImage = 'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-image-home.png?raw=true")';
-    homeClick(logo);
+    (0, _gallery.getHomepage)(1);
 };
 const myLibraryButtonClick = (event)=>{
     event.preventDefault();
@@ -5057,7 +5056,7 @@ const myLibraryButtonClick = (event)=>{
 homeLink.addEventListener("click", homeButtonClick);
 libraryLink.addEventListener("click", myLibraryButtonClick);
 
-},{}],"hLtdZ":[function(require,module,exports) {
+},{"./gallery":"bA31f"}],"hLtdZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "toggleModal", ()=>toggleModal);
@@ -5195,4 +5194,4 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.97f11beb.js.map
+//# sourceMappingURL=index.d325207e.js.map
