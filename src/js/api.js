@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = '2c31d985c0705d4cec824ff15c12500a';
-const AUTHORIZATION =
-  'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYzMxZDk4NWMwNzA1ZDRjZWM4MjRmZjE1YzEyNTAwYSIsInN1YiI6IjY1ZTg0MWVjM2ZlMTYwMDE2MjVjZTAzZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5HPQhM5yRj3vRPDY3tSFgGEmeCi69HNN3M4_g94gH5c';
+const AUTHORIZATION = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYzMxZDk4NWMwNzA1ZDRjZWM4MjRmZjE1YzEyNTAwYSIsInN1YiI6IjY1ZTg0MWVjM2ZlMTYwMDE2MjVjZTAzZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5HPQhM5yRj3vRPDY3tSFgGEmeCi69HNN3M4_g94gH5c';
+const loader = document.querySelector('.loader');
 
 let options = {
   headers: {
@@ -12,9 +12,16 @@ let options = {
   },
 };
 
-// Genres
-// https://api.themoviedb.org/3/genre/movie/list?language=en
+function showLoader() {
+  loader.classList.remove('hidden');
+}
+
+function hideLoader() {
+  loader.classList.add('hidden');
+}
+
 export async function fetchGenres() {
+  showLoader();
   const endpointUrl = 'genre/movie/list';
   const searchParams = new URLSearchParams({
     language: 'en',
@@ -22,6 +29,7 @@ export async function fetchGenres() {
   const url = new URL(`${BASE_URL}${endpointUrl}?${searchParams}`);
 
   const response = await axios.get(url, options);
+  hideLoader();
   // console.log('response: ', response);
   return response.data;
 }
@@ -42,6 +50,7 @@ async function getPoster(posterUrl) {
 // Trending:
 // https://api.themoviedb.org/3/trending/movie/day?language=en-US
 export async function fetchTrendingMovies(pageNo) {
+  showLoader();
   options = {
     method: 'GET',
   };
@@ -54,6 +63,7 @@ export async function fetchTrendingMovies(pageNo) {
   });
   const url = `${BASE_URL}${endpointUrl}?${searchParams}`;
   const response = await axios(url, options);
+  hideLoader();
   // console.log('response: ', response);
   return response.data;
 }
@@ -61,6 +71,7 @@ export async function fetchTrendingMovies(pageNo) {
 // Search
 // https://api.themoviedb.org/3/search/movie?query=avengers&include_adult=false&language=en-US&page=1
 export async function fetchSearchMovies(keywords, pageNo) {
+  showLoader();
   options = {
     method: 'GET',
   };
@@ -75,6 +86,7 @@ export async function fetchSearchMovies(keywords, pageNo) {
   });
   const url = `${BASE_URL}${endpointUrl}?${searchParams}`;
   const response = await axios(url, options);
+  hideLoader();
   // console.log('response: ', response);
   return response.data;
 }
@@ -82,6 +94,7 @@ export async function fetchSearchMovies(keywords, pageNo) {
 // Movie Details
 // https://api.themoviedb.org/3/movie/12345?language=en-US
 export async function fetchMovieDetails(movieId) {
+  showLoader();
   options = {
     method: 'GET',
   };
@@ -93,6 +106,7 @@ export async function fetchMovieDetails(movieId) {
   });
   const url = `${BASE_URL}${endpointUrl}/${movieId}?${searchParams}`;
   const response = await axios(url, options);
+  hideLoader();
   // console.log('response: ', response);
   return response.data;
 }
@@ -103,6 +117,7 @@ export async function fetchMovieTrailers(movieId) {
   options = {
     method: 'GET',
   };
+  showLoader()
   // console.log('fetchMovieDetails starts...');
   const endpointUrl = 'movie';
   const searchParams = new URLSearchParams({
@@ -111,6 +126,7 @@ export async function fetchMovieTrailers(movieId) {
   });
   const url = `${BASE_URL}${endpointUrl}/${movieId}/videos?${searchParams}`;
   const response = await axios(url, options);
+  hideLoader();
   // console.log('response: ', response);
   return response.data;
 }
