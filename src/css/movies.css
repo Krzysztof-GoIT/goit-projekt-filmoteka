@@ -153,6 +153,7 @@ body{
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  visibility: hidden;
   z-index: 999; /* Ustawienie przycisk jest na wierzchu innych elementów */
 }
 
