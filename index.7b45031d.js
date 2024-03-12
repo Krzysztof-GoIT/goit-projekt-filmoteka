@@ -154,8 +154,9 @@ var _localstorage = require("./js/localstorage");
 var _visibilityHeader = require("./js/visibilityHeader");
 var _onOffModal = require("./js/onOffModal");
 var _devTools = require("./js/devTools");
+var _darkMode = require("./js/darkMode");
 
-},{"./sass/main.scss":"clpGj","./js/api":"5mmx6","./js/gallery":"bA31f","./js/markup":"6K7Vw","./js/localstorage":"ippo7","./js/visibilityHeader":"kxv7b","./js/onOffModal":"hLtdZ","./js/devTools":"kw7nM"}],"clpGj":[function() {},{}],"5mmx6":[function(require,module,exports) {
+},{"./sass/main.scss":"clpGj","./js/api":"5mmx6","./js/gallery":"bA31f","./js/markup":"6K7Vw","./js/localstorage":"ippo7","./js/visibilityHeader":"kxv7b","./js/onOffModal":"hLtdZ","./js/devTools":"kw7nM","./js/darkMode":"3DurW"}],"clpGj":[function() {},{}],"5mmx6":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 // Genres
@@ -5152,6 +5153,23 @@ devButtonBar.addEventListener("mouseleave", ()=>{
     });
 });
 
-},{}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
+},{}],"3DurW":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "changeMode", ()=>changeMode);
+const visualBody = document.querySelector("body");
+const visualBtn = document.getElementById("changeMode");
+const changeMode = ()=>{
+    const handleDarkMode = ()=>{
+        if (visualBody.getAttribute("data-mode") === "light") visualBody.setAttribute("data-mode", "dark");
+        else visualBody.setAttribute("data-mode", "light");
+    };
+    visualBtn.addEventListener("click", handleDarkMode);
+};
+window.addEventListener("DOMContentLoaded", ()=>{
+    changeMode();
+});
 
-//# sourceMappingURL=index.2798cc68.js.map
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
+
+//# sourceMappingURL=index.7b45031d.js.map

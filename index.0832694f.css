@@ -205,8 +205,30 @@ p {
   margin: 0;
 }
 
+[data-mode="light"] {
+  --movieDetails-color: #000;
+  --bg-color: #fff;
+  --pagination-bg: #ddd;
+  --body-bg: #fff;
+  --footer-bg: #f7f7f7;
+  --footer-text: #545454;
+}
+
+[data-mode="dark"] {
+  --movieDetails-color: #fff;
+  --bg-color: #000;
+  --pagination-bg: #353030;
+  --body-bg: #532e2e;
+  --footer-bg: #8b8b8b;
+  --footer-text: #fff;
+}
+
+body, .movies {
+  background-color: var(--bg-color);
+}
+
 #gallery-container {
-  background-color: #fff;
+  background-color: var(--bg-color);
   flex-direction: column;
   grid-template-columns: 1fr;
   align-items: center;
@@ -215,6 +237,7 @@ p {
 }
 
 .movie-details {
+  color: var(--movieDetails-color);
   margin-top: 10px;
   margin-bottom: 20px;
   font-size: 12px;
@@ -228,7 +251,7 @@ p {
 
 .movie-title {
   text-transform: uppercase;
-  color: #000;
+  --movieDetails-color: #000;
   font-family: Roboto, sans-serif;
 }
 
@@ -298,6 +321,7 @@ p {
 
 .pagination {
   flex-shrink: 0, 5;
+  color: var(--movieDetails-color);
   border: none;
   border-radius: 5px;
   justify-content: center;
@@ -308,7 +332,7 @@ p {
 }
 
 .pagination a {
-  color: #000;
+  color: var(--movieDetails-color);
   float: left;
   border-radius: 5px;
   width: 40px;
@@ -319,16 +343,20 @@ p {
 }
 
 .pagination a.active {
-  color: #fff;
+  color: var(--movieDetails-color);
   background-color: #ff6c28;
 }
 
 .pagination a:hover:not(.active) {
-  background-color: #ddd;
+  background-color: var(--pagination-bg);
+}
+
+.pagination-arrow {
+  color: var(--movieDetails-color);
 }
 
 .footer {
-  background-color: #f7f7f7;
+  background-color: var(--footer-bg);
 }
 
 .footer-container {
@@ -337,7 +365,7 @@ p {
 
 .footer-wrapper {
   text-align: center;
-  color: #545454;
+  color: var(--footer-text);
   padding-top: 29px;
   padding-bottom: 28px;
   font-family: Roboto;
@@ -360,7 +388,7 @@ p {
 }
 
 .footer-btn {
-  color: #545454;
+  color: var(--footer-text);
   cursor: pointer;
   background: none;
   border: none;
@@ -500,4 +528,4 @@ p {
 .dev-button:hover {
   background-color: #2980b9;
 }
-/*# sourceMappingURL=index.48c6ce57.css.map */
+/*# sourceMappingURL=index.0832694f.css.map */
