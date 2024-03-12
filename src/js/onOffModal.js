@@ -1,4 +1,4 @@
-const toggleModal = (modalId) => {
+export const toggleModal = (modalId) => {
   const modal = document.getElementById(modalId);
 
   if (modal) {
@@ -16,7 +16,7 @@ const openModalBtns = document.querySelectorAll('.openModalBtn');
 // dla każdego przycisku otwórz modal
 openModalBtns.forEach((btn) => {
   btn.addEventListener('click', () => {
-    const modalId = btn.getAttribute('data-modal-id');
+    const modalId = btn.getAttribute('id');
     toggleModal(modalId);
   });
 });
