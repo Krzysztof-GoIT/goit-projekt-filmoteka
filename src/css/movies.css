@@ -3,11 +3,26 @@ p {
   margin: 0;
 }
 
+[data-mode="light"] {
+  --movieDetails-color: #000;
+  --bg-color: #ffffff;
+
+}
+
+[data-mode="dark"] {
+  --bg-color: #000;
+  --movieDetails-color: #ffffff;
+}
+
+.movies {
+  background-color: var(--bg-color);
+}
+
 #gallery-container {
   display: grid;
   grid-template-columns: 1fr;
   margin-top: 20px;
-  background-color: #fff;
+  background-color: var(--bg-color);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,6 +37,7 @@ p {
   font-weight: 500;
   font-size: 12px;
   line-height: 1.3;
+  color: var(--movieDetails-color);
   margin-top: 10px;
   margin-bottom: 20px;
 }
