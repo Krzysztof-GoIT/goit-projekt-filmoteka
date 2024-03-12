@@ -6,12 +6,24 @@ p {
 [data-mode="light"] {
   --movieDetails-color: #000;
   --bg-color: #ffffff;
+  --pagination-bg:#ddd;
+  --body-bg:#ffffff;
+  --footer-bg:#f7f7f7;
+  --footer-text:#545454
+  
 
 }
 
 [data-mode="dark"] {
-  --bg-color: #000;
   --movieDetails-color: #ffffff;
+  --bg-color: #000;
+  --pagination-bg:#353030;
+  --body-bg: #532e2e;
+  --footer-bg:#8b8b8b;
+  --footer-text: #fff
+}
+body{
+  background-color:var(--bg-color) ;
 }
 
 .movies {
@@ -49,7 +61,7 @@ p {
 .movie-title {
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
-  color: #000;
+  --movieDetails-color: #000;
 }
 
 .movie-title:hover,
