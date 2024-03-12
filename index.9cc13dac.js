@@ -5031,6 +5031,8 @@ const logo = document.getElementById("logo");
 const toggleVisibility = (elementToShow, elementToHide)=>{
     elementToShow.style.visibility = "visible";
     elementToHide.style.visibility = "hidden";
+    elementToShow.style.display = "flex";
+    elementToHide.style.display = "none";
 };
 const libraryClick = ()=>{
     watchedHeader.click();
@@ -5196,4 +5198,4 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.397d59ab.js.map
+//# sourceMappingURL=index.9cc13dac.js.map
