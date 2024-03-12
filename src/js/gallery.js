@@ -1,6 +1,6 @@
 // gallery.js
 
-import { fetchMovieDetails, fetchTrendingMovies, fetchSearchMovies, genresName } from './api';
+import { fetchMovieDetails, fetchSearchMovies, fetchTrendingMovies, genresName } from './api';
 import { addToQueue, addToWatchedMovies } from './localstorage';
 
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
@@ -15,15 +15,37 @@ const getGenres = genreIds => {
 };
 
 const displayWatchedMovies = () => {
-  // Pobierz listę obejrzanych filmów z localStorage
-  const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
-  renderGallery(watchedMovies);
+  try {
+    // Pobierz listę obejrzanych filmów z localStorage
+    const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+    const moviesWithGenres = watchedMovies.map(movie => {
+      const categories =
+        movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
+      return { ...movie, categories };
+    });
+    renderGallery(moviesWithGenres);
+  } catch (error) {
+    console.error('Error displaying watched movies:', error);
+  }
+  // const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+  // renderGallery(watchedMovies);
 };
 
 const displayQueuedMovies = () => {
-  // Pobierz listę dodanych do kolejki filmów z localStorage
-  const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
-  renderGallery(queuedMovies);
+  try {
+    // Pobierz listę dodanych do kolejki filmów z localStorage
+    const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
+    const moviesWithGenres = queuedMovies.map(movie => {
+      const categories =
+        movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
+      return { ...movie, categories };
+    });
+    renderGallery(moviesWithGenres);
+  } catch (error) {
+    console.error('Error displaying queued movies:', error);
+  }
+  // const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
+  // renderGallery(queuedMovies);
 };
 
 const displayMovieDetails = movieDetails => {
@@ -31,7 +53,7 @@ const displayMovieDetails = movieDetails => {
   console.log(movieDetails);
 };
 
-////Obsługa HomePage i Buttonów
+//Obsługa HomePage i Buttonów
 window.addEventListener('DOMContentLoaded', () => {
   getHomepage(1); // Wywołujemy funkcję wyświetlającą HomePage
 
@@ -102,6 +124,10 @@ const renderGallery = dataGallery => {
     // Znalezienie kontenera dla galerii filmów
     const galleryContainer = document.getElementById('gallery-container');
 
+    // Ukrycie komunikatu o braku wyników na start
+    const notResult = document.getElementById('not-result');
+    notResult.style.display = 'none';
+
     // Sprawdzenie czy lista filmów nie jest pusta
     if (movies.length > 0) {
       // Wyświetlenie filmów
@@ -114,32 +140,34 @@ const renderGallery = dataGallery => {
             posterPath =
               'https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.png?raw=true';
           }
-          let categories = 'Witch out category';
-          if (movie.genre_ids) {
-            getGenres(movie.genre_ids);
-          } else {
-            categories = movie.genres[0].name;
+          let categories = 'Without category';
+          let releaseYear = movie.release_date ? movie.release_date.slice(0, 4) : 'Without date';
+          // Sprawdzenie czy istnieje przynajmniej jeden gatunek, jeśli nie to wyświtlany jest string 'Without category'
+
+          if (movie.genre_ids && movie.genre_ids.length > 0) {
+            categories = getGenres(movie.genre_ids);
           }
+
           const movieCard = `
-            <div class="movie-card" data-movie-id="${movie.id}">
-            <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
-            <div class="movie-details">
-            <p class="movie-title">${movie.title}</p>
-            <p class="movie-info">${categories} | ${movie.release_date.slice(0, 4)}</p>
-            </div>
-            </div>
-            `;
+          <div class="movie-card" data-movie-id="${movie.id}">
+          <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
+          <div class="movie-details">
+          <p class="movie-title">${movie.title}</p>
+          <p class="movie-info">${categories} | ${releaseYear}</p>
+          </div>
+          </div>
+          `;
+
           return movieCard;
         })
         .join('');
       // Ukrycie komunikatu o braku wyników, jeśli lista filmów nie jest pusta
-      const notResult = document.getElementById('not-result');
       notResult.style.display = 'none';
     } else {
       // Jeśli lista filmów jest pusta, wyświetl komunikat
       galleryContainer.innerHTML = '';
-      const notResult = document.getElementById('not-result');
-      notResult.style.display = 'block';
+      notResult.style.display = 'block'; // Wyświetlenie komunikatu o braku wyników
+      clearGallery(); // Wyczyszczenie galerii
     }
 
     // Obsługa zdarzenia kliknięcia dla każdej karty filmu
@@ -148,6 +176,7 @@ const renderGallery = dataGallery => {
       card.addEventListener('click', async () => {
         const movieId = card.dataset.movieId;
         const movieDetails = await fetchMovieDetails(movieId);
+        openModal(movieDetails); //Aleksander Modal
         displayMovieDetails(movieDetails);
 
         // Dodanie przycisku "Watched" i "Add to watched"
@@ -164,11 +193,45 @@ const renderGallery = dataGallery => {
     });
   } catch (error) {
     console.error('Error fetching trending movies:', error);
+    // Wyświetlenie komunikatu o braku wyników w przypadku błędu
+    const notResult = document.getElementById('not-result');
+    notResult.style.display = 'block';
   }
 };
+
+// Ukrycie komunikatu o braku wyników na start
+document.addEventListener('DOMContentLoaded', () => {
+  const notResult = document.getElementById('not-result');
+  notResult.style.display = 'none';
+});
 
 // Czyszczenie galerii
 const clearGallery = () => {
   const galleryContainer = document.getElementById('gallery-container');
   galleryContainer.innerHTML = ''; // Wyczyszczenie zawartości galerii
+};
+
+//Aleksander Modal
+const openModal = movieData => {
+  const modal = document.getElementById('myModal');
+  modal.style.display = 'block';
+
+  const modalContent = document.getElementById('modalContent');
+  modalContent.innerHTML = `
+    <h2>${movieData.title}</h2>
+    <p><strong>Overview:</strong> ${movieData.overview}</p>
+    <p><strong>Release Date:</strong> ${movieData.release_date}</p>
+    <!-- Dodaj więcej danych, jeśli chcesz -->
+  `;
+
+  const span = document.getElementsByClassName('close')[0];
+  span.onclick = () => {
+    modal.style.display = 'none';
+  };
+
+  window.onclick = event => {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
 };
