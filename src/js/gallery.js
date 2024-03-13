@@ -1,8 +1,11 @@
 // gallery.js
 
+import paginationLayout from 'pagination-layout';
 import { fetchMovieDetails, fetchSearchMovies, fetchTrendingMovies, genresName } from './api';
 import { addToQueue, addToWatchedMovies } from './localstorage';
 export let homePageNo = 0;
+
+const itemsPerPage = 20;
 
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
 const getGenres = genreIds => {
@@ -111,6 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
           notResult.style.display = 'none'; // Ukrycie komunikatu o braku wyników
           clearGallery();
           renderGallery(response.results);
+          let totalItems = response.total_results;
+          let currentPage = response.page;
+          console.log(totalItems)
+          console.log(currentPage)
+          paginationLayout(totalItems, itemsPerPage, currentPage);
         } else {
           notResult.style.display = 'block'; // Wyświetlenie komunikatu o braku wyników
           clearGallery(); // Wyczyszczenie galerii
@@ -123,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Renderowanie Galerii
-const renderGallery = dataGallery => {
+const renderGallery = dataGallery => {class
   try {
     // Pobranie danych o najbardziej popularnych filmach
     const movies = dataGallery;
