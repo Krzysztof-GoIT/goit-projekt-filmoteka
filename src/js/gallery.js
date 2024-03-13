@@ -1,7 +1,8 @@
 // gallery.js
 
-import { fetchMovieDetails, fetchTrendingMovies, fetchSearchMovies, genresName } from './api';
+import { fetchMovieDetails, fetchSearchMovies, fetchTrendingMovies, genresName } from './api';
 import { addToQueue, addToWatchedMovies } from './localstorage';
+export let homePageNo = 0;
 
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
 const getGenres = genreIds => {
@@ -15,15 +16,41 @@ const getGenres = genreIds => {
 };
 
 const displayWatchedMovies = () => {
-  // Pobierz listę obejrzanych filmów z localStorage
-  const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
-  renderGallery(watchedMovies);
+  try {
+    // Pobierz listę obejrzanych filmów z localStorage
+    const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+    const moviesWithGenres = watchedMovies.map(movie => {
+      const categories =
+        movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
+      return { ...movie, categories };
+    });
+    homePageNo = 0;
+    clearGallery();
+    renderGallery(moviesWithGenres);
+  } catch (error) {
+    console.error('Error displaying watched movies:', error);
+  }
+  // const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+  // renderGallery(watchedMovies);
 };
 
 const displayQueuedMovies = () => {
-  // Pobierz listę dodanych do kolejki filmów z localStorage
-  const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
-  renderGallery(queuedMovies);
+  try {
+    // Pobierz listę dodanych do kolejki filmów z localStorage
+    const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
+    const moviesWithGenres = queuedMovies.map(movie => {
+      const categories =
+        movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
+      return { ...movie, categories };
+    });
+    homePageNo = 0;
+    clearGallery();
+    renderGallery(moviesWithGenres);
+  } catch (error) {
+    console.error('Error displaying queued movies:', error);
+  }
+  // const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
+  // renderGallery(queuedMovies);
 };
 
 const displayMovieDetails = movieDetails => {
@@ -31,7 +58,7 @@ const displayMovieDetails = movieDetails => {
   console.log(movieDetails);
 };
 
-////Obsługa HomePage i Buttonów
+//Obsługa HomePage i Buttonów
 window.addEventListener('DOMContentLoaded', () => {
   getHomepage(1); // Wywołujemy funkcję wyświetlającą HomePage
 
@@ -57,10 +84,11 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 //Generujemy trendings movie
-const getHomepage = async pageNo => {
+export const getHomepage = async pageNo => {
   try {
     const response = await fetchTrendingMovies(pageNo);
     renderGallery(response.results);
+    homePageNo = pageNo;
   } catch (error) {
     console.error('Error fetching trending movies:', error);
   }
@@ -109,7 +137,7 @@ const renderGallery = dataGallery => {
     // Sprawdzenie czy lista filmów nie jest pusta
     if (movies.length > 0) {
       // Wyświetlenie filmów
-      galleryContainer.innerHTML = movies
+      const newContent = movies
         .map(movie => {
           let posterPath;
           if (movie.poster_path) {
@@ -118,26 +146,29 @@ const renderGallery = dataGallery => {
             posterPath =
               'https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.png?raw=true';
           }
-          let categories = 'Witch out category';
-          if (movie.genre_ids) {
-            categories = getGenres(movie.genre_ids); // Poprawiono przypisanie wyniku funkcji do zmiennej categories
-          } else if (movie.genres.length > 0) {
-            // Dodano warunek sprawdzający czy istnieje przynajmniej jeden gatunek
-            categories = movie.genres[0].name;
+          let categories = 'Without category';
+          let releaseYear = movie.release_date ? movie.release_date.slice(0, 4) : 'Without date';
+          // Sprawdzenie czy istnieje przynajmniej jeden gatunek, jeśli nie to wyświtlany jest string 'Without category'
+
+          if (movie.genre_ids && movie.genre_ids.length > 0) {
+            categories = getGenres(movie.genre_ids);
           }
 
           const movieCard = `
-            <div class="movie-card" data-movie-id="${movie.id}">
-            <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
-            <div class="movie-details">
-            <p class="movie-title">${movie.title}</p>
-            <p class="movie-info">${categories} | ${movie.release_date.slice(0, 4)}</p>
-            </div>
-            </div>
-            `;
+          <div class="movie-card" data-movie-id="${movie.id}">
+          <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
+          <div class="movie-details">
+          <p class="movie-title">${movie.title}</p>
+          <p class="movie-info">${categories} | ${releaseYear}</p>
+          </div>
+          </div>
+          `;
+
           return movieCard;
         })
         .join('');
+      galleryContainer.insertAdjacentHTML('beforeend', newContent);
+
       // Ukrycie komunikatu o braku wyników, jeśli lista filmów nie jest pusta
       notResult.style.display = 'none';
     } else {
@@ -212,3 +243,62 @@ const openModal = movieData => {
     }
   };
 };
+
+//scrollToTop by Marek
+const scrollToTopButton = document.getElementById('scrollToTopButton');
+
+// Pokaż przycisk, gdy użytkownik przewinie stronę w dół
+window.addEventListener('scroll', () => {
+  if (window.pageYOffset > 100) {
+    // Możesz dostosować wartość, aby przycisk pojawił się po przewinięciu o określoną liczbę pikseli
+    scrollToTopButton.style.display = 'block';
+  } else {
+    scrollToTopButton.style.display = 'none';
+  }
+});
+
+// Obsługa zdarzenia kliknięcia przycisku
+scrollToTopButton.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth', // Działa w większości nowoczesnych przeglądarek, aby przewijać płynnie
+  });
+});
+
+// Funkcja do sprawdzania, czy element jest blisko dolnej krawędzi okna przeglądarki
+function isNearBottom(element, threshold) {
+  const rect = element.getBoundingClientRect();
+  return rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + threshold;
+}
+
+// Event scroll na oknie przeglądarki
+const loadMoreContent = () => {
+  // Element, który monitorujemy, np. kontener na treści
+  const contentContainer = document.querySelector('.movie-card:last-child');
+  // Threshold - odległość od dolnej krawędzi, przy której chcemy zacząć ładować więcej treści
+  const threshold = 800; // w pikselach
+
+  // Sprawdzamy, czy element jest blisko dolnej krawędzi okna przeglądarki
+  if (isNearBottom(contentContainer, threshold)) {
+    // Jeśli tak, ładujemy więcej treści
+    if (homePageNo > 0) homePageNo++;
+    getHomepage(homePageNo);
+  }
+};
+const infinityScrool = document.getElementById("infinityScrool");
+let isInfinityScroolActive = false;
+
+// Obsługa zdarzenia kliknięcia przycisku
+infinityScrool.addEventListener('click', () => {
+  if (isInfinityScroolActive) {
+    // Jeżeli infinity scroll jest aktywny, usuwamy nasłuchiwanie zdarzenia scroll
+    window.removeEventListener('scroll', loadMoreContent);
+  } else {
+    // Jeżeli infinity scroll nie jest aktywny, dodajemy nasłuchiwanie zdarzenia scroll
+    window.addEventListener('scroll', loadMoreContent);
+  }
+  // Zmiana stanu - włącz/wyłącz
+  isInfinityScroolActive = !isInfinityScroolActive;
+  // Początkowe ładowanie treści
+  getHomepage(homePageNo);
+});

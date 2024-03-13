@@ -3,11 +3,38 @@ p {
   margin: 0;
 }
 
+[data-mode='light'] {
+  --movieDetails-color: #000;
+  --bg-color: #ffffff;
+  --pagination-bg: #ddd;
+  --body-bg: #ffffff;
+  --footer-bg: #f7f7f7;
+  --footer-text: #545454;
+  --details-contrast: #ff6b08;
+}
+
+[data-mode='dark'] {
+  --movieDetails-color: #ffffff;
+  --bg-color: #000;
+  --pagination-bg: #353030;
+  --body-bg: #532e2e;
+  --footer-bg: #8b8b8b;
+  --footer-text: #fff;
+  --details-contrast: #ff6b08;
+}
+body {
+  background-color: var(--bg-color);
+}
+
+.movies {
+  background-color: var(--bg-color);
+}
+
 #gallery-container {
   display: grid;
   grid-template-columns: 1fr;
   margin-top: 20px;
-  background-color: #fff;
+  background-color: var(--bg-color);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,6 +49,7 @@ p {
   font-weight: 500;
   font-size: 12px;
   line-height: 1.3;
+  color: var(--movieDetails-color);
   margin-top: 10px;
   margin-bottom: 20px;
 }
@@ -33,7 +61,7 @@ p {
 .movie-title {
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
-  color: #000;
+  --movieDetails-color: #000;
 }
 
 .movie-title:hover,
@@ -43,7 +71,7 @@ p {
 
 .movie-info {
   font-family: 'Roboto', sans-serif;
-  color: #ff6b08;
+  color: var(--details-contrast);
 }
 .movie-poster {
   width: 280px;
@@ -51,12 +79,16 @@ p {
   border-radius: 5px;
   display: flex;
   justify-content: center;
+  transition: transform 0.3s ease;
 }
 
 .movie-poster:focus,
 .movie-poster:hover {
-  box-shadow: 1px -1px 69px -13px rgba(66, 68, 90, 1);
-  transition: box-shadow 0.3s ease;
+  transform: scale(1.03);
+  /* opacity: 0.8; */
+  /* border: 5px solid #ff001b; */
+  border: thick double #ff001b;
+  padding: 6px;
 }
 
 @media (min-width: 768px) {
@@ -109,4 +141,26 @@ p {
     line-height: 1.2;
     width: 395px;
   }
+}
+
+/* scrollToTop by Marek */
+#scrollToTopButton {
+  font-size: 0.9em;
+  position: fixed;
+  display: none;
+  bottom: 20px;
+  right: 20px;
+  display: none; /* Początkowo ukryj przycisk */
+  padding: 10px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  visibility: hidden;
+  z-index: 999; /* Ustawienie przycisk jest na wierzchu innych elementów */
+}
+
+#scrollToTopButton:hover {
+  background-color: #0056b3;
 }
