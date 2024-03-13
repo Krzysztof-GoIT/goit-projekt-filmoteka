@@ -236,6 +236,7 @@ body, .movies {
   grid-template-columns: 1fr;
   align-items: center;
   margin: auto;
+  padding-top: 20px;
   display: flex;
 }
 
@@ -308,7 +309,7 @@ body, .movies {
   #gallery-container {
     grid-template-columns: repeat(3, 1fr);
     max-width: 1280px;
-    margin-top: 60px;
+    padding-top: 60px;
     display: grid;
   }
 }
@@ -328,21 +329,18 @@ body, .movies {
 @media (width >= 1600px) {
   #gallery-container.monitor-wide {
     grid-template-columns: repeat(4, 1fr);
-    max-width: 1600px;
   }
 }
 
-@media (width >= 2000px) {
+@media (width >= 1920px) {
   #gallery-container.monitor-wide {
     grid-template-columns: repeat(5, 1fr);
-    max-width: 2000px;
   }
 }
 
-@media (width >= 2500px) {
+@media (width >= 2560px) {
   #gallery-container.monitor-wide {
     grid-template-columns: repeat(6, 1fr);
-    max-width: 2500px;
   }
 }
 
@@ -588,4 +586,4 @@ body, .movies {
 .dev-button:hover {
   background-color: #2980b9;
 }
-/*# sourceMappingURL=index.dbb2527b.css.map */
+/*# sourceMappingURL=index.1fad9cf9.css.map */
