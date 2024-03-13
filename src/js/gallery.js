@@ -187,17 +187,6 @@ const renderGallery = dataGallery => {
         const movieDetails = await fetchMovieDetails(movieId);
         openModal(movieDetails); //Aleksander Modal
         displayMovieDetails(movieDetails);
-
-        // Dodanie przycisku "Watched" i "Add to watched"
-        const watchedButton = document.createElement('button');
-        watchedButton.innerText = 'Add to Watched';
-        watchedButton.addEventListener('click', () => addToWatchedMovies(movieDetails));
-        card.appendChild(watchedButton);
-
-        const queuedButton = document.createElement('button');
-        queuedButton.innerHTML = 'Add to Queue';
-        queuedButton.addEventListener('click', () => addToQueue(movieDetails));
-        card.appendChild(queuedButton);
       });
     });
   } catch (error) {
@@ -227,12 +216,26 @@ const openModal = movieData => {
 
   const modalContent = document.getElementById('modalContent');
   modalContent.innerHTML = `
+  <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" alt="${
+    movieData.title
+  } Photo">
     <h2>${movieData.title}</h2>
-    <p><strong>Overview:</strong> ${movieData.overview}</p>
-    <p><strong>Release Date:</strong> ${movieData.release_date}</p>
-    <!-- Dodaj więcej danych, jeśli chcesz -->
+    <p>Vote / Votes <span>${movieData.vote_average} / ${movieData.vote_count}</span></p>
+    <p>Popularity <span>${movieData.popularity}</span></p>
+    <p>Orginal Title <span>${movieData.original_title}</span></p>
+    <p>Genre <span>${getGenres(movieData.genres)}</span></p>
+    <p><strong>ABOUT</strong> ${movieData.overview}</p>
+    <button class="watchedButton">Add to Watched</button>
+    <button class="queuedButton">Add to Queue</button>
   `;
-
+  const watchedButton = document.getElementsByClassName('watchedButton')[0];
+  watchedButton.onclick = () => {
+    addToWatchedMovies(movieData);
+  };
+  const queuedButton = document.getElementsByClassName('queuedButton')[0];
+  queuedButton.onclick = () => {
+    addToQueue(movieData);
+  };
   const span = document.getElementsByClassName('close')[0];
   span.onclick = () => {
     modal.style.display = 'none';
