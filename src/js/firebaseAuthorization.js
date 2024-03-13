@@ -23,7 +23,7 @@ const analytics = getAnalytics(app);
 const signInForm = document.getElementById("sign-in-form");
 const signedInContent = document.getElementById("signed-in-content");
 const errorBox = document.getElementById("error-box");
-const signOutButton = document.getElementById("sign-out-button")
+const signOutButton = document.getElementById("sign-out-button");
 
 const showSignInform = () => {
   signInForm.style.display = "block";
@@ -82,9 +82,6 @@ const handleSubmitSignInForm = (event) => {
   
   event.preventDefault();
 };
-const signOut = () => {
-  Firebase.auth().signOut();
-}
 
 onAuthStateChanged(app.auth(), handleAuthChanged);
 signInForm.addEventListener('submit', handleSubmitSignInForm);
