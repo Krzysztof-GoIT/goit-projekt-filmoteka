@@ -3,9 +3,7 @@
 const devButtonBar = document.querySelector('.dev-button-bar');
 const scroolToTop = document.getElementById("scroolToTop");
 const scroolToTopButton = document.getElementById("scrollToTopButton");
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
- 
+
                             //wersja Pierwsza bez animacji
 
 // let isButtonBarVisible = false;
@@ -97,14 +95,25 @@ scroolToTop.addEventListener('click', () => {
 })
 
 //filmoteka-e68b9
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAYFLYCMkQpAWHXUhlk7SVgn6j5F_MVJ9E",
+  authDomain: "filmoteka-e68b9.firebaseapp.com",
+  projectId: "filmoteka-e68b9",
+  storageBucket: "filmoteka-e68b9.appspot.com",
+  messagingSenderId: "528831050882",
+  appId: "1:528831050882:web:5f1564dbe540060e1b709b",
+  measurementId: "G-X6SNQYQKWN"
 };
 
-firebase.initializeApp(firebaseConfig);
- const auth = firebase.auth();
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
