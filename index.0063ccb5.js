@@ -4967,6 +4967,10 @@ const openModal = (movieData)=>{
     span.onclick = ()=>{
         modal.style.display = "none";
     };
+    // Obsługa zdarzenia keydown
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") modal.style.display = "none";
+    });
     window.onclick = (event)=>{
         if (event.target == modal) modal.style.display = "none";
     };
@@ -5273,4 +5277,4 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.648e2961.js.map
+//# sourceMappingURL=index.0063ccb5.js.map
