@@ -33,3 +33,50 @@ const showSignedInContent = () => {
   signedInContent.style.display = "block";
 }
 
+const handleAuthChanged = (user) => {
+  if (user) {
+    showSignedInContent()
+  } else {
+    showSignInform
+  }
+};
+const showError = (error) => {
+  const errorBox = document.getElementById("error-box")
+  errorBox.style.display = "block";
+  setTimeout(() => {
+    errorBox.style.display = "none";
+  },5000);
+}
+const getUserAndPassword = () => ({
+  email: document.querySelector('#email').value;
+  password: document.querySelector('password').value;
+});
+
+const createUserAccount = () => {
+  const { email, password } = getUserAndPassword();
+  firebase.auth().createUserWithEmailAndPassword(email, password);
+}
+
+const handleErrorSignIn = (error) => {
+  switch (error.code) {
+    case 'auth/use-not-found':
+      createUserAccount();
+      break;
+    case 'auth/wrong-password':
+      showError('Password or email is wrong');
+      break;
+    default:
+      showError('something went wrong');
+  }
+};
+
+const handleSubmitSignInForm = (event) => {
+  const { email, password } = getUserAndPassword();
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .catch(handleErrorSignIn);
+  
+  event.preventDefault();
+};
+firebase.auth().onAuthStateChanged(handleAuthChanged);
+signInForm.addEventListener('submit', handleSubmitSignInForm);
+
