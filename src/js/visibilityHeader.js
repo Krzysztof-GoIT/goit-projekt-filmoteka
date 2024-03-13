@@ -27,27 +27,36 @@ const setHeaderBackground = () => {
 
   if (myLibrary.style.display === 'flex') {
     if (screenWidth >= 1280) {
-      backgroundImageUrl = 'url(./img/bg-lib-desktop.jpg)';
+      backgroundImageUrl =
+        'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-lib-desktop.jpg?raw=true")';
     } else if (screenWidth >= 768) {
-      backgroundImageUrl = 'url(./img/bg-lib-tablet.jpg)';
+      backgroundImageUrl =
+        'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-lib-tablet.jpg?raw=true")';
     } else {
-      backgroundImageUrl = 'url(./img/bg-lib-mobile.jpg)';
+      backgroundImageUrl =
+        'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-lib-mobile.jpg?raw=true")';
     }
   } else if (headerSearch.style.display === 'flex') {
     if (screenWidth >= 1280) {
-      backgroundImageUrl = 'url(./img/bg-home-desktop.jpg)';
+      backgroundImageUrl =
+        'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-home-desktop.jpg?raw=true")';
     } else if (screenWidth >= 768) {
-      backgroundImageUrl = 'url(./img/bg-home-tablet.jpg)';
+      backgroundImageUrl =
+        'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-home-tablet.jpg?raw=true")';
     } else {
-      backgroundImageUrl = 'url(./img/bg-home-mobile.jpg)';
+      backgroundImageUrl =
+        'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-home-mobile.jpg?raw=true")';
     }
   } else {
     if (screenWidth >= 1280) {
-      backgroundImageUrl = 'url(./img/bg-home-desktop.jpg)';
+      backgroundImageUrl =
+        'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-home-desktop.jpg?raw=true")';
     } else if (screenWidth >= 768) {
-      backgroundImageUrl = 'url(./img/bg-home-tablet.jpg)';
+      backgroundImageUrl =
+        'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-home-tablet.jpg?raw=true")';
     } else {
-      backgroundImageUrl = 'url(./img/bg-home-mobile.jpg)';
+      backgroundImageUrl =
+        'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-home-mobile.jpg?raw=true")';
     }
   }
   headerBG.style.backgroundImage = backgroundImageUrl;
@@ -61,8 +70,6 @@ const homeButtonClick = event => {
   homeLink.classList.add('active');
   libraryLink.classList.remove('active');
   setHeaderBackground();
-  headerBG.style.backgroundImage =
-    'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-image-home.png?raw=true")';
   getHomepage(1);
 };
 
@@ -72,8 +79,6 @@ const myLibraryButtonClick = event => {
   homeLink.classList.remove('active');
   libraryLink.classList.add('active');
   setHeaderBackground();
-  headerBG.style.backgroundImage =
-    'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-image-library.png?raw=true")';
   libraryClick(watchedButton);
 };
 
