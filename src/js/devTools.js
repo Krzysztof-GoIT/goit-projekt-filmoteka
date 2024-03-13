@@ -3,7 +3,8 @@
 const devButtonBar = document.querySelector('.dev-button-bar');
 const scroolToTop = document.getElementById("scroolToTop");
 const scroolToTopButton = document.getElementById("scrollToTopButton");
- 
+const wideContainer = document.getElementById("wide-container");
+ const galleryContainer = document.getElementById("gallery-container");
                             //wersja Pierwsza bez animacji
 
 // let isButtonBarVisible = false;
@@ -93,3 +94,13 @@ scroolToTop.addEventListener('click', () => {
   }
   isButtonVisible = !isButtonVisible;
 })
+
+  const toggleMonitorClass = () => {
+    if (galleryContainer.classList.contains('monitor-wide')) {
+      galleryContainer.classList.remove('monitor-wide');
+    } else {
+      galleryContainer.classList.add('monitor-wide');
+    }
+  };
+
+  wideContainer.addEventListener('click', toggleMonitorClass);
