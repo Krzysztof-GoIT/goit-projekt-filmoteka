@@ -4999,14 +4999,17 @@ const loadMoreContent = ()=>{
     }
 };
 const infinityScrool = document.getElementById("infinityScrool");
+let isInfinityScroolActive = false;
 // Obsługa zdarzenia kliknięcia przycisku
 infinityScrool.addEventListener("click", ()=>{
+    if (isInfinityScroolActive) // Jeżeli infinity scroll jest aktywny, usuwamy nasłuchiwanie zdarzenia scroll
+    window.removeEventListener("scroll", loadMoreContent);
+    else // Jeżeli infinity scroll nie jest aktywny, dodajemy nasłuchiwanie zdarzenia scroll
+    window.addEventListener("scroll", loadMoreContent);
+    // Zmiana stanu - włącz/wyłącz
+    isInfinityScroolActive = !isInfinityScroolActive;
     // Początkowe ładowanie treści
     getHomepage(homePageNo);
-    // Event scroll na oknie przeglądarki po kliknięciu przycisku
-    window.addEventListener("scroll", loadMoreContent);
-    // Usuń obsługę zdarzenia kliknięcia przycisku, aby nie powtarzać ładowania po kliknięciu
-    infinityScrool.removeEventListener("click", loadMoreContent);
 });
 
 },{"./api":"5mmx6","./localstorage":"ippo7","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"ippo7":[function(require,module,exports) {
@@ -5234,4 +5237,4 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.02a4a83c.js.map
+//# sourceMappingURL=index.77b45d37.js.map
