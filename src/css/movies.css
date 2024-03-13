@@ -33,7 +33,7 @@ body {
 #gallery-container {
   display: grid;
   grid-template-columns: 1fr;
-  margin-top: 20px;
+  padding-top: 20px;
   background-color: var(--bg-color);
   display: flex;
   flex-direction: column;
@@ -125,7 +125,7 @@ body {
   #gallery-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin-top: 60px;
+    padding-top: 60px;
     max-width: 1280px;
   }
 }
@@ -150,21 +150,18 @@ body {
 @media (min-width: 1600px) {
   #gallery-container.monitor-wide {
     grid-template-columns: repeat(4, 1fr);
-    max-width: 1600px;
   }
 }
 
-@media (min-width: 2000px) {
+@media (min-width: 1920px) {
   #gallery-container.monitor-wide {
     grid-template-columns: repeat(5, 1fr);
-    max-width: 2000px;
   }
 }
 
-@media (min-width: 2500px) {
+@media (min-width: 2560px) {
   #gallery-container.monitor-wide {
     grid-template-columns: repeat(6, 1fr);
-    max-width: 2500px;
   }
 }
 
