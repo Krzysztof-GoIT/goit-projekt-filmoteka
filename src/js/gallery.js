@@ -147,9 +147,9 @@ const renderGallery = (dataGallery, rating) => {
           if (movie.genre_ids && movie.genre_ids.length > 0) {
             categories = getGenres(movie.genre_ids);
           }
-
+          console.log('rating: ', rating);
           let rate = rating
-            ? ` | <span class="movie-info-rating">${movie.vote_average}</span>`
+            ? ` <span class="movie-info-rating">${movie.vote_average.toFixed(1)}</span>`
             : ``;
 
           const movieCard = `
