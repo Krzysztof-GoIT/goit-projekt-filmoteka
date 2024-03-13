@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -21,62 +22,65 @@ const analytics = getAnalytics(app);
 
 const signInForm = document.getElementById("sign-in-form");
 const signedInContent = document.getElementById("signed-in-content");
+const errorBox = document.getElementById("error-box");
 
 const showSignInform = () => {
   signInForm.style.display = "block";
   signedInContent.style.display = "none";
-}
-
+};
 
 const showSignedInContent = () => {
   signInForm.style.display = "none";
   signedInContent.style.display = "block";
-}
+};
 
 const handleAuthChanged = (user) => {
   if (user) {
-    showSignedInContent()
+    showSignedInContent();
   } else {
-    showSignInform
+    showSignInform();
   }
 };
+
 const showError = (error) => {
-  const errorBox = document.getElementById("error-box")
+  errorBox.textContent = error;
   errorBox.style.display = "block";
   setTimeout(() => {
     errorBox.style.display = "none";
-  },5000);
-}
+  }, 5000);
+};
+
 const getUserAndPassword = () => ({
-  email: document.querySelector('#email').value;
-  password: document.querySelector('password').value;
+  email: document.querySelector('#email').value,
+  password: document.querySelector('#password').value
 });
 
 const createUserAccount = () => {
   const { email, password } = getUserAndPassword();
-  firebase.auth().createUserWithEmailAndPassword(email, password);
-}
+  createUserWithEmailAndPassword(app.auth(), email, password)
+    .catch(handleErrorSignIn);
+};
 
 const handleErrorSignIn = (error) => {
   switch (error.code) {
-    case 'auth/use-not-found':
+    case 'auth/user-not-found':
       createUserAccount();
       break;
     case 'auth/wrong-password':
       showError('Password or email is wrong');
       break;
     default:
-      showError('something went wrong');
+      showError('Something went wrong');
   }
 };
 
 const handleSubmitSignInForm = (event) => {
   const { email, password } = getUserAndPassword();
-  firebase.auth().signInWithEmailAndPassword(email, password)
+  signInWithEmailAndPassword(app.auth(), email, password)
     .catch(handleErrorSignIn);
   
   event.preventDefault();
 };
-firebase.auth().onAuthStateChanged(handleAuthChanged);
-signInForm.addEventListener('submit', handleSubmitSignInForm);
 
+onAuthStateChanged(app.auth(), handleAuthChanged);
+signInForm.addEventListener('submit', handleSubmitSignInForm);
