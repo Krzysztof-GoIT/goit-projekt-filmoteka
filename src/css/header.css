@@ -1,4 +1,4 @@
-header{
+header {
   border: 0.01px solid transparent;
   background-color: black;
   height: 216px;
@@ -6,18 +6,19 @@ header{
   margin: 0;
 }
 
-#headerBG{
+#headerBG {
   background-size: 100%;
+  background-position: center;
 }
 
-.header-navibox{
+.header-navibox {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 40px 20px;
 }
- 
-.header-logo{
+
+.header-logo {
   display: flex;
   gap: 10px;
   padding: 0;
@@ -25,7 +26,7 @@ header{
   text-decoration: none;
 }
 
-header h2{
+header h2 {
   opacity: 0;
   margin: 0;
   color: #ffffff;
@@ -34,24 +35,24 @@ header h2{
   font-size: 30px;
 }
 
-.header-navi a.active{
+.header-navi a.active {
   text-decoration: underline 2.5px #ff001b;
 }
 
-.header-navi{
+.header-navi {
   display: flex;
   gap: 39px;
   padding: 0;
   align-items: center;
 }
 
-header svg{
+header svg {
   width: 24px;
   height: 24px;
   margin: 0;
 }
 
-.header-navi a{
+.header-navi a {
   color: #ffffff;
   font-size: 12px;
   font-weight: 500;
@@ -60,7 +61,7 @@ header svg{
   text-decoration: none;
 }
 
-.header-search{
+.header-search {
   display: flex;
   margin: 0;
   padding: 0;
@@ -69,7 +70,7 @@ header svg{
   gap: 16px;
 }
 
-.search-form{
+.search-form {
   width: 280px;
   height: 20px;
   display: flex;
@@ -79,16 +80,16 @@ header svg{
   justify-content: center;
 }
 
-input{
+input {
   background-color: transparent;
   size: 100%;
   width: 380px;
   margin: 0;
-  border: none;  
+  border: none;
   color: #ffffff;
 }
 
-input:focus-within{
+input:focus-within {
   background-color: transparent;
   size: 100%;
   width: 380px;
@@ -98,26 +99,26 @@ input:focus-within{
   outline: transparent;
 }
 
-form svg{
+form svg {
   width: 12px;
   height: 12px;
 }
 
-form button{
+form button {
   margin: 0;
   border: none;
   background-color: transparent;
   padding: 0;
 }
 
-input::placeholder{
+input::placeholder {
   font-weight: 400;
   color: #ffffff;
   font-size: 14px;
   font-family: Roboto;
 }
 
-.header-not-result{
+.header-not-result {
   font-size: 14px;
   line-height: 16px;
   color: #ff001b;
@@ -126,13 +127,13 @@ input::placeholder{
   width: 280px;
 }
 
-.header-library{
+.header-library {
   display: flex;
   justify-content: center;
   gap: 20px;
 }
 
-.library-button{
+.library-button {
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
@@ -147,47 +148,47 @@ input::placeholder{
 }
 
 .library-button:focus,
-.library-button:hover{
+.library-button:hover {
   box-shadow: 0 8px 43px 0 rgba(255, 107, 1, 0.6);
   background: #ff6b01;
   border: none;
 }
 
-@media screen and (min-width: 768px){
-  .header-navibox{
+@media screen and (min-width: 768px) {
+  .header-navibox {
     margin: 40px 32px;
   }
-  header h2{
-   opacity: 1;
+  header h2 {
+    opacity: 1;
   }
-  .header-navi{
+  .header-navi {
     gap: 40px;
   }
-  .search-form{
+  .search-form {
     width: 336px;
   }
-  .header-not-result{
+  .header-not-result {
     width: 393px;
   }
-  .header-library{
+  .header-library {
     gap: 32px;
   }
-  .header-search{
+  .header-search {
     gap: 20px;
   }
-  .library-button{
+  .library-button {
     width: 152px;
   }
 }
 
-@media screen and (min-width: 1280px){
-  .search-form{
+@media screen and (min-width: 1280px) {
+  .search-form {
     width: 394px;
   }
-  .header-library{
+  .header-library {
     gap: 18px;
   }
-  .library-button{
+  .library-button {
     width: 147px;
     height: 42px;
   }
