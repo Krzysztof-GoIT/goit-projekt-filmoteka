@@ -3,6 +3,8 @@
 const devButtonBar = document.querySelector('.dev-button-bar');
 const scroolToTop = document.getElementById("scroolToTop");
 const scroolToTopButton = document.getElementById("scrollToTopButton");
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
  
                             //wersja Pierwsza bez animacji
 
@@ -93,3 +95,16 @@ scroolToTop.addEventListener('click', () => {
   }
   isButtonVisible = !isButtonVisible;
 })
+
+//filmoteka-e68b9
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+ const auth = firebase.auth();
