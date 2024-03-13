@@ -1,11 +1,11 @@
 // gallery.js
 
-import paginationLayout from 'pagination-layout';
 import { fetchMovieDetails, fetchSearchMovies, fetchTrendingMovies, genresName } from './api';
 import { addToQueue, addToWatchedMovies } from './localstorage';
+import { createPagination, currentPage, itemsPerPage } from './pagination';
 export let homePageNo = 0;
 
-const itemsPerPage = 20;
+let totalPages;
 
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
 const getGenres = genreIds => {
@@ -108,17 +108,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchQuery = searchInput.value.trim().toLowerCase().split(' ').join('+');
     if (searchQuery) {
       try {
-        const response = await fetchSearchMovies(searchQuery, 1);
+        const response = await fetchSearchMovies(searchQuery, currentPage);
+        totalPages = response.total_pages;
+        console.log(response.totalPages)
         searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
         if (response.results.length > 0) {
           notResult.style.display = 'none'; // Ukrycie komunikatu o braku wyników
           clearGallery();
           renderGallery(response.results);
-          let totalItems = response.total_results;
-          let currentPage = response.page;
-          console.log(totalItems)
-          console.log(currentPage)
-          paginationLayout(totalItems, itemsPerPage, currentPage);
+          createPagination(totalPages); //Wywołanie paginacji
         } else {
           notResult.style.display = 'block'; // Wyświetlenie komunikatu o braku wyników
           clearGallery(); // Wyczyszczenie galerii
@@ -131,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Renderowanie Galerii
-const renderGallery = dataGallery => {class
+const renderGallery = dataGallery => {
   try {
     // Pobranie danych o najbardziej popularnych filmach
     const movies = dataGallery;
