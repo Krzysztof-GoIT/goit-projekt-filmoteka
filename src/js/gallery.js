@@ -5,7 +5,7 @@ import { addToQueue, addToWatchedMovies } from './localstorage';
 export let homePageNo = 0;
 
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
-const getGenres = genreIds => {
+export const getGenres = genreIds => {
   // Pobranie nazw gatunków z listy genresName zdefiniowanej w api.js
   const genres = genreIds.map(genreId => {
     const foundGenre = genresName.find(genre => genre.id === genreId);
@@ -17,11 +17,12 @@ const getGenres = genreIds => {
 
 const displayWatchedMovies = () => {
   try {
-    // Pobierz listę obejrzanych filmów z localStorage
     const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
     const moviesWithGenres = watchedMovies.map(movie => {
-      const categories =
-        movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
+      let categories = 'Without category';
+      if (movie.genres && movie.genres.length > 0) {
+        categories = movie.genres.map(genre => genres.name).join(', ');
+      }
       return { ...movie, categories };
     });
     homePageNo = 0;
@@ -30,17 +31,33 @@ const displayWatchedMovies = () => {
   } catch (error) {
     console.error('Error displaying watched movies:', error);
   }
-  // const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
-  // renderGallery(watchedMovies);
 };
+
+// const displayWatchedMovies = () => {
+//   try {
+//     // Pobierz listę obejrzanych filmów z localStorage
+//     const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+//     const moviesWithGenres = watchedMovies.map(movie => {
+//       const categories =
+//         movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
+//       return { ...movie, categories };
+//     });
+//     homePageNo = 0;
+//     clearGallery();
+//     renderGallery(moviesWithGenres);
+//   } catch (error) {
+//     console.error('Error displaying watched movies:', error);
+//   }
+// };
 
 const displayQueuedMovies = () => {
   try {
-    // Pobierz listę dodanych do kolejki filmów z localStorage
     const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
     const moviesWithGenres = queuedMovies.map(movie => {
-      const categories =
-        movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
+      let categories = 'Without category';
+      if (movie.genres && movie.genres.length > 0) {
+        categories = movie.genres.map(genre => genres.name).join(', ');
+      }
       return { ...movie, categories };
     });
     homePageNo = 0;
@@ -49,9 +66,24 @@ const displayQueuedMovies = () => {
   } catch (error) {
     console.error('Error displaying queued movies:', error);
   }
-  // const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
-  // renderGallery(queuedMovies);
 };
+
+// const displayQueuedMovies = () => {
+//   try {
+//     // Pobierz listę dodanych do kolejki filmów z localStorage
+//     const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
+//     const moviesWithGenres = queuedMovies.map(movie => {
+//       const categories =
+//         movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
+//       return { ...movie, categories };
+//     });
+//     homePageNo = 0;
+//     clearGallery();
+//     renderGallery(moviesWithGenres);
+//   } catch (error) {
+//     console.error('Error displaying queued movies:', error);
+//   }
+// };
 
 const displayMovieDetails = movieDetails => {
   // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
@@ -63,24 +95,16 @@ window.addEventListener('DOMContentLoaded', () => {
   getHomepage(1); // Wywołujemy funkcję wyświetlającą HomePage
 
   const libraryWatched = document.getElementById('watchedHeader');
-  libraryWatched.addEventListener('click', () => {
-    displayWatchedMovies();
-  });
+  libraryWatched.addEventListener('click', displayWatchedMovies);
 
   const libraryQueued = document.getElementById('queueHeader');
-  libraryQueued.addEventListener('click', () => {
-    displayQueuedMovies();
-  });
+  libraryQueued.addEventListener('click', displayQueuedMovies);
 
   const libraryWatchedButton = document.getElementById('watchedModal');
-  libraryWatchedButton.addEventListener('click', () => {
-    displayWatchedMovies();
-  });
+  libraryWatchedButton.addEventListener('click', displayWatchedMovies);
 
   const libraryQueuedButton = document.getElementById('queueModal');
-  libraryQueuedButton.addEventListener('click', () => {
-    displayQueuedMovies();
-  });
+  libraryQueuedButton.addEventListener('click', displayQueuedMovies);
 });
 
 //Generujemy trendings movie
@@ -152,6 +176,9 @@ const renderGallery = dataGallery => {
 
           if (movie.genre_ids && movie.genre_ids.length > 0) {
             categories = getGenres(movie.genre_ids);
+            if (!categories) {
+              categories = 'Without category';
+            }
           }
 
           const movieCard = `
@@ -167,7 +194,8 @@ const renderGallery = dataGallery => {
           return movieCard;
         })
         .join('');
-      galleryContainer.insertAdjacentHTML('beforeend', newContent);
+      galleryContainer.innerHTML = newContent;
+      // galleryContainer.insertAdjacentHTML('beforeend', newContent);
 
       // Ukrycie komunikatu o braku wyników, jeśli lista filmów nie jest pusta
       notResult.style.display = 'none';
@@ -285,10 +313,10 @@ const loadMoreContent = () => {
     getHomepage(homePageNo);
   }
 };
-const infinityScrool = document.getElementById("infinityScrool");
+const infinityScroll = document.getElementById('infinityScroll');
 
 // Obsługa zdarzenia kliknięcia przycisku
-infinityScrool.addEventListener('click', () => {
+infinityScroll.addEventListener('click', () => {
   // Początkowe ładowanie treści
   getHomepage(homePageNo);
 
@@ -296,5 +324,5 @@ infinityScrool.addEventListener('click', () => {
   window.addEventListener('scroll', loadMoreContent);
 
   // Usuń obsługę zdarzenia kliknięcia przycisku, aby nie powtarzać ładowania po kliknięciu
-  infinityScrool.removeEventListener('click', loadMoreContent);
+  infinityScroll.removeEventListener('click', loadMoreContent);
 });
