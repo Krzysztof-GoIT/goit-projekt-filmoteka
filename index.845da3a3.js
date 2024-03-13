@@ -5076,14 +5076,31 @@ const toggleVisibility = (elementToShow, elementToHide)=>{
 const libraryClick = ()=>{
     watchedHeader.click();
 };
-toggleVisibility(headerSearch, myLibrary);
-homeLink.classList.add("active");
-headerBG.style.backgroundImage = 'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-image-home.png?raw=true")';
+const setHeaderBackground = ()=>{
+    const screenWidth = window.innerWidth;
+    let backgroundImageUrl = "";
+    if (myLibrary.style.display === "flex") {
+        if (screenWidth >= 1280) backgroundImageUrl = "url(./img/bg-lib-desktop.jpg)";
+        else if (screenWidth >= 768) backgroundImageUrl = "url(./img/bg-lib-tablet.jpg)";
+        else backgroundImageUrl = "url(./img/bg-lib-mobile.jpg)";
+    } else if (headerSearch.style.display === "flex") {
+        if (screenWidth >= 1280) backgroundImageUrl = "url(./img/bg-home-desktop.jpg)";
+        else if (screenWidth >= 768) backgroundImageUrl = "url(./img/bg-home-tablet.jpg)";
+        else backgroundImageUrl = "url(./img/bg-home-mobile.jpg)";
+    } else {
+        if (screenWidth >= 1280) backgroundImageUrl = "url(./img/bg-home-desktop.jpg)";
+        else if (screenWidth >= 768) backgroundImageUrl = "url(./img/bg-home-tablet.jpg)";
+        else backgroundImageUrl = "url(./img/bg-home-mobile.jpg)";
+    }
+    headerBG.style.backgroundImage = backgroundImageUrl;
+};
+setHeaderBackground();
 const homeButtonClick = (event)=>{
     event.preventDefault();
     toggleVisibility(headerSearch, myLibrary);
     homeLink.classList.add("active");
     libraryLink.classList.remove("active");
+    setHeaderBackground();
     headerBG.style.backgroundImage = 'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-image-home.png?raw=true")';
     (0, _gallery.getHomepage)(1);
 };
@@ -5092,12 +5109,20 @@ const myLibraryButtonClick = (event)=>{
     toggleVisibility(myLibrary, headerSearch);
     homeLink.classList.remove("active");
     libraryLink.classList.add("active");
+    setHeaderBackground();
     headerBG.style.backgroundImage = 'url("https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/bg-image-library.png?raw=true")';
     libraryClick(watchedButton);
 };
 logo.addEventListener("click", homeButtonClick);
 homeLink.addEventListener("click", homeButtonClick);
 libraryLink.addEventListener("click", myLibraryButtonClick);
+window.addEventListener("resize", setHeaderBackground);
+if (myLibrary.style.display !== "flex") {
+    const headerLibraryElements = document.querySelectorAll(".header-library");
+    headerLibraryElements.forEach((element)=>{
+        element.style.display = "none";
+    });
+}
 
 },{"./gallery":"bA31f"}],"hLtdZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -5237,4 +5262,4 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.77b45d37.js.map
+//# sourceMappingURL=index.845da3a3.js.map

@@ -8,6 +8,7 @@ header {
 }
 
 #headerBG {
+  background-position: center;
   background-size: 100%;
 }
 
@@ -558,4 +559,4 @@ body, .movies {
 .dev-button:hover {
   background-color: #2980b9;
 }
-/*# sourceMappingURL=index.884979e7.css.map */
+/*# sourceMappingURL=index.c1eacbe3.css.map */
