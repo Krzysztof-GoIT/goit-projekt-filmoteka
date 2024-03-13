@@ -5155,6 +5155,8 @@ const devMainButton = document.getElementById("dev-mainButton");
 const devButtonBar = document.querySelector(".dev-button-bar");
 const scroolToTop = document.getElementById("scroolToTop");
 const scroolToTopButton = document.getElementById("scrollToTopButton");
+const wideContainer = document.getElementById("wide-container");
+const galleryContainer = document.getElementById("gallery-container");
 //wersja Pierwsza bez animacji
 // let isButtonBarVisible = false;
 // devMainButton.addEventListener('click', () => {
@@ -5246,6 +5248,11 @@ scroolToTop.addEventListener("click", ()=>{
     else scrollToTopButton.style.visibility = "visible";
     isButtonVisible = !isButtonVisible;
 });
+const toggleMonitorClass = ()=>{
+    if (galleryContainer.classList.contains("monitor-wide")) galleryContainer.classList.remove("monitor-wide");
+    else galleryContainer.classList.add("monitor-wide");
+};
+wideContainer.addEventListener("click", toggleMonitorClass);
 
 },{}],"3DurW":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -5266,4 +5273,4 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.0967c0ad.js.map
+//# sourceMappingURL=index.648e2961.js.map
