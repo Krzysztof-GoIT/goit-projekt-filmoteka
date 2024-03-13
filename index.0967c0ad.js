@@ -4920,15 +4920,6 @@ const renderGallery = (dataGallery)=>{
                 const movieDetails = await (0, _api.fetchMovieDetails)(movieId);
                 openModal(movieDetails); //Aleksander Modal
                 displayMovieDetails(movieDetails);
-                // Dodanie przycisku "Watched" i "Add to watched"
-                const watchedButton = document.createElement("button");
-                watchedButton.innerText = "Add to Watched";
-                watchedButton.addEventListener("click", ()=>(0, _localstorage.addToWatchedMovies)(movieDetails));
-                card.appendChild(watchedButton);
-                const queuedButton = document.createElement("button");
-                queuedButton.innerHTML = "Add to Queue";
-                queuedButton.addEventListener("click", ()=>(0, _localstorage.addToQueue)(movieDetails));
-                card.appendChild(queuedButton);
             });
         });
     } catch (error) {
@@ -4954,11 +4945,24 @@ const openModal = (movieData)=>{
     modal.style.display = "block";
     const modalContent = document.getElementById("modalContent");
     modalContent.innerHTML = `
+  <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" alt="${movieData.title} Photo">
     <h2>${movieData.title}</h2>
-    <p><strong>Overview:</strong> ${movieData.overview}</p>
-    <p><strong>Release Date:</strong> ${movieData.release_date}</p>
-    <!-- Dodaj wi\u{119}cej danych, je\u{15B}li chcesz -->
+    <p>Vote / Votes <span>${movieData.vote_average} / ${movieData.vote_count}</span></p>
+    <p>Popularity <span>${movieData.popularity}</span></p>
+    <p>Orginal Title <span>${movieData.original_title}</span></p>
+    <p>Genre <span>${getGenres(movieData.genres)}</span></p>
+    <p><strong>ABOUT</strong> ${movieData.overview}</p>
+    <button class="watchedButton">Add to Watched</button>
+    <button class="queuedButton">Add to Queue</button>
   `;
+    const watchedButton = document.getElementsByClassName("watchedButton")[0];
+    watchedButton.onclick = ()=>{
+        (0, _localstorage.addToWatchedMovies)(movieData);
+    };
+    const queuedButton = document.getElementsByClassName("queuedButton")[0];
+    queuedButton.onclick = ()=>{
+        (0, _localstorage.addToQueue)(movieData);
+    };
     const span = document.getElementsByClassName("close")[0];
     span.onclick = ()=>{
         modal.style.display = "none";
@@ -5262,4 +5266,4 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.02c8fe7c.js.map
+//# sourceMappingURL=index.0967c0ad.js.map
