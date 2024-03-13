@@ -106,10 +106,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchQuery) {
       try {
         const response = await fetchSearchMovies(searchQuery, 1);
-        renderGallery(response.results);
         searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
         if (response.results.length > 0) {
           notResult.style.display = 'none'; // Ukrycie komunikatu o braku wyników
+          clearGallery();
+          renderGallery(response.results);
         } else {
           notResult.style.display = 'block'; // Wyświetlenie komunikatu o braku wyników
           clearGallery(); // Wyczyszczenie galerii
@@ -285,7 +286,7 @@ const loadMoreContent = () => {
     getHomepage(homePageNo);
   }
 };
-const infinityScrool = document.getElementById("infinityScrool");
+const infinityScrool = document.getElementById('infinityScrool');
 let isInfinityScroolActive = false;
 
 // Obsługa zdarzenia kliknięcia przycisku
