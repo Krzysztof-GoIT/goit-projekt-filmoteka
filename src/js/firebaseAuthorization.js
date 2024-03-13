@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase/app";
+import { FirebaseError, initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,6 +23,7 @@ const analytics = getAnalytics(app);
 const signInForm = document.getElementById("sign-in-form");
 const signedInContent = document.getElementById("signed-in-content");
 const errorBox = document.getElementById("error-box");
+const signOutButton = document.getElementById("sign-out-button")
 
 const showSignInform = () => {
   signInForm.style.display = "block";
@@ -81,6 +82,10 @@ const handleSubmitSignInForm = (event) => {
   
   event.preventDefault();
 };
+const signOut = () => {
+  Firebase.auth().signOut();
+}
 
 onAuthStateChanged(app.auth(), handleAuthChanged);
 signInForm.addEventListener('submit', handleSubmitSignInForm);
+signOutButton.addEventListener('click', signOut)
