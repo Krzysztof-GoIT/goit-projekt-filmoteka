@@ -23,7 +23,7 @@ const displayWatchedMovies = () => {
         movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
       return { ...movie, categories };
     });
-    renderGallery(moviesWithGenres);
+    renderGallery(moviesWithGenres, 1);
   } catch (error) {
     console.error('Error displaying watched movies:', error);
   }
@@ -40,7 +40,7 @@ const displayQueuedMovies = () => {
         movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
       return { ...movie, categories };
     });
-    renderGallery(moviesWithGenres);
+    renderGallery(moviesWithGenres, 1);
   } catch (error) {
     console.error('Error displaying queued movies:', error);
   }
@@ -82,7 +82,7 @@ window.addEventListener('DOMContentLoaded', () => {
 const getHomepage = async pageNo => {
   try {
     const response = await fetchTrendingMovies(pageNo);
-    renderGallery(response.results);
+    renderGallery(response.results, 0);
   } catch (error) {
     console.error('Error fetching trending movies:', error);
   }
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchQuery) {
       try {
         const response = await fetchSearchMovies(searchQuery, 1);
-        renderGallery(response.results);
+        renderGallery(response.results, 0);
         searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
         if (response.results.length > 0) {
           notResult.style.display = 'none'; // Ukrycie komunikatu o braku wyników
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Renderowanie Galerii
-const renderGallery = dataGallery => {
+const renderGallery = (dataGallery, rating) => {
   try {
     // Pobranie danych o najbardziej popularnych filmach
     const movies = dataGallery;
@@ -148,12 +148,16 @@ const renderGallery = dataGallery => {
             categories = getGenres(movie.genre_ids);
           }
 
+          let rate = rating
+            ? ` | <span class="movie-info-rating">${movie.vote_average}</span>`
+            : ``;
+
           const movieCard = `
           <div class="movie-card" data-movie-id="${movie.id}">
           <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
           <div class="movie-details">
           <p class="movie-title">${movie.title}</p>
-          <p class="movie-info">${categories} | ${releaseYear}</p>
+          <p class="movie-info">${categories} | ${releaseYear}${rate}</p>
           </div>
           </div>
           `;
