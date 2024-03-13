@@ -241,6 +241,13 @@ const openModal = movieData => {
     modal.style.display = 'none';
   };
 
+  // Obsługa zdarzenia keydown
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      modal.style.display = 'none';
+    }
+  });
+
   window.onclick = event => {
     if (event.target == modal) {
       modal.style.display = 'none';
