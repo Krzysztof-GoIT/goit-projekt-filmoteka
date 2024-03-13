@@ -4857,10 +4857,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const searchQuery = searchInput.value.trim().toLowerCase().split(" ").join("+");
         if (searchQuery) try {
             const response = await (0, _api.fetchSearchMovies)(searchQuery, 1);
-            renderGallery(response.results);
             searchInput.value = ""; // Wyczyszczenie pola wyszukiwania
-            if (response.results.length > 0) notResult.style.display = "none"; // Ukrycie komunikatu o braku wyników
-            else {
+            if (response.results.length > 0) {
+                notResult.style.display = "none"; // Ukrycie komunikatu o braku wyników
+                clearGallery();
+                renderGallery(response.results);
+            } else {
                 notResult.style.display = "block"; // Wyświetlenie komunikatu o braku wyników
                 clearGallery(); // Wyczyszczenie galerii
             }
@@ -5260,4 +5262,4 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.b2324160.js.map
+//# sourceMappingURL=index.02c8fe7c.js.map
