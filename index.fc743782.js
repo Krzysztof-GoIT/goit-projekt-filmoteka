@@ -5145,6 +5145,9 @@ const homeLink = headerNaviElements[0].getElementsByTagName("a")[0];
 const libraryLink = headerNaviElements[0].getElementsByTagName("a")[1];
 const logIn = headerNaviElements[0].getElementsByTagName("a")[2];
 const logInContainer = document.querySelector(".sign-in-container");
+const registerButton = document.getElementById("register-button");
+const loginButton = document.getElementById("login-button");
+const logoutButton = document.getElementById("logout-button");
 const myLibrary = document.querySelector(".header-library");
 const headerSearch = document.querySelector(".header-search");
 const watchedButton = document.getElementById("watchedHeader");
@@ -5200,6 +5203,18 @@ libraryLink.addEventListener("click", myLibraryButtonClick);
 logIn.addEventListener("click", (event)=>{
     event.preventDefault();
     logInContainer.style.display = "block";
+});
+loginButton.addEventListener("click", (event)=>{
+    event.preventDefault();
+    logInContainer.style.display = "none";
+});
+registerButton.addEventListener("click", (event)=>{
+    event.preventDefault();
+    logInContainer.style.display = "none";
+});
+logoutButton.addEventListener("click", (event)=>{
+    event.preventDefault();
+    logInContainer.style.display = "none";
 });
 window.addEventListener("resize", setHeaderBackground);
 if (myLibrary.style.display !== "flex") {
@@ -5379,6 +5394,8 @@ const database = (0, _database.getDatabase)();
 const logoutButton = document.getElementById("logout-button");
 const registerButton = document.getElementById("register-button");
 const loginButton = document.getElementById("login-button");
+const headerNaviElements = document.getElementsByClassName("header-navi");
+const logInHD = headerNaviElements[0].getElementsByTagName("a")[2];
 function register() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -5471,11 +5488,13 @@ function closeSignInModal() {
         logoutButton.style.display = "block";
         loginButton.style.display = "none";
         registerButton.style.display = "none";
+        logInHD.textContent = "Log Out";
     } else {
         loginStatusElement.textContent = "You are log out";
         logoutButton.style.display = "none";
         loginButton.style.display = "block";
         registerButton.style.display = "block";
+        logInHD.textContent = "Log In";
     }
 });
 document.getElementById("logout-button").addEventListener("click", logout);
@@ -32358,4 +32377,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.d6bcd000.js.map
+//# sourceMappingURL=index.fc743782.js.map
