@@ -449,45 +449,6 @@ body, .movies {
   display: inline-block;
 }
 
-.modal-container {
-  background-color: #2e2f4266;
-  width: 100%;
-  height: 100%;
-  transition: opacity .25s cubic-bezier(.4, 0, .2, 1), visibility .25s cubic-bezier(.4, 0, .2, 1);
-  top: 0;
-  left: 0;
-}
-
-.is-hidden {
-  pointer-events: none;
-  visibility: hidden;
-  opacity: 0;
-  display: none;
-}
-
-.modal-window {
-  background-color: #fff;
-  width: 280px;
-  height: 940px;
-  top: 50%;
-  left: 50%;
-}
-
-.modal-close-button {
-  cursor: pointer;
-  background-color: #0000;
-  border: none;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-}
-
-.modal-close-icon {
-  color: #000;
-  width: 14px;
-  height: 14px;
-}
-
 .modal {
   z-index: 1;
   background-color: #00000080;
@@ -503,19 +464,17 @@ body, .movies {
 .modal-content {
   background-color: #fefefe;
   border: 1px solid #888;
-  width: 280px;
-  margin: 15% auto;
-  padding: 20px;
+  width: 320px;
+  margin: auto;
+  padding: 8px 20px 40px;
   font-family: Roboto, sans-serif;
 }
 
 .close {
   color: #aaa;
   float: right;
-  margin-top: 16px;
-  margin-right: 16px;
-  font-size: 70px;
-  font-weight: normal;
+  font-size: 54px;
+  font-weight: 100;
 }
 
 .close:hover, .close:focus {
@@ -575,19 +534,70 @@ body, .movies {
   background-color: #2980b9;
 }
 
-h2 {
+.movieData.title {
   text-transform: uppercase;
   color: var(--movieDetails-color);
+  margin-bottom: 20px;
   font-size: 20px;
   font-weight: 500;
 }
 
-p {
+.info-item {
   color: var(--movieDetails-color);
+  margin-bottom: 12px;
   padding-bottom: 8px;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.3;
+}
+
+.about-movie {
+  color: var(--movieDetails-color);
+  width: 240px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+.modal-buttons {
+  margin-top: 20px;
+}
+
+.watchedButton {
+  background-color: var(--details-contrast);
+  cursor: pointer;
+  color: var(--bg-color);
+  text-transform: uppercase;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  width: 110px;
+  height: 44px;
+  margin-right: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+  transition: transform .3s;
+}
+
+.queuedButton {
+  background-color: var(--bg-color);
+  cursor: pointer;
+  color: var(--movieDetails-color);
+  text-transform: uppercase;
+  text-align: center;
+  border: 1px solid #000;
+  border-radius: 5px;
+  width: 110px;
+  height: 44px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+  transition: transform .3s;
+}
+
+.watchedButton:hover, .watchedButton:focus {
+  transform: scale(1.5);
 }
 
 @media screen and (width >= 768px) {
@@ -672,4 +682,4 @@ button:hover {
   text-transform: uppercase;
   margin-bottom: 10px;
 }
-/*# sourceMappingURL=index.53e9aca6.css.map */
+/*# sourceMappingURL=index.06a4ae10.css.map */

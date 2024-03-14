@@ -5007,19 +5007,22 @@ const openModal = (movieData)=>{
     modal.style.display = "block";
     const modalContent = document.getElementById("modalContent");
     modalContent.innerHTML = `
-  <div class="movie-details-container">
-    <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" alt="${movieData.title} Photo">
-  <div class="movie-details">
-  <h2>${movieData.title}</h2>
-  <p>Vote / Votes <span>${movieData.vote_average.toFixed(1)} / ${movieData.vote_count}</span></p>
-  <p>Popularity <span>${movieData.popularity}</span></p>
-  <p>Orginal Title <span>${movieData.original_title}</span></p>
-  <p>Genre <span>${movieData.genres.map((genre)=>genre.name).join(", ")}</span></p>
-  <p><strong>ABOUT</strong> ${movieData.overview}</p>
-</div>
-</div>
-<button class="watchedButton">Add to Watched</button>
-<button class="queuedButton">Add to Queue</button>>
+  <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" alt="${movieData.title} Photo">
+  
+    <h2>${movieData.title}</h2>
+    <div class="info-item">
+    <p>Vote / Votes <span>${movieData.vote_average} / ${movieData.vote_count}</span></p>
+    <p>Popularity <span>${movieData.popularity}</span></p>
+    <p>Orginal Title <span>${movieData.original_title}</span></p>
+    <p>Genre <span>${getGenres(movieData.genres)}</span></p>
+    </div>
+    <div class="about-movie">
+    <p><strong>ABOUT</strong> ${movieData.overview}</p>
+    </div>
+    <div class="modal-buttons">
+    <button class="watchedButton">Add to Watched</button>
+    <button class="queuedButton">Add to Queue</button>
+    </div>
   `;
     const watchedButton = document.getElementsByClassName("watchedButton")[0];
     watchedButton.onclick = ()=>{
@@ -32377,4 +32380,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.fc743782.js.map
+//# sourceMappingURL=index.074198e2.js.map
