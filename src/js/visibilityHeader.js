@@ -5,6 +5,9 @@ const homeLink = headerNaviElements[0].getElementsByTagName('a')[0];
 const libraryLink = headerNaviElements[0].getElementsByTagName('a')[1];
 const logIn = headerNaviElements[0].getElementsByTagName('a')[2];
 const logInContainer = document.querySelector('.sign-in-container');
+const registerButton = document.getElementById("register-button");
+const loginButton = document.getElementById("login-button");
+const logoutButton = document.getElementById("logout-button");
 
 const myLibrary = document.querySelector('.header-library');
 const headerSearch = document.querySelector('.header-search');
@@ -91,6 +94,19 @@ libraryLink.addEventListener('click', myLibraryButtonClick);
 logIn.addEventListener('click', (event) => {
   event.preventDefault();
   logInContainer.style.display = 'block';
+});
+loginButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  logInContainer.style.display = "none";
+
+});
+registerButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  logInContainer.style.display = "none";
+});
+logoutButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  logInContainer.style.display = "none";
 });
 
 window.addEventListener('resize', setHeaderBackground);
