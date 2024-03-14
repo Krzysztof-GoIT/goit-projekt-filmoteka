@@ -38,7 +38,7 @@ const displayWatchedMovies = () => {
     const moviesWithGenres = watchedMovies.map(movie => {
       let categories = 'Without category';
       if (movie.genres && movie.genres.length > 0) {
-        categories = movie.genres.map(genre => genre.name).join(', ');
+        categories = movie.genres.map(genre => genres.name).join(', ');
       }
       return { ...movie, categories };
     });
@@ -47,6 +47,41 @@ const displayWatchedMovies = () => {
     renderGallery(moviesWithGenres, 1);
   } catch (error) {
     console.error('Error displaying watched movies:', error);
+  }
+};
+
+// const displayWatchedMovies = () => {
+//   try {
+//     // Pobierz listę obejrzanych filmów z localStorage
+//     const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+//     const moviesWithGenres = watchedMovies.map(movie => {
+//       const categories =
+//         movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
+//       return { ...movie, categories };
+//     });
+//     homePageNo = 0;
+//     clearGallery();
+//     renderGallery(moviesWithGenres);
+//   } catch (error) {
+//     console.error('Error displaying watched movies:', error);
+//   }
+// };
+
+const displayQueuedMovies = () => {
+  try {
+    const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
+    const moviesWithGenres = queuedMovies.map(movie => {
+      let categories = 'Without category';
+      if (movie.genres && movie.genres.length > 0) {
+        categories = movie.genres.map(genre => genres.name).join(', ');
+      }
+      return { ...movie, categories };
+    });
+    homePageNo = 0;
+    clearGallery();
+    renderGallery(moviesWithGenres, 1);
+  } catch (error) {
+    console.error('Error displaying queued movies:', error);
   }
 };
 
@@ -66,24 +101,6 @@ const displayWatchedMovies = () => {
 //     console.error('Error displaying queued movies:', error);
 //   }
 // };
-
-const displayQueuedMovies = () => {
-  try {
-    const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
-    const moviesWithGenres = queuedMovies.map(movie => {
-      let categories = 'Without category';
-      if (movie.genres && movie.genres.length > 0) {
-        categories = movie.genres.map(genre => genre.name).join(', ');
-      }
-      return { ...movie, categories };
-    });
-    homePageNo = 0;
-    clearGallery();
-    renderGallery(moviesWithGenres, 1);
-  } catch (error) {
-    console.error('Error displaying queued movies:', error);
-  }
-};
 
 const displayMovieDetails = movieDetails => {
   // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
@@ -179,6 +196,9 @@ const renderGallery = (dataGallery, rating) => {
             categories = movie.genres.map(genre => genre.name).join(', ');
           } else if (movie.genre_ids && movie.genre_ids.length > 0) {
             categories = getGenres(movie.genre_ids);
+            if (!categories) {
+              categories = 'Without category';
+            }
           }
           console.log('rating: ', rating);
           let rate = rating
@@ -198,6 +218,8 @@ const renderGallery = (dataGallery, rating) => {
           return movieCard;
         })
         .join('');
+      galleryContainer.innerHTML = newContent;
+      // galleryContainer.insertAdjacentHTML('beforeend', newContent);
 
       // Wstawienie wygenerowanego kodu HTML do kontenera galerii
       galleryContainer.innerHTML = newContent;
@@ -350,6 +372,10 @@ const loadMoreContent = () => {
   }
 };
 const infinityScroll = document.getElementById('infinityScroll');
+
+// Obsługa zdarzenia kliknięcia przycisku
+infinityScroll.addEventListener('click', () => {
+=======
 let isInfinityScrollActive = false;
 
 // Obsługa zdarzenia kliknięcia przycisku
@@ -370,6 +396,6 @@ infinityScroll.addEventListener('click', () => {
   // // Event scroll na oknie przeglądarki po kliknięciu przycisku
   // window.addEventListener('scroll', loadMoreContent);
 
-  // // Usuń obsługę zdarzenia kliknięcia przycisku, aby nie powtarzać ładowania po kliknięciu
-  // infinityScroll.removeEventListener('click', loadMoreContent);
+  // Usuń obsługę zdarzenia kliknięcia przycisku, aby nie powtarzać ładowania po kliknięciu
+  infinityScroll.removeEventListener('click', loadMoreContent);
 });
