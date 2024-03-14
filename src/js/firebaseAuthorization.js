@@ -23,6 +23,8 @@ const database = getDatabase();
 const logoutButton = document.getElementById("logout-button");
 const registerButton = document.getElementById("register-button");
 const loginButton = document.getElementById("login-button");
+const headerNaviElements = document.getElementsByClassName('header-navi');
+const logInHD = headerNaviElements[0].getElementsByTagName('a')[2];
 
 function register() {
   const email = document.getElementById("email").value;
@@ -144,14 +146,18 @@ onAuthStateChanged(auth, (user) => {
     logoutButton.style.display = "block";
     loginButton.style.display = "none";
     registerButton.style.display = "none";
+    logInHD.textContent = "Log Out"
+
 
   } else {
     loginStatusElement.textContent = "You are log out";
     logoutButton.style.display = "none";
     loginButton.style.display = "block";
     registerButton.style.display = "block";
+    logInHD.textContent = "Log In"
   }
 });
+
 
 document.getElementById("logout-button").addEventListener("click", logout);
 document.getElementById("login-button").addEventListener("click", logIn);
