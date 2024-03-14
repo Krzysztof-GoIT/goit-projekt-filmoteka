@@ -4,7 +4,6 @@ const scrollToTop = document.getElementById('scrollToTop');
 const scrollToTopButton = document.getElementById('scrollToTopButton');
 const wideContainer = document.getElementById('wide-container');
 const galleryContainer = document.getElementById('gallery-container');
-//wersja Pierwsza bez animacji
 
 // let isButtonBarVisible = false;
 

@@ -3,6 +3,8 @@ const headerBG = document.getElementById('headerBG');
 
 const homeLink = headerNaviElements[0].getElementsByTagName('a')[0];
 const libraryLink = headerNaviElements[0].getElementsByTagName('a')[1];
+const logIn = headerNaviElements[0].getElementsByTagName('a')[2];
+const logInContainer = document.querySelector('.sign-in-container');
 
 const myLibrary = document.querySelector('.header-library');
 const headerSearch = document.querySelector('.header-search');
@@ -85,6 +87,9 @@ const myLibraryButtonClick = event => {
 logo.addEventListener('click', homeButtonClick);
 homeLink.addEventListener('click', homeButtonClick);
 libraryLink.addEventListener('click', myLibraryButtonClick);
+logIn.addEventListener('click', () => {
+  logInContainer.style.display = "block"
+})
 
 window.addEventListener('resize', setHeaderBackground);
 
