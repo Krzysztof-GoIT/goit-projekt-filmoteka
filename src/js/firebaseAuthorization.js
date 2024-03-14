@@ -1,97 +1,94 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
 
 // Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAYFLYCMkQpAWHXUhlk7SVgn6j5F_MVJ9E",
-  authDomain: "filmoteka-e68b9.firebaseapp.com",
-  projectId: "filmoteka-e68b9",
-  storageBucket: "filmoteka-e68b9.appspot.com",
-  messagingSenderId: "528831050882",
-  appId: "1:528831050882:web:5f1564dbe540060e1b709b",
-  measurementId: "G-X6SNQYQKWN"
+  apiKey: "AIzaSyBJJxKiq-i4sqL8adQDTz48GXByky6Cp3Y",
+  authDomain: "filmoteka-auth-eb393.firebaseapp.com",
+  projectId: "filmoteka-auth-eb393",
+  storageBucket: "filmoteka-auth-eb393.appspot.com",
+  messagingSenderId: "951424949581",
+  appId: "1:951424949581:web:272460fadddef8c6452b04",
+  measurementId: "G-G1QWHQFCQD",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const auth = getAuth(app);  // getAuth instance
+const auth = getAuth(app);
+const database = getDatabase();
 
-const signInForm = document.getElementById("sign-in-form");
-const signedInContent = document.getElementById("signed-in-content");
-const errorBox = document.getElementById("error-box");
-const signedOutContent = document.getElementById("signed-out-content");
-const signOutButton = document.getElementById("sign-out-button");
-const signWithGoogleButton = document.getElementById("log-in-with-google");
-const googleInProvider = new GoogleAuthProvider();
+function register() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const fullName = document.getElementById("full-name").value;
 
-onAuthStateChanged(auth, (user) => {
-  handleAuthChanged(user);
-});
-
-const showSignInform = () => {
-  signedOutContent.style.display = "block";
-  signedInContent.style.display = "none";
-};
-
-const showSignedInContent = () => {
-  signedOutContent.style.display = "none";
-  signedInContent.style.display = "block";
-};
-
-const handleAuthChanged = (user) => {
-  if (user) {
-    showSignedInContent();
-  } else {
-    showSignInform();
+  if (!validateEmail(email) || !validatePassword(password) || !validateField(fullName)) {
+    alert('Email, Password, or Full Name is incorrect!');
+    return;
   }
-};
 
-const showError = (error) => {
-  errorBox.textContent = error;
-  errorBox.style.display = "block";
-  setTimeout(() => {
-    errorBox.style.display = "none";
-  }, 5000);
-};
-
-const getUserAndPassword = () => ({
-  email: document.getElementById("email").value,
-  password: document.getElementById("password").value
-});
-
-const createUserAccount = () => {
-  const { email, password } = getUserAndPassword();
   createUserWithEmailAndPassword(auth, email, password)
-    .catch(handleErrorSignIn);
-};
+    .then((userCredential) => {
+      const user = userCredential.user;
+      const userData = {
+        email: email,
+        password: password,
+        fullName: fullName,
+        lastLogin: Date.now()
+      };
+      return set(ref(database, 'users/' + user.uid), userData);
+    })
+    .then(() => {
+      alert('User Created!');
+    })
+    .catch((error) => {
+      const errorMessage = error.message;
+      alert(errorMessage);
+    });
+}
 
-const handleErrorSignIn = (error) => {
-  switch (error.code) {
-    case 'auth/user-not-found':
-      createUserAccount();
-      break;
-    case 'auth/wrong-password':
-      showError('Password or email is wrong');
-      break;
-    default:
-      showError('Something went wrong');
+function logIn() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  if (!validateEmail(email) || !validatePassword(password)) {
+    alert('Email or Password is incorrect!');
+    return;
   }
-};
 
-const handleSubmitSignInForm = (event) => {
-  const { email, password } = getUserAndPassword();
   signInWithEmailAndPassword(auth, email, password)
-    .catch(handleErrorSignIn);
-  
-  event.preventDefault();
-};
+    .then((userCredential) => {
+      const user = userCredential.user;
+      const databaseRef = ref(database, 'users/' + user.uid);
+      const userData = {
+        lastLogin: Date.now()
+      };
+      return set(databaseRef, userData);
+    })
+    .then(() => {
+      alert('User Log In!');
+    })
+    .catch((error) => {
+      const errorMessage = error.message;
+      alert(errorMessage);
+    });
+}
 
-const signInWithGoogle = () => {
-  firebase.auth().signInWithPopup(googleInProvider);
-};
+function validateEmail(email) {
+  const expression = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return expression.test(String(email).toLowerCase());
+}
 
-signInForm.addEventListener('submit', handleSubmitSignInForm);
-signOutButton.addEventListener('click', signOut);
-signWithGoogleButton.addEventListener('click', signInWithGoogle);
+function validatePassword(password) {
+  return password.length >= 6;
+}
+
+function validateField(field) {
+  return field && field.trim().length > 0;
+}
+
+document.getElementById("login-button").addEventListener("click", logIn);
+document.getElementById("register-button").addEventListener("click", register);

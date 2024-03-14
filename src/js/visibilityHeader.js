@@ -88,7 +88,8 @@ const myLibraryButtonClick = event => {
 logo.addEventListener('click', homeButtonClick);
 homeLink.addEventListener('click', homeButtonClick);
 libraryLink.addEventListener('click', myLibraryButtonClick);
-logIn.addEventListener('click', () => {
+logIn.addEventListener('click', (event) => {
+  event.preventDefault();
   logInContainer.style.display = 'block';
 });
 
