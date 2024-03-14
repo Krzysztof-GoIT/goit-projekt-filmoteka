@@ -21,6 +21,8 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const database = getDatabase();
 const logoutButton = document.getElementById("logout-button");
+const registerButton = document.getElementById("register-button");
+const loginButton = document.getElementById("login-button");
 
 function register() {
   const email = document.getElementById("email").value;
@@ -140,9 +142,14 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     loginStatusElement.textContent = "You are log in " ;
     logoutButton.style.display = "block";
+    loginButton.style.display = "none";
+    registerButton.style.display = "none";
+
   } else {
     loginStatusElement.textContent = "You are log out";
     logoutButton.style.display = "none";
+    loginButton.style.display = "block";
+    registerButton.style.display = "block";
   }
 });
 
