@@ -4763,6 +4763,7 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "homePageNo", ()=>homePageNo);
 parcelHelpers.export(exports, "getGenres", ()=>getGenres);
 parcelHelpers.export(exports, "getHomepage", ()=>getHomepage);
+parcelHelpers.export(exports, "clearGallery", ()=>clearGallery);
 var _api = require("./api");
 var _localstorage = require("./localstorage");
 let homePageNo = 0;
@@ -4947,15 +4948,15 @@ const renderGallery = (dataGallery, rating)=>{
         `;
                 return movieCard;
             }).join("");
-            galleryContainer.innerHTML = newContent;
-            // galleryContainer.insertAdjacentHTML('beforeend', newContent);
+            //galleryContainer.innerHTML = newContent;
+            galleryContainer.insertAdjacentHTML("beforeend", newContent);
             // Wstawienie wygenerowanego kodu HTML do kontenera galerii
-            galleryContainer.innerHTML = newContent;
+            //galleryContainer.innerHTML = newContent;
             // Ukrycie komunikatu o braku wyników, jeśli lista filmów nie jest pusta
             notResult.style.display = "none";
         } else {
             // Jeśli lista filmów jest pusta, wyświetl komunikat o braku wyników
-            galleryContainer.innerHTML = "";
+            //galleryContainer.innerHTML = '';
             notResult.style.display = "block";
             // Wyczyszczenie galerii
             clearGallery();
@@ -4996,7 +4997,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const notResult = document.getElementById("not-result");
     notResult.style.display = "none";
 });
-// Czyszczenie galerii
 const clearGallery = ()=>{
     const galleryContainer = document.getElementById("gallery-container");
     galleryContainer.innerHTML = ""; // Wyczyszczenie zawartości galerii
@@ -5085,7 +5085,7 @@ infinityScroll.addEventListener("click", ()=>{
     // Zmiana stanu - włącz/wyłącz
     isInfinityScrollActive = !isInfinityScrollActive;
     // Początkowe ładowanie treści
-    getHomepage(homePageNo);
+    //getHomepage(homePageNo);
     // // Event scroll na oknie przeglądarki po kliknięciu przycisku
     // window.addEventListener('scroll', loadMoreContent);
     // Usuń obsługę zdarzenia kliknięcia przycisku, aby nie powtarzać ładowania po kliknięciu
@@ -5183,6 +5183,7 @@ const homeButtonClick = (event)=>{
     homeLink.classList.add("active");
     libraryLink.classList.remove("active");
     setHeaderBackground();
+    (0, _gallery.clearGallery)();
     (0, _gallery.getHomepage)(1);
 };
 const myLibraryButtonClick = (event)=>{
@@ -21026,4 +21027,4 @@ exports.default = {
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.9c43a6d9.js.map
+//# sourceMappingURL=index.01c5dd83.js.map
