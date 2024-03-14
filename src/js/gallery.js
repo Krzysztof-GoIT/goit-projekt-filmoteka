@@ -216,17 +216,25 @@ const openModal = movieData => {
 
   const modalContent = document.getElementById('modalContent');
   modalContent.innerHTML = `
+ 
   <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" alt="${
     movieData.title
   } Photo">
+  
     <h2>${movieData.title}</h2>
+    <div class="info-item">
     <p>Vote / Votes <span>${movieData.vote_average} / ${movieData.vote_count}</span></p>
     <p>Popularity <span>${movieData.popularity}</span></p>
     <p>Orginal Title <span>${movieData.original_title}</span></p>
     <p>Genre <span>${getGenres(movieData.genres)}</span></p>
+    </div>
+    <div class="about-movie">
     <p><strong>ABOUT</strong> ${movieData.overview}</p>
+    </div>
+    <div class="modal-buttons">
     <button class="watchedButton">Add to Watched</button>
     <button class="queuedButton">Add to Queue</button>
+    </div>
   `;
   const watchedButton = document.getElementsByClassName('watchedButton')[0];
   watchedButton.onclick = () => {
@@ -242,7 +250,7 @@ const openModal = movieData => {
   };
 
   // Obsługa zdarzenia keydown
-  document.addEventListener('keydown', function(event) {
+  document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape') {
       modal.style.display = 'none';
     }
