@@ -155,9 +155,10 @@ var _visibilityHeader = require("./js/visibilityHeader");
 var _onOffModal = require("./js/onOffModal");
 var _devTools = require("./js/devTools");
 var _darkMode = require("./js/darkMode");
+var _modalGoitTeam = require("./js/modal-goit-team");
 var _firebaseAuthorization = require("./js/firebaseAuthorization");
 
-},{"./sass/main.scss":"clpGj","./js/api":"5mmx6","./js/gallery":"bA31f","./js/markup":"6K7Vw","./js/localstorage":"ippo7","./js/visibilityHeader":"kxv7b","./js/onOffModal":"hLtdZ","./js/devTools":"kw7nM","./js/darkMode":"3DurW","./js/firebaseAuthorization":"fukWk"}],"clpGj":[function() {},{}],"5mmx6":[function(require,module,exports) {
+},{"./sass/main.scss":"clpGj","./js/api":"5mmx6","./js/gallery":"bA31f","./js/markup":"6K7Vw","./js/localstorage":"ippo7","./js/visibilityHeader":"kxv7b","./js/onOffModal":"hLtdZ","./js/devTools":"kw7nM","./js/darkMode":"3DurW","./js/modal-goit-team":"8Mni5","./js/firebaseAuthorization":"fukWk"}],"clpGj":[function() {},{}],"5mmx6":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 // Genres
@@ -5369,7 +5370,31 @@ window.addEventListener("DOMContentLoaded", ()=>{
     changeMode();
 });
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"fukWk":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"8Mni5":[function(require,module,exports) {
+// Pobranie okna modalnego
+const modal = document.getElementById("modalGoit");
+// Pobranie przycisku, który otwiera okno modalne
+const btn = document.querySelector(".footer-btn"); // Zmiana na pobranie przycisku po klasie
+// Pobranie elementu <span>, który zamyka okno modalne
+const span = document.querySelector(".close-modal-btn"); // Zmienione na querySelector dla spójności
+// Kiedy użytkownik kliknie na przycisk, otwórz okno modalne
+btn.onclick = function() {
+    modal.style.display = "block";
+};
+// Kiedy użytkownik kliknie na <span> (x), zamknij okno modalne
+span.onclick = function() {
+    modal.style.display = "none";
+};
+// Kiedy użytkownik kliknie poza oknem modalnym, zamknij je
+window.onclick = function(event) {
+    if (event.target == modal) modal.style.display = "none";
+};
+// Dodanie obsługi zamknięcia okna modalnego przez naciśnięcie klawisza Esc
+document.onkeydown = function(event) {
+    if (event.key === "Escape") modal.style.display = "none";
+};
+
+},{}],"fukWk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "firebaseConfig", ()=>firebaseConfig);
@@ -32380,4 +32405,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.074198e2.js.map
+//# sourceMappingURL=index.3fbf293c.js.map
