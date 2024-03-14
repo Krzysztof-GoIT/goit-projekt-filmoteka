@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><link rel="stylesheet" href="/goit-projekt-filmoteka/index.48447c6f.css">
+  <head><link rel="stylesheet" href="/goit-projekt-filmoteka/index.188386bd.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filmoteka</title>
@@ -97,28 +97,32 @@
     <button id="movieTrailerButton">Movie Trailer</button>
   </div>
 </div>
+
 <div class="sign-in-container">
-<div class="sign-in-content">
-  <span class="sign-in-close">&times;</span>
-  <div id="error-box"></div>
-  <div id="signed-out-content">
-  <form id="sign-in-form" class="id">
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" required="">
-    <label for="password">password</label>
-    <input type="password" id="password" name="password" required="">
-    <button type="submit" id="logIn"></button>
-  </form>
-  <button id="log-in-with-google">Log in with google</button>
+  <div class="form-header-container">
+      <h2 id="form_header">Loginh2>
+  </h2></div>
+<div id="login-status"></div>
+<div id="form-content-container">
+  <div id="form-content-inner-container">
+    <input type="email" id="email" placeholder="email">
+    <input type="password" id="password" placeholder="New password">
+  <div id="button-container">
+    <button id="login-button">login</button>
+    <button id="register-button">Register</button>
+    <button id="logout-button">Logout</button>
   </div>
-    <div id="signed-in-content">
-      <h1>WELCOME</h1>
-      <button id="sign-out-button">Log Out</button>
-    </div>
+  </div>
 </div>
 </div>
 
-    <script src="/goit-projekt-filmoteka/index.01c5dd83.js" defer=""></script>
+
+    <script src="/goit-projekt-filmoteka/index.c64b4eef.js" defer=""></script>
     <script src="https://unpkg.com/gsap@3.9.1/dist/gsap.min.js"></script>
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+    
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
  </body>
 </html>

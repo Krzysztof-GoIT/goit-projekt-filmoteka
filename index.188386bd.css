@@ -585,25 +585,8 @@ body, .movies {
   left: 0;
 }
 
-.sign-in-content {
-  background-color: #fefefe;
-  border: 1px solid #888;
-  width: 80%;
-  margin: 10% auto;
-  padding: 20px;
-}
-
-.sign-in-close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.sign-in-close:hover, .sign-in-close:focus {
-  color: #000;
-  cursor: pointer;
-  text-decoration: none;
+#logout-button {
+  display: none;
 }
 
 h2 {
@@ -633,4 +616,4 @@ p {
     height: 558px;
   }
 }
-/*# sourceMappingURL=index.48447c6f.css.map */
+/*# sourceMappingURL=index.188386bd.css.map */
