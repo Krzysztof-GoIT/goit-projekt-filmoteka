@@ -5467,7 +5467,7 @@ function closeSignInModal() {
 (0, _auth.onAuthStateChanged)(auth, (user)=>{
     const loginStatusElement = document.getElementById("login-status");
     if (user) {
-        loginStatusElement.textContent = "You are log in ";
+        loginStatusElement.textContent = "You are log in";
         logoutButton.style.display = "block";
         loginButton.style.display = "none";
         registerButton.style.display = "none";
@@ -32358,4 +32358,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.76eeb5e9.js.map
+//# sourceMappingURL=index.d6bcd000.js.map
