@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, si
 import { getDatabase, ref, set } from "firebase/database";
 
 // Firebase configuration
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyBJJxKiq-i4sqL8adQDTz48GXByky6Cp3Y",
   authDomain: "filmoteka-auth-eb393.firebaseapp.com",
   projectId: "filmoteka-auth-eb393",
@@ -58,12 +58,12 @@ function createUser(email, password, ) {
     });
 }
 
-function saveUserData(uid, userData) {
+export function saveUserData(uid, userData) {
   const databaseRef = ref(database, 'users/' + uid);
   return set(databaseRef, userData);
 }
 
-function logIn() {
+export function logIn() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
