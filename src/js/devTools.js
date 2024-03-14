@@ -1,10 +1,10 @@
-
- const devMainButton = document.getElementById("dev-mainButton");
+const devMainButton = document.getElementById('dev-mainButton');
 const devButtonBar = document.querySelector('.dev-button-bar');
-const scroolToTop = document.getElementById("scroolToTop");
-const scroolToTopButton = document.getElementById("scrollToTopButton");
- 
-                            //wersja Pierwsza bez animacji
+const scrollToTop = document.getElementById('scrollToTop');
+const scrollToTopButton = document.getElementById('scrollToTopButton');
+const wideContainer = document.getElementById('wide-container');
+const galleryContainer = document.getElementById('gallery-container');
+//wersja Pierwsza bez animacji
 
 // let isButtonBarVisible = false;
 
@@ -25,7 +25,7 @@ const scroolToTopButton = document.getElementById("scrollToTopButton");
 //      devButtonBar.style.display = "none"
 // })
 
-                            //wersja druga a pojawiającą sie animacją
+//wersja druga a pojawiającą sie animacją
 // gsap.set(devButtonBar, { display: "none", opacity: 0 });
 
 // let isButtonBarVisible = false;
@@ -53,8 +53,8 @@ const scroolToTopButton = document.getElementById("scrollToTopButton");
 //     } });
 //   }
 // });
-                                 //wersja trzecia w wysuwającą sie animacją z lewej do prawej
-gsap.set(devButtonBar, { display: "none", opacity: 0, x: "-100%" });
+//wersja trzecia w wysuwającą sie animacją z lewej do prawej
+gsap.set(devButtonBar, { display: 'none', opacity: 0, x: '-100%' });
 
 let isButtonBarVisible = false;
 
@@ -62,34 +62,67 @@ devMainButton.addEventListener('click', () => {
   isButtonBarVisible = !isButtonBarVisible;
 
   if (isButtonBarVisible) {
-    gsap.to(devButtonBar, { display: "flex", opacity: 1, x: "0%", duration: 0.3, ease: 'power2.out' });
+    gsap.to(devButtonBar, {
+      display: 'flex',
+      opacity: 1,
+      x: '0%',
+      duration: 0.3,
+      ease: 'power2.out',
+    });
   } else {
-    gsap.to(devButtonBar, { opacity: 0, x: "-100%", duration: 0.3, ease: 'power2.out', onComplete: () => {
-      devButtonBar.style.display = "none";
-    } });
+    gsap.to(devButtonBar, {
+      opacity: 0,
+      x: '-100%',
+      duration: 0.3,
+      ease: 'power2.out',
+      onComplete: () => {
+        devButtonBar.style.display = 'none';
+      },
+    });
   }
 });
 
 devMainButton.addEventListener('mouseenter', () => {
-  gsap.to(devButtonBar, { display: "flex", opacity: 1, x: "0%", duration: 0.3, ease: 'power2.out' });
+  gsap.to(devButtonBar, {
+    display: 'flex',
+    opacity: 1,
+    x: '0%',
+    duration: 0.3,
+    ease: 'power2.out',
+  });
 });
 
 devButtonBar.addEventListener('mouseleave', () => {
   if (!isButtonBarVisible) {
-    gsap.to(devButtonBar, { opacity: 0, x: "-100%", duration: 0.3, ease: 'power2.out', onComplete: () => {
-      devButtonBar.style.display = "none";
-    } });
+    gsap.to(devButtonBar, {
+      opacity: 0,
+      x: '-100%',
+      duration: 0.3,
+      ease: 'power2.out',
+      onComplete: () => {
+        devButtonBar.style.display = 'none';
+      },
+    });
   }
 });
 
-
 let isButtonVisible = true;
 
-scroolToTop.addEventListener('click', () => {
+scrollToTop.addEventListener('click', () => {
   if (!isButtonVisible) {
     scrollToTopButton.style.visibility = 'hidden';
   } else {
     scrollToTopButton.style.visibility = 'visible';
   }
   isButtonVisible = !isButtonVisible;
-})
+});
+
+const toggleMonitorClass = () => {
+  if (galleryContainer.classList.contains('monitor-wide')) {
+    galleryContainer.classList.remove('monitor-wide');
+  } else {
+    galleryContainer.classList.add('monitor-wide');
+  }
+};
+
+wideContainer.addEventListener('click', toggleMonitorClass);
