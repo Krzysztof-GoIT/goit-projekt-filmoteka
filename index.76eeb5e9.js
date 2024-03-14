@@ -5352,11 +5352,15 @@ window.addEventListener("DOMContentLoaded", ()=>{
 });
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"fukWk":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "firebaseConfig", ()=>firebaseConfig);
+parcelHelpers.export(exports, "saveUserData", ()=>saveUserData);
+parcelHelpers.export(exports, "logIn", ()=>logIn);
 var _app = require("firebase/app");
 var _analytics = require("firebase/analytics");
 var _auth = require("firebase/auth");
 var _database = require("firebase/database");
-// Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBJJxKiq-i4sqL8adQDTz48GXByky6Cp3Y",
     authDomain: "filmoteka-auth-eb393.firebaseapp.com",
@@ -5373,6 +5377,8 @@ const analytics = (0, _analytics.getAnalytics)(app);
 const auth = (0, _auth.getAuth)(app);
 const database = (0, _database.getDatabase)();
 const logoutButton = document.getElementById("logout-button");
+const registerButton = document.getElementById("register-button");
+const loginButton = document.getElementById("login-button");
 function register() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -5463,9 +5469,13 @@ function closeSignInModal() {
     if (user) {
         loginStatusElement.textContent = "You are log in ";
         logoutButton.style.display = "block";
+        loginButton.style.display = "none";
+        registerButton.style.display = "none";
     } else {
         loginStatusElement.textContent = "You are log out";
         logoutButton.style.display = "none";
+        loginButton.style.display = "block";
+        registerButton.style.display = "block";
     }
 });
 document.getElementById("logout-button").addEventListener("click", logout);
@@ -5473,7 +5483,7 @@ document.getElementById("login-button").addEventListener("click", logIn);
 document.getElementById("register-button").addEventListener("click", register);
 document.addEventListener("keydown", handleKeyPress);
 
-},{"firebase/app":"k1P3B","firebase/analytics":"iMJCs","firebase/auth":"8TAqx","firebase/database":"bwie7"}],"k1P3B":[function(require,module,exports) {
+},{"firebase/app":"k1P3B","firebase/analytics":"iMJCs","firebase/auth":"8TAqx","firebase/database":"bwie7","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"k1P3B":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _app = require("@firebase/app");
@@ -32348,4 +32358,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.c64b4eef.js.map
+//# sourceMappingURL=index.76eeb5e9.js.map
