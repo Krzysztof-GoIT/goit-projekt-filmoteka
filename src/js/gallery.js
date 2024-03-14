@@ -44,7 +44,7 @@ const displayWatchedMovies = () => {
     });
     homePageNo = 0;
     clearGallery();
-    renderGallery(moviesWithGenres);
+    renderGallery(moviesWithGenres, 1);
   } catch (error) {
     console.error('Error displaying watched movies:', error);
   }
@@ -79,7 +79,7 @@ const displayQueuedMovies = () => {
     });
     homePageNo = 0;
     clearGallery();
-    renderGallery(moviesWithGenres);
+    renderGallery(moviesWithGenres, 1);
   } catch (error) {
     console.error('Error displaying queued movies:', error);
   }
@@ -111,7 +111,7 @@ window.addEventListener('DOMContentLoaded', () => {
 export const getHomepage = async pageNo => {
   try {
     const response = await fetchTrendingMovies(pageNo);
-    renderGallery(response.results);
+    renderGallery(response.results, 0);
     homePageNo = pageNo;
   } catch (error) {
     console.error('Error fetching trending movies:', error);
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchQuery) {
       try {
         const response = await fetchSearchMovies(searchQuery, 1);
-        renderGallery(response.results);
+        renderGallery(response.results, 0);
         searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
         if (response.results.length > 0) {
           notResult.style.display = 'none'; // Ukrycie komunikatu o braku wyników
@@ -146,8 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Renderowanie Galerii
-
-const renderGallery = dataGallery => {
+const renderGallery = (dataGallery, rating) => {
   try {
     // Pobranie danych o filmach z galerii
     const movies = dataGallery;
@@ -181,15 +180,19 @@ const renderGallery = dataGallery => {
           } else if (movie.genre_ids && movie.genre_ids.length > 0) {
             categories = getGenres(movie.genre_ids);
           }
+          console.log('rating: ', rating);
+          let rate = rating
+            ? ` <span class="movie-info-rating">${movie.vote_average.toFixed(1)}</span>`
+            : ``;
 
           // Zbudowanie kodu HTML dla karty filmu
           const movieCard = `
           <div class="movie-card" data-movie-id="${movie.id}">
-            <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
-            <div class="movie-details">
-              <p class="movie-title">${movie.title}</p>
-              <p class="movie-info">${categories} | ${releaseYear}</p>
-            </div>
+          <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
+          <div class="movie-details">
+          <p class="movie-title">${movie.title}</p>
+          <p class="movie-info">${categories} | ${releaseYear}${rate}</p>
+          </div>
           </div>
         `;
           return movieCard;
