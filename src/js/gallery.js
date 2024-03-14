@@ -220,17 +220,17 @@ const renderGallery = dataGallery => {
         // Wyświetlenie dodatkowych informacji o filmie
         displayMovieDetails(movieDetails);
 
-        // Dodanie przycisku "Watched" do karty filmu
-        const watchedButton = document.createElement('button');
-        watchedButton.innerText = 'Add to Watched';
-        watchedButton.addEventListener('click', () => addToWatchedMovies(movieDetails));
-        card.appendChild(watchedButton);
+        // // Dodanie przycisku "Watched" do karty filmu
+        // const watchedButton = document.createElement('button');
+        // watchedButton.innerText = 'Add to Watched';
+        // watchedButton.addEventListener('click', () => addToWatchedMovies(movieDetails));
+        // card.appendChild(watchedButton);
 
-        // Dodanie przycisku "Add to Queue" do karty filmu
-        const queuedButton = document.createElement('button');
-        queuedButton.innerHTML = 'Add to Queue';
-        queuedButton.addEventListener('click', () => addToQueue(movieDetails));
-        card.appendChild(queuedButton);
+        // // Dodanie przycisku "Add to Queue" do karty filmu
+        // const queuedButton = document.createElement('button');
+        // queuedButton.innerHTML = 'Add to Queue';
+        // queuedButton.addEventListener('click', () => addToQueue(movieDetails));
+        // card.appendChild(queuedButton);
       });
     });
   } catch (error) {
@@ -261,16 +261,42 @@ const openModal = movieData => {
 
   const modalContent = document.getElementById('modalContent');
   modalContent.innerHTML = `
-    <h2>${movieData.title}</h2>
-    <p><strong>Overview:</strong> ${movieData.overview}</p>
-    <p><strong>Release Date:</strong> ${movieData.release_date}</p>
-    <!-- Dodaj więcej danych, jeśli chcesz -->
+  <div class="movie-details-container">
+    <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" alt="${
+    movieData.title
+  } Photo">
+  <div class="movie-details">
+  <h2>${movieData.title}</h2>
+  <p>Vote / Votes <span>${movieData.vote_average} / ${movieData.vote_count}</span></p>
+  <p>Popularity <span>${movieData.popularity}</span></p>
+  <p>Orginal Title <span>${movieData.original_title}</span></p>
+  <p>Genre <span>${movieData.genres.map(genre => genre.name).join(', ')}</span></p>
+  <p><strong>ABOUT</strong> ${movieData.overview}</p>
+</div>
+</div>
+<button class="watchedButton">Add to Watched</button>
+<button class="queuedButton">Add to Queue</button>>
   `;
+  const watchedButton = document.getElementsByClassName('watchedButton')[0];
+  watchedButton.onclick = () => {
+    addToWatchedMovies(movieData);
+  };
+  const queuedButton = document.getElementsByClassName('queuedButton')[0];
+  queuedButton.onclick = () => {
+    addToQueue(movieData);
+  };
 
   const span = document.getElementsByClassName('close')[0];
   span.onclick = () => {
     modal.style.display = 'none';
   };
+
+  // Obsługa zdarzenia keydown
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      modal.style.display = 'none';
+    }
+  });
 
   window.onclick = event => {
     if (event.target == modal) {
@@ -321,15 +347,26 @@ const loadMoreContent = () => {
   }
 };
 const infinityScroll = document.getElementById('infinityScroll');
+let isInfinityScrollActive = false;
 
 // Obsługa zdarzenia kliknięcia przycisku
 infinityScroll.addEventListener('click', () => {
+  if (isInfinityScrollActive) {
+    // Jeżeli infinity scroll jest aktywny, usuwamy nasłuchiwanie zdarzenia scroll
+    window.removeEventListener('scroll', loadMoreContent);
+  } else {
+    // Jeżeli infinity scroll nie jest aktywny, dodajemy nasłuchiwanie zdarzenia scroll
+    window.addEventListener('scroll', loadMoreContent);
+  }
+  // Zmiana stanu - włącz/wyłącz
+  isInfinityScrollActive = !isInfinityScrollActive;
+
   // Początkowe ładowanie treści
   getHomepage(homePageNo);
 
-  // Event scroll na oknie przeglądarki po kliknięciu przycisku
-  window.addEventListener('scroll', loadMoreContent);
+  // // Event scroll na oknie przeglądarki po kliknięciu przycisku
+  // window.addEventListener('scroll', loadMoreContent);
 
-  // Usuń obsługę zdarzenia kliknięcia przycisku, aby nie powtarzać ładowania po kliknięciu
-  infinityScroll.removeEventListener('click', loadMoreContent);
+  // // Usuń obsługę zdarzenia kliknięcia przycisku, aby nie powtarzać ładowania po kliknięciu
+  // infinityScroll.removeEventListener('click', loadMoreContent);
 });
