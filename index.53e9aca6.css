@@ -313,18 +313,18 @@ body, .movies {
     padding-top: 60px;
     display: grid;
   }
-}
 
-.movie-poster {
-  width: 395px;
-  height: 574px;
-}
+  .movie-poster {
+    width: 395px;
+    height: 574px;
+  }
 
-.movie-details {
-  width: 395px;
-  margin-top: 12px;
-  font-size: 20px;
-  line-height: 1.2;
+  .movie-details {
+    width: 395px;
+    margin-top: 12px;
+    font-size: 20px;
+    line-height: 1.2;
+  }
 }
 
 @media (width >= 1600px) {
@@ -672,4 +672,4 @@ button:hover {
   text-transform: uppercase;
   margin-bottom: 10px;
 }
-/*# sourceMappingURL=index.d5ad651a.css.map */
+/*# sourceMappingURL=index.53e9aca6.css.map */
