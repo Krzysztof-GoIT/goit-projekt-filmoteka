@@ -140,7 +140,7 @@ function closeSignInModal() {
 onAuthStateChanged(auth, (user) => {
   const loginStatusElement = document.getElementById("login-status");
   if (user) {
-    loginStatusElement.textContent = "You are log in " ;
+    loginStatusElement.textContent = "You are log in" ;
     logoutButton.style.display = "block";
     loginButton.style.display = "none";
     registerButton.style.display = "none";

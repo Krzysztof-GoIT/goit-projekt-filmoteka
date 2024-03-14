@@ -233,3 +233,9 @@ button:hover {
   text-align: center;
   margin-bottom: 10px;
 }
+
+  #login-status {
+    text-align: center;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
