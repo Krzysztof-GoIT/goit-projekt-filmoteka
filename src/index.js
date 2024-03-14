@@ -11,3 +11,4 @@ import './js/onOffModal';
 import './js/devTools';
 import './js/darkMode';
 import './js/modal-goit-team';
+import './js/firebaseAuthorization';

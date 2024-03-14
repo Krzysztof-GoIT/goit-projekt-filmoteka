@@ -1,10 +1,10 @@
 export const addToWatchedMovies = movieDetails => {
   // Pobierz listę obejrzanych filmów z localStorage lub utwórz nową listę, jeśli nie istnieje
   let watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
-  
-    if (!Array.isArray(watchedMovies)) {
+
+  if (!Array.isArray(watchedMovies)) {
     watchedMovies = [];
-  };
+  }
 
   let isMovieAlreadyWatched = watchedMovies.find(movie => movie.id === movieDetails.id);
 
@@ -18,9 +18,9 @@ export const addToWatchedMovies = movieDetails => {
 
     //usuwa filmy jeśli znadjują sie w kolejce
 
-      queuedMovies = queuedMovies.filter(movie => movie.id !== movieDetails.id);
+    queuedMovies = queuedMovies.filter(movie => movie.id !== movieDetails.id);
     localStorage.setItem('queuedMovies', JSON.stringify(queuedMovies));
-     refreshView();
+    refreshView();
   } else {
     console.log(`"${movieDetails.title}" is already in Watched Movies`);
   }
@@ -38,14 +38,14 @@ export const addToQueue = movieDetails => {
     console.log(`Added "${movieDetails.title}" to Queue `);
 
     //usuwa filmy dodane do obejrzanych
-     watchedMovies = watchedMovies.filter(movie => movie.id !== movieDetails.id);
+    watchedMovies = watchedMovies.filter(movie => movie.id !== movieDetails.id);
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
-     refreshView();
+    refreshView();
   } else {
     console.log(`"${movieDetails.title}" is already in Queue`);
   }
 };
 const refreshView = () => {
-  //Tutaj wstawię później funkcje która będzie odświerzać widok po zmianie 
+  //Tutaj wstawię później funkcje która będzie odświerzać widok po zmianie
   //Z queue do watched
- }
+};
