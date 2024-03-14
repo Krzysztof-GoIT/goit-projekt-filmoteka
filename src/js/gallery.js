@@ -218,16 +218,16 @@ const renderGallery = (dataGallery, rating) => {
           return movieCard;
         })
         .join('');
-      galleryContainer.innerHTML = newContent;
-      // galleryContainer.insertAdjacentHTML('beforeend', newContent);
+      //galleryContainer.innerHTML = newContent;
+      galleryContainer.insertAdjacentHTML('beforeend', newContent);
 
       // Wstawienie wygenerowanego kodu HTML do kontenera galerii
-      galleryContainer.innerHTML = newContent;
+      //galleryContainer.innerHTML = newContent;
       // Ukrycie komunikatu o braku wyników, jeśli lista filmów nie jest pusta
       notResult.style.display = 'none';
     } else {
       // Jeśli lista filmów jest pusta, wyświetl komunikat o braku wyników
-      galleryContainer.innerHTML = '';
+      //galleryContainer.innerHTML = '';
       notResult.style.display = 'block';
       // Wyczyszczenie galerii
       clearGallery();
@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Czyszczenie galerii
-const clearGallery = () => {
+export const clearGallery = () => {
   const galleryContainer = document.getElementById('gallery-container');
   galleryContainer.innerHTML = ''; // Wyczyszczenie zawartości galerii
 };
@@ -388,7 +388,7 @@ infinityScroll.addEventListener('click', () => {
   isInfinityScrollActive = !isInfinityScrollActive;
 
   // Początkowe ładowanie treści
-  getHomepage(homePageNo);
+  //getHomepage(homePageNo);
 
   // // Event scroll na oknie przeglądarki po kliknięciu przycisku
   // window.addEventListener('scroll', loadMoreContent);

@@ -10,7 +10,7 @@ const myLibrary = document.querySelector('.header-library');
 const headerSearch = document.querySelector('.header-search');
 const watchedButton = document.getElementById('watchedHeader');
 const logo = document.getElementById('logo');
-import { getHomepage } from './gallery';
+import { getHomepage, clearGallery } from './gallery';
 
 const toggleVisibility = (elementToShow, elementToHide) => {
   elementToShow.style.visibility = 'visible';
@@ -72,6 +72,7 @@ const homeButtonClick = event => {
   homeLink.classList.add('active');
   libraryLink.classList.remove('active');
   setHeaderBackground();
+  clearGallery();
   getHomepage(1);
 };
 
@@ -88,8 +89,8 @@ logo.addEventListener('click', homeButtonClick);
 homeLink.addEventListener('click', homeButtonClick);
 libraryLink.addEventListener('click', myLibraryButtonClick);
 logIn.addEventListener('click', () => {
-  logInContainer.style.display = "block"
-})
+  logInContainer.style.display = 'block';
+});
 
 window.addEventListener('resize', setHeaderBackground);
 
