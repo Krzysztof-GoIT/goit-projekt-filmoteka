@@ -1,8 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
-import { onAuthStateChanged } from "firebase/auth";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -30,22 +29,21 @@ function register() {
   const password = document.getElementById("password").value;
   const fullName = document.getElementById("full-name").value;
 
-  if (!validateInputs(email, password, fullName)) {
+  if (!validateEmail(email) || !validatePassword(password)) {
     alert('Invalid input!');
     return;
   }
 
-  createUser(email, password, fullName);
+  createUser(email, password);
 }
 
-function createUser(email, password, fullName) {
+function createUser(email, password, ) {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
       const userData = {
         email: email,
         password: password,
-        fullName: fullName,
         lastLogin: Date.now()
       };
       return saveUserData(user.uid, userData);
