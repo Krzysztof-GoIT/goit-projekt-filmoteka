@@ -33,12 +33,14 @@ body {
 #gallery-container {
   display: grid;
   grid-template-columns: 1fr;
-  margin-top: 20px;
+  padding-top: 20px;
   background-color: var(--bg-color);
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: auto;
 }
+
 .movie-card {
   /* width: 280px;
   height: 100%; */
@@ -123,23 +125,50 @@ body {
   #gallery-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin-top: 60px;
+    padding-top: 60px;
+    max-width: 1280px;
   }
+}
 
-  /* .movie-card {
+/* .movie-card {
     width: 395px;
     height: 634px;
   } */
 
-  .movie-poster {
-    width: 395px;
-    height: 574px;
+.movie-poster {
+  width: 395px;
+  height: 574px;
+}
+.movie-details {
+  margin-top: 12px;
+  font-size: 20px;
+  line-height: 1.2;
+  width: 395px;
+}
+
+/* Wide Monitor Options*/
+@media (min-width: 1600px) {
+  #gallery-container.monitor-wide {
+    grid-template-columns: repeat(4, 1fr);
   }
-  .movie-details {
-    margin-top: 12px;
-    font-size: 20px;
-    line-height: 1.2;
-    width: 395px;
+}
+
+@media (min-width: 1920px) {
+  #gallery-container.monitor-wide {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (min-width: 2560px) {
+  #gallery-container.monitor-wide {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (min-width: 3000px) {
+  #gallery-container .monitor-wide {
+    grid-template-columns: repeat(7, 1fr);
+    max-width: 3000px;
   }
 }
 
