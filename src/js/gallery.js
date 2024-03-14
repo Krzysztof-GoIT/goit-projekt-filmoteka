@@ -5,7 +5,7 @@ import { addToQueue, addToWatchedMovies } from './localstorage';
 export let homePageNo = 0;
 
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
-const getGenres = genreIds => {
+export const getGenres = genreIds => {
   // Pobranie nazw gatunków z listy genresName zdefiniowanej w api.js
   const genres = genreIds.map(genreId => {
     const foundGenre = genresName.find(genre => genre.id === genreId);
@@ -15,43 +15,92 @@ const getGenres = genreIds => {
   return genres.join(', ');
 };
 
+// const displayWatchedMovies = () => {
+//   try {
+//     // Pobierz listę obejrzanych filmów z localStorage
+//     const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+//     const moviesWithGenres = watchedMovies.map(movie => {
+//       const categories =
+//         movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
+//       return { ...movie, categories };
+//     });
+//     homePageNo = 0;
+//     clearGallery();
+//     renderGallery(moviesWithGenres);
+//   } catch (error) {
+//     console.error('Error displaying watched movies:', error);
+//   }
+// };
+
 const displayWatchedMovies = () => {
   try {
-    // Pobierz listę obejrzanych filmów z localStorage
     const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
     const moviesWithGenres = watchedMovies.map(movie => {
-      const categories =
-        movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
+      let categories = 'Without category';
+      if (movie.genres && movie.genres.length > 0) {
+        categories = movie.genres.map(genres => genres.name).join(', ');
+      }
       return { ...movie, categories };
     });
     homePageNo = 0;
     clearGallery();
-    renderGallery(moviesWithGenres);
+    renderGallery(moviesWithGenres, 1);
   } catch (error) {
     console.error('Error displaying watched movies:', error);
   }
-  // const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
-  // renderGallery(watchedMovies);
 };
+
+// const displayWatchedMovies = () => {
+//   try {
+//     // Pobierz listę obejrzanych filmów z localStorage
+//     const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+//     const moviesWithGenres = watchedMovies.map(movie => {
+//       const categories =
+//         movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
+//       return { ...movie, categories };
+//     });
+//     homePageNo = 0;
+//     clearGallery();
+//     renderGallery(moviesWithGenres);
+//   } catch (error) {
+//     console.error('Error displaying watched movies:', error);
+//   }
+// };
 
 const displayQueuedMovies = () => {
   try {
-    // Pobierz listę dodanych do kolejki filmów z localStorage
     const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
     const moviesWithGenres = queuedMovies.map(movie => {
-      const categories =
-        movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
+      let categories = 'Without category';
+      if (movie.genres && movie.genres.length > 0) {
+        categories = movie.genres.map(genres => genres.name).join(', ');
+      }
       return { ...movie, categories };
     });
     homePageNo = 0;
     clearGallery();
-    renderGallery(moviesWithGenres);
+    renderGallery(moviesWithGenres, 1);
   } catch (error) {
     console.error('Error displaying queued movies:', error);
   }
-  // const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
-  // renderGallery(queuedMovies);
 };
+
+// const displayQueuedMovies = () => {
+//   try {
+//     // Pobierz listę dodanych do kolejki filmów z localStorage
+//     const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
+//     const moviesWithGenres = queuedMovies.map(movie => {
+//       const categories =
+//         movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
+//       return { ...movie, categories };
+//     });
+//     homePageNo = 0;
+//     clearGallery();
+//     renderGallery(moviesWithGenres);
+//   } catch (error) {
+//     console.error('Error displaying queued movies:', error);
+//   }
+// };
 
 const displayMovieDetails = movieDetails => {
   // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
@@ -63,31 +112,23 @@ window.addEventListener('DOMContentLoaded', () => {
   getHomepage(1); // Wywołujemy funkcję wyświetlającą HomePage
 
   const libraryWatched = document.getElementById('watchedHeader');
-  libraryWatched.addEventListener('click', () => {
-    displayWatchedMovies();
-  });
+  libraryWatched.addEventListener('click', displayWatchedMovies);
 
   const libraryQueued = document.getElementById('queueHeader');
-  libraryQueued.addEventListener('click', () => {
-    displayQueuedMovies();
-  });
+  libraryQueued.addEventListener('click', displayQueuedMovies);
 
   const libraryWatchedButton = document.getElementById('watchedModal');
-  libraryWatchedButton.addEventListener('click', () => {
-    displayWatchedMovies();
-  });
+  libraryWatchedButton.addEventListener('click', displayWatchedMovies);
 
   const libraryQueuedButton = document.getElementById('queueModal');
-  libraryQueuedButton.addEventListener('click', () => {
-    displayQueuedMovies();
-  });
+  libraryQueuedButton.addEventListener('click', displayQueuedMovies);
 });
 
 //Generujemy trendings movie
 export const getHomepage = async pageNo => {
   try {
     const response = await fetchTrendingMovies(pageNo);
-    renderGallery(response.results);
+    renderGallery(response.results, 0);
     homePageNo = pageNo;
   } catch (error) {
     console.error('Error fetching trending movies:', error);
@@ -106,11 +147,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (searchQuery) {
       try {
         const response = await fetchSearchMovies(searchQuery, 1);
+        renderGallery(response.results, 0);
         searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
         if (response.results.length > 0) {
           notResult.style.display = 'none'; // Ukrycie komunikatu o braku wyników
-          clearGallery();
-          renderGallery(response.results);
         } else {
           notResult.style.display = 'block'; // Wyświetlenie komunikatu o braku wyników
           clearGallery(); // Wyczyszczenie galerii
@@ -123,21 +163,19 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Renderowanie Galerii
-const renderGallery = dataGallery => {
+const renderGallery = (dataGallery, rating) => {
   try {
-    // Pobranie danych o najbardziej popularnych filmach
+    // Pobranie danych o filmach z galerii
     const movies = dataGallery;
-
     // Znalezienie kontenera dla galerii filmów
     const galleryContainer = document.getElementById('gallery-container');
-
     // Ukrycie komunikatu o braku wyników na start
     const notResult = document.getElementById('not-result');
     notResult.style.display = 'none';
 
     // Sprawdzenie czy lista filmów nie jest pusta
     if (movies.length > 0) {
-      // Wyświetlenie filmów
+      // Pobranie danych o najbardziej popularnych filmach
       const newContent = movies
         .map(movie => {
           let posterPath;
@@ -147,36 +185,52 @@ const renderGallery = dataGallery => {
             posterPath =
               'https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.png?raw=true';
           }
+
+          // Inicjalizacja zmiennej przechowującej informacje o gatunkach filmu
           let categories = 'Without category';
+          // Ustalenie roku wydania filmu
           let releaseYear = movie.release_date ? movie.release_date.slice(0, 4) : 'Without date';
-          // Sprawdzenie czy istnieje przynajmniej jeden gatunek, jeśli nie to wyświtlany jest string 'Without category'
 
-          if (movie.genre_ids && movie.genre_ids.length > 0) {
+          // Sprawdzenie czy istnieje przynajmniej jeden gatunek filmu, jeśli tak, pobierz nazwy wszystkich gatunków
+          if (movie.genres && movie.genres.length > 0) {
+            categories = movie.genres.map(genre => genre.name).join(', ');
+          } else if (movie.genre_ids && movie.genre_ids.length > 0) {
             categories = getGenres(movie.genre_ids);
+            if (!categories) {
+              categories = 'Without category';
+            }
           }
+          console.log('rating: ', rating);
+          let rate = rating
+            ? ` <span class="movie-info-rating">${movie.vote_average.toFixed(1)}</span>`
+            : ``;
 
+          // Zbudowanie kodu HTML dla karty filmu
           const movieCard = `
           <div class="movie-card" data-movie-id="${movie.id}">
           <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
           <div class="movie-details">
           <p class="movie-title">${movie.title}</p>
-          <p class="movie-info">${categories} | ${releaseYear}</p>
+          <p class="movie-info">${categories} | ${releaseYear}${rate}</p>
           </div>
           </div>
-          `;
-
+        `;
           return movieCard;
         })
         .join('');
+      //galleryContainer.innerHTML = newContent;
       galleryContainer.insertAdjacentHTML('beforeend', newContent);
 
+      // Wstawienie wygenerowanego kodu HTML do kontenera galerii
+      //galleryContainer.innerHTML = newContent;
       // Ukrycie komunikatu o braku wyników, jeśli lista filmów nie jest pusta
       notResult.style.display = 'none';
     } else {
-      // Jeśli lista filmów jest pusta, wyświetl komunikat
-      galleryContainer.innerHTML = '';
-      notResult.style.display = 'block'; // Wyświetlenie komunikatu o braku wyników
-      clearGallery(); // Wyczyszczenie galerii
+      // Jeśli lista filmów jest pusta, wyświetl komunikat o braku wyników
+      //galleryContainer.innerHTML = '';
+      notResult.style.display = 'block';
+      // Wyczyszczenie galerii
+      clearGallery();
     }
 
     // Obsługa zdarzenia kliknięcia dla każdej karty filmu
@@ -184,13 +238,29 @@ const renderGallery = dataGallery => {
     movieCards.forEach(card => {
       card.addEventListener('click', async () => {
         const movieId = card.dataset.movieId;
+        // Pobranie szczegółowych informacji o wybranym filmie
         const movieDetails = await fetchMovieDetails(movieId);
-        openModal(movieDetails); //Aleksander Modal
+        // Otwarcie modalu z informacjami o filmie
+        openModal(movieDetails);
+        // Wyświetlenie dodatkowych informacji o filmie
         displayMovieDetails(movieDetails);
+
+        // // Dodanie przycisku "Watched" do karty filmu
+        // const watchedButton = document.createElement('button');
+        // watchedButton.innerText = 'Add to Watched';
+        // watchedButton.addEventListener('click', () => addToWatchedMovies(movieDetails));
+        // card.appendChild(watchedButton);
+
+        // // Dodanie przycisku "Add to Queue" do karty filmu
+        // const queuedButton = document.createElement('button');
+        // queuedButton.innerHTML = 'Add to Queue';
+        // queuedButton.addEventListener('click', () => addToQueue(movieDetails));
+        // card.appendChild(queuedButton);
       });
     });
   } catch (error) {
-    console.error('Error fetching trending movies:', error);
+    // Obsługa błędu w przypadku problemów z renderowaniem galerii
+    console.error('Error rendering gallery:', error);
     // Wyświetlenie komunikatu o braku wyników w przypadku błędu
     const notResult = document.getElementById('not-result');
     notResult.style.display = 'block';
@@ -204,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Czyszczenie galerii
-const clearGallery = () => {
+export const clearGallery = () => {
   const galleryContainer = document.getElementById('gallery-container');
   galleryContainer.innerHTML = ''; // Wyczyszczenie zawartości galerii
 };
@@ -216,7 +286,6 @@ const openModal = movieData => {
 
   const modalContent = document.getElementById('modalContent');
   modalContent.innerHTML = `
- 
   <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" alt="${
     movieData.title
   } Photo">
@@ -244,6 +313,7 @@ const openModal = movieData => {
   queuedButton.onclick = () => {
     addToQueue(movieData);
   };
+
   const span = document.getElementsByClassName('close')[0];
   span.onclick = () => {
     modal.style.display = 'none';
@@ -304,12 +374,13 @@ const loadMoreContent = () => {
     getHomepage(homePageNo);
   }
 };
-const infinityScrool = document.getElementById('infinityScrool');
-let isInfinityScroolActive = false;
+const infinityScroll = document.getElementById('infinityScroll');
+
+let isInfinityScrollActive = false;
 
 // Obsługa zdarzenia kliknięcia przycisku
-infinityScrool.addEventListener('click', () => {
-  if (isInfinityScroolActive) {
+infinityScroll.addEventListener('click', () => {
+  if (isInfinityScrollActive) {
     // Jeżeli infinity scroll jest aktywny, usuwamy nasłuchiwanie zdarzenia scroll
     window.removeEventListener('scroll', loadMoreContent);
   } else {
@@ -317,7 +388,14 @@ infinityScrool.addEventListener('click', () => {
     window.addEventListener('scroll', loadMoreContent);
   }
   // Zmiana stanu - włącz/wyłącz
-  isInfinityScroolActive = !isInfinityScroolActive;
+  isInfinityScrollActive = !isInfinityScrollActive;
+
   // Początkowe ładowanie treści
-  getHomepage(homePageNo);
+  //getHomepage(homePageNo);
+
+  // // Event scroll na oknie przeglądarki po kliknięciu przycisku
+  // window.addEventListener('scroll', loadMoreContent);
+
+  // Usuń obsługę zdarzenia kliknięcia przycisku, aby nie powtarzać ładowania po kliknięciu
+  infinityScroll.removeEventListener('click', loadMoreContent);
 });

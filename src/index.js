@@ -10,3 +10,4 @@ import './js/visibilityHeader';
 import './js/onOffModal';
 import './js/devTools';
 import './js/darkMode';
+import './js/firebaseAuthorization';

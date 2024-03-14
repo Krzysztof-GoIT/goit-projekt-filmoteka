@@ -3,12 +3,17 @@ const headerBG = document.getElementById('headerBG');
 
 const homeLink = headerNaviElements[0].getElementsByTagName('a')[0];
 const libraryLink = headerNaviElements[0].getElementsByTagName('a')[1];
+const logIn = headerNaviElements[0].getElementsByTagName('a')[2];
+const logInContainer = document.querySelector('.sign-in-container');
+const registerButton = document.getElementById("register-button");
+const loginButton = document.getElementById("login-button");
+const logoutButton = document.getElementById("logout-button");
 
 const myLibrary = document.querySelector('.header-library');
 const headerSearch = document.querySelector('.header-search');
 const watchedButton = document.getElementById('watchedHeader');
 const logo = document.getElementById('logo');
-import { getHomepage } from './gallery';
+import { getHomepage, clearGallery } from './gallery';
 
 const toggleVisibility = (elementToShow, elementToHide) => {
   elementToShow.style.visibility = 'visible';
@@ -70,6 +75,7 @@ const homeButtonClick = event => {
   homeLink.classList.add('active');
   libraryLink.classList.remove('active');
   setHeaderBackground();
+  clearGallery();
   getHomepage(1);
 };
 
@@ -85,6 +91,23 @@ const myLibraryButtonClick = event => {
 logo.addEventListener('click', homeButtonClick);
 homeLink.addEventListener('click', homeButtonClick);
 libraryLink.addEventListener('click', myLibraryButtonClick);
+logIn.addEventListener('click', (event) => {
+  event.preventDefault();
+  logInContainer.style.display = 'block';
+});
+loginButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  logInContainer.style.display = "none";
+
+});
+registerButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  logInContainer.style.display = "none";
+});
+logoutButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  logInContainer.style.display = "none";
+});
 
 window.addEventListener('resize', setHeaderBackground);
 
