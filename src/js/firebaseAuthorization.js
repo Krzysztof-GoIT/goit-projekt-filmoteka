@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, si
 import { getDatabase, ref, set } from "firebase/database";
 
 // Firebase configuration
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyBJJxKiq-i4sqL8adQDTz48GXByky6Cp3Y",
   authDomain: "filmoteka-auth-eb393.firebaseapp.com",
   projectId: "filmoteka-auth-eb393",
@@ -21,6 +21,8 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const database = getDatabase();
 const logoutButton = document.getElementById("logout-button");
+const registerButton = document.getElementById("register-button");
+const loginButton = document.getElementById("login-button");
 
 function register() {
   const email = document.getElementById("email").value;
@@ -56,12 +58,12 @@ function createUser(email, password, ) {
     });
 }
 
-function saveUserData(uid, userData) {
+export function saveUserData(uid, userData) {
   const databaseRef = ref(database, 'users/' + uid);
   return set(databaseRef, userData);
 }
 
-function logIn() {
+export function logIn() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
@@ -140,9 +142,14 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     loginStatusElement.textContent = "You are log in " ;
     logoutButton.style.display = "block";
+    loginButton.style.display = "none";
+    registerButton.style.display = "none";
+
   } else {
     loginStatusElement.textContent = "You are log out";
     logoutButton.style.display = "none";
+    loginButton.style.display = "block";
+    registerButton.style.display = "block";
   }
 });
 
