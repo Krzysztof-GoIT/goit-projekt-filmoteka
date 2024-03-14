@@ -38,7 +38,7 @@ const displayWatchedMovies = () => {
     const moviesWithGenres = watchedMovies.map(movie => {
       let categories = 'Without category';
       if (movie.genres && movie.genres.length > 0) {
-        categories = movie.genres.map(genre => genres.name).join(', ');
+        categories = movie.genres.map(genres => genres.name).join(', ');
       }
       return { ...movie, categories };
     });
@@ -73,7 +73,7 @@ const displayQueuedMovies = () => {
     const moviesWithGenres = queuedMovies.map(movie => {
       let categories = 'Without category';
       if (movie.genres && movie.genres.length > 0) {
-        categories = movie.genres.map(genre => genres.name).join(', ');
+        categories = movie.genres.map(genres => genres.name).join(', ');
       }
       return { ...movie, categories };
     });
@@ -292,7 +292,7 @@ const openModal = movieData => {
   } Photo">
   <div class="movie-details">
   <h2>${movieData.title}</h2>
-  <p>Vote / Votes <span>${movieData.vote_average} / ${movieData.vote_count}</span></p>
+  <p>Vote / Votes <span>${movieData.vote_average.toFixed(1)} / ${movieData.vote_count}</span></p>
   <p>Popularity <span>${movieData.popularity}</span></p>
   <p>Orginal Title <span>${movieData.original_title}</span></p>
   <p>Genre <span>${movieData.genres.map(genre => genre.name).join(', ')}</span></p>
@@ -373,9 +373,6 @@ const loadMoreContent = () => {
 };
 const infinityScroll = document.getElementById('infinityScroll');
 
-// Obsługa zdarzenia kliknięcia przycisku
-infinityScroll.addEventListener('click', () => {
-=======
 let isInfinityScrollActive = false;
 
 // Obsługa zdarzenia kliknięcia przycisku
