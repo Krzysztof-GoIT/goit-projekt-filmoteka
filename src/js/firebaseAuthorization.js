@@ -22,12 +22,10 @@ const auth = getAuth(app);
 const database = getDatabase();
 const logoutButton = document.getElementById("logout-button");
 
-
-
 function register() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
-  const fullName = document.getElementById("full-name").value;
+
 
   if (!validateEmail(email) || !validatePassword(password)) {
     alert('Invalid input!');
@@ -50,6 +48,8 @@ function createUser(email, password, ) {
     })
     .then(() => {
       alert('User Created!');
+      clearFormFields();
+      closeSignInModal()
     })
     .catch((error) => {
       handleAuthError(error);
@@ -59,10 +59,6 @@ function createUser(email, password, ) {
 function saveUserData(uid, userData) {
   const databaseRef = ref(database, 'users/' + uid);
   return set(databaseRef, userData);
-}
-function handleAuthError(error) {
-  const errorMessage = error.message;
-  alert(errorMessage);
 }
 
 function logIn() {
@@ -85,6 +81,8 @@ function logIn() {
     })
     .then(() => {
       alert('User Log In!');
+      clearFormFields();
+      closeSignInModal()
     })
     .catch((error) => {
       const errorMessage = error.message;
@@ -110,20 +108,40 @@ function validatePassword(password) {
 function logout() {
   signOut(auth)
     .then(() => {
-      // Wylogowanie zakończone sukcesem
       alert('Log Out Succesed');
+      closeSignInModal()
     })
     .catch((error) => {
       const errorMessage = error.message;
       alert(errorMessage);
     });
 }
+function clearFormFields() {
+  document.getElementById("email").value = "";
+  document.getElementById("password").value = "";
+}
+
+
+function handleKeyPress(event) {
+  if (event.keyCode === 27) {
+    closeSignInModal();
+  }
+}
+
+function closeSignInModal() {
+  const signInContainer = document.querySelector('.sign-in-container');
+  signInContainer.style.display = "none";
+}
+
+
+
 onAuthStateChanged(auth, (user) => {
+  const loginStatusElement = document.getElementById("login-status");
   if (user) {
-    // Jeśli użytkownik jest zalogowany, wyświetl przycisk wylogowania
+    loginStatusElement.textContent = "You are log in " ;
     logoutButton.style.display = "block";
   } else {
-    // Jeśli użytkownik nie jest zalogowany, ukryj przycisk wylogowania
+    loginStatusElement.textContent = "You are log out";
     logoutButton.style.display = "none";
   }
 });
@@ -131,3 +149,4 @@ onAuthStateChanged(auth, (user) => {
 document.getElementById("logout-button").addEventListener("click", logout);
 document.getElementById("login-button").addEventListener("click", logIn);
 document.getElementById("register-button").addEventListener("click", register);
+document.addEventListener('keydown', handleKeyPress);
