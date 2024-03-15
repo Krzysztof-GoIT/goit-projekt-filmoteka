@@ -25,6 +25,8 @@ const registerButton = document.getElementById("register-button");
 const loginButton = document.getElementById("login-button");
 const headerNaviElements = document.getElementsByClassName('header-navi');
 const logInHD = headerNaviElements[0].getElementsByTagName('a')[2];
+const LogInWithPhone = document.getElementById("LogInWithPhone");
+const recaptchaContainer = document.getElementById("recaptcha-container");
 
 function register() {
   const email = document.getElementById("email").value;
@@ -137,12 +139,17 @@ function closeSignInModal() {
   signInContainer.style.display = "none";
 }
 
+function LogInByhPhone() {
+  closeSignInModal()
+  recaptchaContainer.style.display = "block";
+
+}
+
+
 
 
 onAuthStateChanged(auth, (user) => {
-  const loginStatusElement = document.getElementById("login-status");
   if (user) {
-    loginStatusElement.textContent = "You are log in" ;
     logoutButton.style.display = "block";
     loginButton.style.display = "none";
     registerButton.style.display = "none";
@@ -150,7 +157,6 @@ onAuthStateChanged(auth, (user) => {
 
 
   } else {
-    loginStatusElement.textContent = "You are log out";
     logoutButton.style.display = "none";
     loginButton.style.display = "block";
     registerButton.style.display = "block";
@@ -159,6 +165,7 @@ onAuthStateChanged(auth, (user) => {
 });
 
 
+document.getElementById("LogInWithPhone").addEventListener("click", LogInByhPhone);
 document.getElementById("logout-button").addEventListener("click", logout);
 document.getElementById("login-button").addEventListener("click", logIn);
 document.getElementById("register-button").addEventListener("click", register);

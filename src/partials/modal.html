@@ -20,7 +20,6 @@
 </div>
 
 <div class="sign-in-container">
-  <div id="login-status"></div>
   <div class="sign-in-wrapper">
     <div id="form-content-container">
       <div id="form-content-inner-container">
@@ -44,8 +43,17 @@
           <button id="login-button">login</button>
           <button id="register-button">Register</button>
           <button id="logout-button">Logout</button>
+          <button id="LogInWithPhone">Using Phone</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
+  <div id="recaptcha-container">
+  <input type="tel" id="phoneNumber" placeholder="Enter your phone number">
+  <button id="sendVerificationCodeBtn">Send Verification Code</button>
+  <input type="text" id="verificationCode" placeholder="Enter verification code">
+  <button id="verifyCodeBtn">Verify Code</button>
+  </div>

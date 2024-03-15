@@ -298,3 +298,56 @@ button:hover {
   margin-bottom: 10px;
   text-transform: uppercase;
 }
+
+#recaptcha-container {
+  margin-bottom: 20px;
+  display: none;
+}
+
+/* Stylizacja pola numeru telefonu */
+#phoneNumber {
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Stylizacja przycisku wysyłania kodu weryfikacyjnego */
+#sendVerificationCodeBtn {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#sendVerificationCodeBtn:hover {
+  background-color: #45a049;
+}
+
+/* Stylizacja pola wprowadzania kodu weryfikacyjnego */
+#verificationCode {
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Stylizacja przycisku weryfikacji kodu */
+#verifyCodeBtn {
+  padding: 10px 20px;
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#verifyCodeBtn:hover {
+  background-color: #005F6B;
+}
