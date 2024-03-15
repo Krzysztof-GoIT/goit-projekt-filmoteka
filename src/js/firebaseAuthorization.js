@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, signOut, onAuthStateChanged, RecaptchaVerifier } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 
 // Firebase configuration
@@ -165,7 +165,63 @@ onAuthStateChanged(auth, (user) => {
 });
 
 
-document.getElementById("LogInWithPhone").addEventListener("click", LogInByhPhone);
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    logoutButton.style.display = "block";
+    loginButton.style.display = "none";
+    registerButton.style.display = "none";
+    logInHD.textContent = "Log Out";
+  } else {
+    logoutButton.style.display = "none";
+    loginButton.style.display = "block";
+    registerButton.style.display = "block";
+    logInHD.textContent = "Log In";
+  }
+});
+
+let recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+  'size': 'invisible',
+  'callback': (response) => {
+    // ReCAPTCHA rozwiązane, kontynuuj uwierzytelnianie
+    proceedWithSignIn();
+  },
+  'expired-callback': () => {
+    // Upłynął czas ważności reCAPTCHA. Poproś użytkownika o ponowne rozwiązanie.
+    console.log('reCAPTCHA expired. Please solve it again.');
+  }
+});
+
+// Funkcja do przeprowadzenia procesu uwierzytelniania za pomocą numeru telefonu
+function proceedWithSignIn() {
+  const phoneNumber = '+48123456789'; // Przykładowy numer telefonu
+  signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier)
+    .then((confirmationResult) => {
+      // Kod weryfikacyjny został wysłany pomyślnie
+      const verificationCode = prompt('Please enter the verification code sent to your phone number', '');
+      return confirmationResult.confirm(verificationCode);
+    })
+    .then((result) => {
+      // Użytkownik pomyślnie uwierzytelniony
+      console.log('User signed in successfully', result.user);
+      // Tutaj możesz wywołać funkcję, która ma zostać uruchomiona po poprawnym uwierzytelnieniu
+      // Na przykład:
+      // funkcjaPoPoprawnymUwierzytelnieniu();
+    })
+    .catch((error) => {
+      // Obsługa błędów uwierzytelniania numerem telefonu
+      console.error('Error during phone authentication', error);
+    });
+}
+
+// Funkcja do zamknięcia modala logowania i wyświetlenia recaptcha dla logowania przez telefon
+function LogInByPhone() {
+  closeSignInModal();
+  recaptchaContainer.style.display = "block";
+  // Rozpoczęcie procesu uwierzytelniania za pomocą numeru telefonu
+  proceedWithSignIn();
+}
+
+LogInWithPhone.addEventListener("click", LogInByPhone);
 document.getElementById("logout-button").addEventListener("click", logout);
 document.getElementById("login-button").addEventListener("click", logIn);
 document.getElementById("register-button").addEventListener("click", register);
