@@ -1,7 +1,16 @@
 // gallery.js
 
-import { fetchMovieDetails, fetchSearchMovies, fetchTrendingMovies, genresName } from './api';
+import {
+  fetchMovieDetails,
+  fetchMovieTrailers,
+  fetchSearchMovies,
+  fetchTrendingMovies,
+  genresName,
+} from './api';
 import { addToQueue, addToWatchedMovies } from './localstorage';
+// import './modalTrailer'; // Importujemy funkcję otwierającą modal z zwiastunem
+// import { openModalPlayer } from './modalTrailer.js';
+
 export let homePageNo = 0;
 
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
@@ -14,23 +23,6 @@ export const getGenres = genreIds => {
   // Zwrócenie połączonej listy gatunków
   return genres.join(', ');
 };
-
-// const displayWatchedMovies = () => {
-//   try {
-//     // Pobierz listę obejrzanych filmów z localStorage
-//     const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
-//     const moviesWithGenres = watchedMovies.map(movie => {
-//       const categories =
-//         movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
-//       return { ...movie, categories };
-//     });
-//     homePageNo = 0;
-//     clearGallery();
-//     renderGallery(moviesWithGenres);
-//   } catch (error) {
-//     console.error('Error displaying watched movies:', error);
-//   }
-// };
 
 const displayWatchedMovies = () => {
   try {
@@ -50,23 +42,6 @@ const displayWatchedMovies = () => {
   }
 };
 
-// const displayWatchedMovies = () => {
-//   try {
-//     // Pobierz listę obejrzanych filmów z localStorage
-//     const watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
-//     const moviesWithGenres = watchedMovies.map(movie => {
-//       const categories =
-//         movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
-//       return { ...movie, categories };
-//     });
-//     homePageNo = 0;
-//     clearGallery();
-//     renderGallery(moviesWithGenres);
-//   } catch (error) {
-//     console.error('Error displaying watched movies:', error);
-//   }
-// };
-
 const displayQueuedMovies = () => {
   try {
     const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
@@ -85,23 +60,6 @@ const displayQueuedMovies = () => {
   }
 };
 
-// const displayQueuedMovies = () => {
-//   try {
-//     // Pobierz listę dodanych do kolejki filmów z localStorage
-//     const queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
-//     const moviesWithGenres = queuedMovies.map(movie => {
-//       const categories =
-//         movie.categories !== 'Without category' ? movie.categories : getGenres(movie.genre_ids);
-//       return { ...movie, categories };
-//     });
-//     homePageNo = 0;
-//     clearGallery();
-//     renderGallery(moviesWithGenres);
-//   } catch (error) {
-//     console.error('Error displaying queued movies:', error);
-//   }
-// };
-
 const displayMovieDetails = movieDetails => {
   // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
   console.log(movieDetails);
@@ -117,11 +75,11 @@ window.addEventListener('DOMContentLoaded', () => {
   const libraryQueued = document.getElementById('queueHeader');
   libraryQueued.addEventListener('click', displayQueuedMovies);
 
-  const libraryWatchedButton = document.getElementById('watchedModal');
-  libraryWatchedButton.addEventListener('click', displayWatchedMovies);
+  // const libraryWatchedButton = document.getElementById('watchedModal');
+  // libraryWatchedButton.addEventListener('click', displayWatchedMovies);
 
-  const libraryQueuedButton = document.getElementById('queueModal');
-  libraryQueuedButton.addEventListener('click', displayQueuedMovies);
+  // const libraryQueuedButton = document.getElementById('queueModal');
+  // libraryQueuedButton.addEventListener('click', displayQueuedMovies);
 });
 
 //Generujemy trendings movie
@@ -146,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchQuery = searchInput.value.trim().toLowerCase().split(' ').join('+');
     if (searchQuery) {
       try {
+        clearGallery(); // Wyczyszczenie galerii
         const response = await fetchSearchMovies(searchQuery, 1);
         renderGallery(response.results, 0);
         searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
@@ -244,18 +203,6 @@ const renderGallery = (dataGallery, rating) => {
         openModal(movieDetails);
         // Wyświetlenie dodatkowych informacji o filmie
         displayMovieDetails(movieDetails);
-
-        // // Dodanie przycisku "Watched" do karty filmu
-        // const watchedButton = document.createElement('button');
-        // watchedButton.innerText = 'Add to Watched';
-        // watchedButton.addEventListener('click', () => addToWatchedMovies(movieDetails));
-        // card.appendChild(watchedButton);
-
-        // // Dodanie przycisku "Add to Queue" do karty filmu
-        // const queuedButton = document.createElement('button');
-        // queuedButton.innerHTML = 'Add to Queue';
-        // queuedButton.addEventListener('click', () => addToQueue(movieDetails));
-        // card.appendChild(queuedButton);
       });
     });
   } catch (error) {
@@ -287,34 +234,34 @@ const openModal = movieData => {
   const modalContent = document.getElementById('modalContent');
   modalContent.innerHTML = `
   <div class="modal-container">
-  <div class="movie-poster-modal">
-  <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" alt="${
-    movieData.title
-  } Photo">
-  </div>
-  <div>
-    <h2>${movieData.title}</h2>
-    <div class="info-item">
-<p>Vote / Votes 
-  <span>
-    <span class="average-vote">${movieData.vote_average}</span> /<span class="count-vote">${
+    <div class="movie-poster-modal">
+      <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${
+        movieData.poster_path
+      }" alt="${movieData.title} Photo">
+     </div>
+    <div>
+      <h2>${movieData.title}</h2>
+      <div class="info-item">
+      <p>Vote / Votes
+      <span>
+      <span class="average-vote">${movieData.vote_average}</span> /<span class="count-vote">${
     movieData.vote_count
   }</span>
-  </span>
-</p>
-    <p>Popularity <span class="info-item-color" >${movieData.popularity}</span></p>
-    <p>Orginal Title <span class="info-item-color original-title">${
-      movieData.original_title
-    }</span></p>
-    <p>Genre <span class="info-item-color">${getGenres(movieData.genres)}</span></p>
-    </div>
-    <div class="about-movie">
-    <p><span class="about-movie-details">About</span></br> ${movieData.overview}</p>
-    </div>
-    <div class="modal-buttons">
-    <button class="watchedButton">Add to Watched</button>
-    <button class="queuedButton">Add to Queue</button>
-    </div>
+        </span>
+      </p>
+      <p>Popularity <span class="info-item-color" >${movieData.popularity}</span></p>
+      <p>Orginal Title <span class="info-item-color original-title">${
+        movieData.original_title
+      }</span></p>
+      <p>Genre <span class="info-item-color">${getGenres(movieData.genres)}</span></p>
+      </div>
+      <div class="about-movie">
+      <p><span class="about-movie-details">About</span></br> ${movieData.overview}</p>
+      </div>
+      <div class="modal-buttons">
+        <button class="watchedButton">Add to Watched</button>
+        <button class="queuedButton">Add to Queue</button>
+      </div>
     </div>
     </div>
   `;
@@ -326,6 +273,58 @@ const openModal = movieData => {
   queuedButton.onclick = () => {
     addToQueue(movieData);
   };
+
+  const trailerButton = document.querySelector('#movieTrailerButton');
+  trailerButton.target = '_blank';
+
+  trailerButton.addEventListener('click', async () => {
+    try {
+      // Pobranie identyfikatora filmu
+      const movieId = movieData.id;
+      // Wysłanie żądania do API w celu pobrania zwiastunu filmu
+      const trailersResponse = await fetchMovieTrailers(movieId);
+      // Wyświetlenie danych zwiastunu w konsoli
+      console.log('Trailers:', trailersResponse);
+
+      // Sprawdzenie, czy istnieją zwiastuny
+      if (trailersResponse.results && trailersResponse.results.length > 0) {
+        // Otwarcie pierwszego zwiastunu w nowej karcie przeglądarki, jeśli istnieje
+        const firstTrailer = trailersResponse.results[0];
+        if (firstTrailer.site === 'YouTube') {
+          window.open(`https://www.youtube.com/watch?v=${firstTrailer.key}`, '_blank');
+        }
+      } else {
+        console.log('No trailers available');
+      }
+    } catch (error) {
+      console.error('Error fetching movie trailers:', error);
+    }
+  });
+
+  // trailerButton.addEventListener('click', async () => {
+  //   try {
+  //     // Pobranie identyfikatora filmu
+  //     const movieId = movieData.id;
+  //     // Wysłanie żądania do API w celu pobrania zwiastunu filmu
+  //     const trailersResponse = await fetchMovieTrailers(movieId);
+  //     // Wyświetlenie danych zwiastunu w konsoli
+  //     console.log('Trailers:', trailersResponse);
+
+  //     // Sprawdzenie, czy istnieją zwiastuny
+  //     if (trailersResponse.results && trailersResponse.results.length > 0) {
+  //       // Iteracja przez zwiastuny i otwarcie ich w nowej karcie przeglądarki
+  //       trailersResponse.results.forEach(trailer => {
+  //         if (trailer.site === 'YouTube') {
+  //           window.open(`https://www.youtube.com/watch?v=${trailer.key}`, '_blank');
+  //         }
+  //       });
+  //     } else {
+  //       console.log('No trailers available');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching movie trailers:', error);
+  //   }
+  // });
 
   const span = document.getElementsByClassName('close')[0];
   span.onclick = () => {
@@ -404,10 +403,10 @@ infinityScroll.addEventListener('click', () => {
   isInfinityScrollActive = !isInfinityScrollActive;
 
   // Początkowe ładowanie treści
-  //getHomepage(homePageNo);
+  getHomepage(homePageNo);
 
-  // // Event scroll na oknie przeglądarki po kliknięciu przycisku
-  // window.addEventListener('scroll', loadMoreContent);
+  // Event scroll na oknie przeglądarki po kliknięciu przycisku
+  window.addEventListener('scroll', loadMoreContent);
 
   // Usuń obsługę zdarzenia kliknięcia przycisku, aby nie powtarzać ładowania po kliknięciu
   infinityScroll.removeEventListener('click', loadMoreContent);
