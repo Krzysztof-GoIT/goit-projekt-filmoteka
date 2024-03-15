@@ -5,7 +5,7 @@ const modal = document.getElementById("modalGoit");
 const btn = document.querySelector(".footer-btn"); // Zmiana na pobranie przycisku po klasie
 
 // Pobranie elementu <span>, który zamyka okno modalne
-const span = document.querySelector(".close-modal-btn"); // Zmienione na querySelector dla spójności
+const span = document.querySelector(".close-modal-btn-goit"); // Zmienione na querySelector dla spójności
 
 // Kiedy użytkownik kliknie na przycisk, otwórz okno modalne
 btn.onclick = function() {
