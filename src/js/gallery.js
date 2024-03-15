@@ -285,7 +285,9 @@ const openModal = movieData => {
       <p>Orginal Title <span class="info-item-color original-title">${
         movieData.original_title
       }</span></p>
-      <p>Genre <span class="info-item-color">${getGenres(movieData.genres)}</span></p>
+      <p>Genre <span class="info-item-color">${movieData.genres
+        .map(genre => genre.name)
+        .join(', ')}</span></p>
       </div>
       <div class="about-movie">
       <p><span class="about-movie-details">About</span></br> ${movieData.overview}</p>
