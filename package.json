@@ -25,6 +25,7 @@
   "dependencies": {
     "@parcel/packager-js": "^2.12.0",
     "axios": "^1.6.7",
+    "basiclightbox": "^5.0.4",
     "checkout": "github:actions/checkout",
     "firebase": "^10.9.0",
     "firebase-admin": "^12.0.0",
