@@ -19,15 +19,18 @@
   </div>
 </div>
 
-<div class="sign-in-container">
+<div class="sign-in-container hidden">
+  <span class="close-modal-reg">&times;</span>
   <div id="login-status"></div>
   <div class="sign-in-wrapper">
+    
     <div id="form-content-container">
+      
       <div id="form-content-inner-container">
         <input
           type="email"
           id="email"
-          placeholder="email"
+          placeholder="Email"
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
           title="(example@example.com)"
           required
@@ -41,7 +44,7 @@
           required
         />
         <div id="button-container">
-          <button id="login-button">login</button>
+          <button id="login-button">Login</button>
           <button id="register-button">Register</button>
           <button id="logout-button">Logout</button>
         </div>

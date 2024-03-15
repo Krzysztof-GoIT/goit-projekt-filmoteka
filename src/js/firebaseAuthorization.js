@@ -5,14 +5,14 @@ import { getDatabase, ref, set } from "firebase/database";
 
 // Firebase configuration
 export const firebaseConfig = {
-  apiKey: "AIzaSyBJJxKiq-i4sqL8adQDTz48GXByky6Cp3Y",
-  authDomain: "filmoteka-auth-eb393.firebaseapp.com",
-  projectId: "filmoteka-auth-eb393",
-  storageBucket: "filmoteka-auth-eb393.appspot.com",
-  messagingSenderId: "951424949581",
-  appId: "1:951424949581:web:272460fadddef8c6452b04",
-  measurementId: "G-G1QWHQFCQD",
-  databaseURL: "https://filmoteka-auth-eb393.firebaseio.com"
+  apiKey: 'AIzaSyBJJxKiq-i4sqL8adQDTz48GXByky6Cp3Y',
+  authDomain: 'filmoteka-auth-eb393.firebaseapp.com',
+  projectId: 'filmoteka-auth-eb393',
+  storageBucket: 'filmoteka-auth-eb393.appspot.com',
+  messagingSenderId: '951424949581',
+  appId: '1:951424949581:web:272460fadddef8c6452b04',
+  measurementId: 'G-G1QWHQFCQD',
+  databaseURL: 'https://filmoteka-auth-eb393.firebaseio.com',
 };
 
 // Initialize Firebase
@@ -158,8 +158,22 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
+document.getElementById('logout-button').addEventListener('click', logout);
+document.getElementById('login-button').addEventListener('click', logIn);
+document.getElementById('register-button').addEventListener('click', register);
+document.addEventListener('keydown', handleKeyPress);
+
+/* dodanie zamykania modala poprzez x */
 
 document.getElementById("logout-button").addEventListener("click", logout);
 document.getElementById("login-button").addEventListener("click", logIn);
 document.getElementById("register-button").addEventListener("click", register);
 document.addEventListener('keydown', handleKeyPress);
+
+document.querySelector('.close-modal-reg').addEventListener('click', closeSignInModal);
+
+document.body.addEventListener('click', function (event) {
+  if (event.target.classList.contains('close-modal-reg')) {
+    closeSignInModal();
+  }
+});
