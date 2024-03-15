@@ -1,78 +1,78 @@
 .pagination {
-  display: flex;
-  padding: 8px 16px;
-  margin: auto 0;
-  border: none;
-  border-radius: 5px;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0, 5;
-  color: var(--movieDetails-color);
+    display: flex;
+    padding: 8px 16px;
+    margin: auto 0;
+    border: none;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0, 5;
+    color: var(--movieDetails-color);
 }
 
 .pagination a {
-  color: var(--movieDetails-color);
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color 0.3s;
-  border-radius: 5px;
-  width: 40px;
-  height: 40px;
+    color: var(--movieDetails-color);
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
 }
 
 .pagin-btn:focus,
 .pagin-btn:hover {
-  background-color: var(--pagination-bg);
+    background-color: var(--pagination-bg);
 }
 
 .pagination-arrow {
-  color: var(--movieDetails-color);
+    color: var(--movieDetails-color);
 }
 
 .pagin-btn {
-  color: var(--movieDetails-color);
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color 0.3s;
-  border-radius: 5px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  margin: auto 0;
-  border: none;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0, 5;
-  background-color: #fff;
-  transition: background-color 0.3s;
+    color: var(--movieDetails-color);
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    margin: auto 0;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0, 5;
+    background-color: #fff;
+    transition: background-color 0.3s;
 }
 
 .current-page {
-  background-color: #ff6c28;
-  color: var(--movieDetails-color);
+    background-color: #ff6c28;
+    color: var(--movieDetails-color);
 }
 
 .hidden {
-  display: none;
+    display: none;
 }
 
 .dots {
-  color: var(--movieDetails-color);
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color 0.3s;
-  border-radius: 5px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  margin: auto 0;
-  border: none;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0, 5;
-  background-color: #fff;
-  transition: background-color 0.3s;
+    color: var(--movieDetails-color);
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    margin: auto 0;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0, 5;
+    background-color: #fff;
+    transition: background-color 0.3s;
 }
