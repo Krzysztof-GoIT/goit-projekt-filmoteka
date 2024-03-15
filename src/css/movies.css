@@ -134,25 +134,33 @@ body {
 @media (min-width: 1600px) {
   #gallery-container.monitor-wide {
     grid-template-columns: repeat(4, 1fr);
+    padding-top: 20px;
+    background-color: var(--bg-color);
+    justify-content: center;
+    gap: 30px;
+    max-width: 1919px;
   }
 }
-
 @media (min-width: 1920px) {
   #gallery-container.monitor-wide {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 2559px;
+    gap: 30px;
   }
 }
 
 @media (min-width: 2560px) {
   #gallery-container.monitor-wide {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    gap: 40px;
+    max-width: 2999px;
   }
 }
 
 @media (min-width: 3000px) {
   #gallery-container .monitor-wide {
-    grid-template-columns: repeat(7, 1fr);
-    max-width: 3000px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 50px;
   }
 }
 
