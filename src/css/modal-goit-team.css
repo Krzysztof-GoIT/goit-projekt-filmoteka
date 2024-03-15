@@ -1,0 +1,73 @@
+/* Styl dla okna modalnego */
+.modal-goit {
+  display: none; /* Ukryte domyślnie */
+  position: fixed; /* Pozostaje w miejscu nawet przy przewijaniu */
+  z-index: 1; /* Siedzi na wierzchu */
+  left: 0;
+  top: 0;
+  width: 100%; /* Pełna szerokość */
+  height: 100%; /* Pełna wysokość */
+  overflow: auto; /* Włącza przewijanie, jeśli potrzebne */
+  background-color: rgb(0, 0, 0); /* Kolor tła */
+  background-color: rgba(0, 0, 0, 0.4); /* Czarny z lekką przezroczystością */
+}
+
+/* Styl dla zawartości okna modalnego */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% od góry i wyśrodkowane w poziomie */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Możesz dostosować szerokość */
+  height: auto;
+}
+
+/* Styl dla przycisku zamknięcia */
+.close-modal-btn {
+  color: #ffffff;
+  float: right;
+  font-size: 38px;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.close-modal-btn:hover,
+.close-modal-btn:focus {
+  color: rgb(103, 100, 100);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Styl dla przycisku, który otwiera okno modalne */
+.footer-btn {
+  cursor: pointer;
+}
+
+.footer-btn:hover {
+  opacity: 1;
+}
+.modal-team-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 40px;
+  justify-content: space-around;
+}
+.modal-team-img {
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+}
+.modal-team-header {
+  text-align: center;
+}
+.modal-content {
+  border-radius: 50px;
+  background-color: rgb(0, 0, 0);
+}
+.modal-team-text {
+  color: white;
+  text-align: center;
+}

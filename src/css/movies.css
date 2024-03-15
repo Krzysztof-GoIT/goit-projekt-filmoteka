@@ -11,6 +11,7 @@ p {
   --footer-bg: #f7f7f7;
   --footer-text: #545454;
   --details-contrast: #ff6b08;
+  --vote-color: #8c8c8c;
 }
 
 [data-mode='dark'] {
@@ -21,6 +22,7 @@ p {
   --footer-bg: #8b8b8b;
   --footer-text: #fff;
   --details-contrast: #ff6b08;
+  --vote-color: #8c8c8c;
 }
 body {
   background-color: var(--bg-color);
@@ -33,18 +35,12 @@ body {
 #gallery-container {
   display: grid;
   grid-template-columns: 1fr;
-  margin-top: 20px;
+  padding-top: 20px;
   background-color: var(--bg-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: auto;
-}
-
-.movie-card {
-  /* width: 280px;
-  height: 100%; */
-  /* margin-bottom: 20px; */
 }
 
 .movie-details {
@@ -101,70 +97,56 @@ body {
     justify-items: center;
   }
 
-  .movie-card {
-    /* width: 336px;
-    height: 494px; */
-    /* margin-bottom: 32px; */
-  }
-
   .movie-details {
     margin-top: 8px;
     margin-bottom: 32px;
   }
 
   .movie-poster {
-    /* width: 336px; */
-    width: 100%;
-    height: 455px;
+    width: 336px;
+    height: 100%;
     border-radius: 5px;
     display: flex;
     justify-content: center;
   }
 }
+
 @media (min-width: 1280px) {
   #gallery-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin-top: 60px;
+    padding-top: 60px;
     max-width: 1280px;
   }
-}
 
-/* .movie-card {
+  .movie-poster {
     width: 395px;
-    height: 634px;
-  } */
-
-.movie-poster {
-  width: 395px;
-  height: 574px;
-}
-.movie-details {
-  margin-top: 12px;
-  font-size: 20px;
-  line-height: 1.2;
-  width: 395px;
+    height: 574px;
+  }
+  .movie-details {
+    margin-top: 12px;
+    font-size: 20px;
+    line-height: 1.2;
+    width: 395px;
+  }
 }
 
 /* Wide Monitor Options*/
 @media (min-width: 1600px) {
-  #gallery-container .monitor-wide {
+  #gallery-container.monitor-wide {
     grid-template-columns: repeat(4, 1fr);
-    max-width: 1600px;
   }
 }
 
-@media (min-width: 2000px) {
-  #gallery-container .monitor-wide {
+@media (min-width: 1920px) {
+  #gallery-container.monitor-wide {
     grid-template-columns: repeat(5, 1fr);
-    max-width: 2000px;
   }
 }
 
-@media (min-width: 2500px) {
-  #gallery-container .monitor-wide {
+@media (min-width: 2560px) {
+  #gallery-container.monitor-wide {
     grid-template-columns: repeat(6, 1fr);
-    max-width: 2500px;
   }
 }
 

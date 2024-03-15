@@ -1,21 +1,11 @@
-
 <div class="dev-tools-container">
-    <button class="dev-main-button" id="dev-mainButton">⚙️</button>
-    <div class="dev-button-bar">
-        <button class="dev-button" id="changeMode">🌗</button>
-        <button class="dev-button" id="scroolToTop">🔝</button>
-        <button class="dev-button" id="infinityScrool">♾️</button>
-    </div>
-</div>
-
-<div class="modal-container is-hidden" data-modal>
-  <div class="modal-window">
-    <button type="button" class="modal-close-button" data-modal-close>
-      <svg class="modal-close-icon">
-        <use href="./img/icons.svg#icon-close"></use>
-      </svg>
-    </button>
-    </div>
+  <button class="dev-main-button" id="dev-mainButton">⚙️</button>
+  <div class="dev-button-bar">
+    <button class="dev-button" id="changeMode">🌗</button>
+    <button class="dev-button" id="scrollToTop">🔝</button>
+    <button class="dev-button" id="infinityScroll">♾️</button>
+    <button class="dev-button" id="wide-container">↔️</button>
+  </div>
 </div>
 
 <!-- Aleksander -->
@@ -24,6 +14,38 @@
     <span class="close">&times;</span>
     <div id="modalContent">
       <!-- Tutaj będą wyświetlane dynamiczne dane -->
+    </div>
+    <button id="movieTrailerButton">Movie Trailer</button>
+  </div>
+</div>
+
+<div class="sign-in-container">
+  <div id="login-status"></div>
+  <div class="sign-in-wrapper">
+    <div id="form-content-container">
+      <div id="form-content-inner-container">
+        <input
+          type="email"
+          id="email"
+          placeholder="email"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          title="(example@example.com)"
+          required
+        />
+        <input
+          type="password"
+          id="password"
+          placeholder="New password"
+          pattern="(?=.*\d)(?=.*[A-Z])(?=.*\W)(?=.*[a-z]).{8,}"
+          title="Hasło musi zawierać co najmniej 6 znaków, w tym co najmniej jedną dużą literę, jedną małą literę, jedną cyfrę i jeden znak specjalny"
+          required
+        />
+        <div id="button-container">
+          <button id="login-button">login</button>
+          <button id="register-button">Register</button>
+          <button id="logout-button">Logout</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
