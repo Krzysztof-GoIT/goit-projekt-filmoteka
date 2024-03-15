@@ -11,6 +11,7 @@ p {
   --footer-bg: #f7f7f7;
   --footer-text: #545454;
   --details-contrast: #ff6b08;
+  --vote-color: #8c8c8c;
 }
 
 [data-mode='dark'] {
@@ -21,6 +22,7 @@ p {
   --footer-bg: #8b8b8b;
   --footer-text: #fff;
   --details-contrast: #ff6b08;
+  --vote-color: #8c8c8c;
 }
 body {
   background-color: var(--bg-color);
@@ -101,9 +103,8 @@ body {
   }
 
   .movie-poster {
-    /* width: 336px; */
-    width: 100%;
-    height: 455px;
+    width: 336px;
+    height: 100%;
     border-radius: 5px;
     display: flex;
     justify-content: center;
