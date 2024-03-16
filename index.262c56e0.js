@@ -4975,30 +4975,38 @@ const openModal = (movieData1)=>{
     const modalContent = document.getElementById("modalContent");
     modalContent.innerHTML = `
   <div class="modal-container">
-    <div class="movie-poster-modal">
-      <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${movieData1.poster_path}" alt="${movieData1.title} Photo">
-     </div>
-    <div>
-      <h2>${movieData1.title}</h2>
-      <div class="info-item">
-      <p>Vote / Votes
-      <span>
-      <span class="average-vote">${movieData1.vote_average}</span> /<span class="count-vote">${movieData1.vote_count}</span>
-        </span>
-      </p>
-      <p>Popularity <span class="info-item-color" >${movieData1.popularity}</span></p>
-      <p>Orginal Title <span class="info-item-color original-title">${movieData1.original_title}</span></p>
-      <p>Genre <span class="info-item-color">${movieData1.genres.map((genre)=>genre.name).join(", ")}</span></p>
-      </div>
-      <div class="about-movie">
-      <p><span class="about-movie-details">About</span></br> ${movieData1.overview}</p>
-      </div>
-      <div class="modal-buttons">
-        <button class="watchedButton">Add to Watched</button>
-        <button class="queuedButton">Add to Queue</button>
-        <button id="movieTrailerButton" class="trailerButton" target="_blank">Trailer</button>
-      </div>
+  <div class="movie-poster-modal">
+  <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${movieData1.poster_path}" alt="${movieData1.title} Photo">
+  </div>
+  <div class="modal-movie-info">
+    <h2>${movieData1.title}</h2>
+      
+    
+    <div class="info-item">
+    
+    <div class="pernament-item">
+    <p>Vote / Votes </p>
+    <p>Popularity </p>
+    <p>Orginal Title </p>
+    <p>Genre </p>
     </div>
+       
+    <div class="variables-item">
+    <p><span class="average-vote">${movieData1.vote_average.toFixed(1)} </span>/ <span class="count-vote">${movieData1.vote_count}</span></p>
+    <p>${movieData1.popularity}</p>
+    <p>${movieData1.original_title}</p>
+    <p>${movieData1.genres.map((genre)=>genre.name).join(", ")}</p>
+     </div>
+</div>
+    <div class="about-movie">
+    <p><span class="about-movie-details">About</span></br> ${movieData1.overview}</p>
+    </div>
+
+    <div class="modal-buttons">
+    <button class="watchedButton">Add to Watched</button>
+    <button class="queuedButton">Add to Queue</button>
+    </div>
+    
     </div>
   `;
     const watchedButton = document.getElementsByClassName("watchedButton")[0];
@@ -32540,4 +32548,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.4ba15069.js.map
+//# sourceMappingURL=index.262c56e0.js.map
