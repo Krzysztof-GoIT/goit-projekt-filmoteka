@@ -23,6 +23,7 @@
 
 .modal-movie-info {
   margin-top: 20px;
+  margin-left: -40px;
 }
 .close {
   color: #aaaaaa;
@@ -107,6 +108,7 @@
   border-radius: 5px;
   color: var(--bg-color);
   padding: 1px 8px;
+  margin-right: 4px;
 }
 
 .count-vote {
@@ -114,7 +116,7 @@
   border-radius: 5px;
   color: var(--movieDetails-color);
   padding: 1px 8px;
-  margin-left: 8px;
+  /*margin-left: 8px;*/
 }
 
 .pernament-item {
@@ -128,7 +130,7 @@
   margin-bottom: 12px;
 }
 .variables-item {
-  color: var(--footer-bg);
+  /*color: var(--footer-bg);*/
   font-size: 12px;
   font-weight: 500;
   line-height: 1.3;
