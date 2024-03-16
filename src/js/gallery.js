@@ -285,7 +285,7 @@ const openModal = movieData => {
       }" alt="${movieData.title} Photo">
     </div>
     <div class="modal-movie-info">
-      <h2>${movieData.title}</h2>
+      <div class="modal-movie-title"><h2>${movieData.title}</h2></div>
 
       <div class="info-item">
         <div class="pernament-item">
@@ -298,7 +298,9 @@ const openModal = movieData => {
         <div class="variables-item">
           <p><span class="average-vote">${movieData.vote_average.toFixed(
             1,
-          )} </span>/ <span class="count-vote">${movieData.vote_count}</span></p>
+          )} </span><span class="slash-color">/ </span><span class="count-vote">${
+    movieData.vote_count
+  }</span></p>
             <p>${movieData.popularity}</p>
             <p>${movieData.original_title}</p>
             <p>${movieData.genres.map(genre => genre.name).join(', ')}</p>
@@ -311,7 +313,10 @@ const openModal = movieData => {
       <div class="modal-buttons">
         <button class="watchedButton">Add to Watched</button>
         <button class="queuedButton">Add to Queue</button>
-        <button id="movieTrailerButton">Trailer</button>
+        
+      </div>
+      <div class="movie-trailer">
+      <button id="movieTrailerButton">Trailer</button>
       </div>
     </div>
   </div>
@@ -325,6 +330,11 @@ const openModal = movieData => {
   queuedButton.onclick = () => {
     addToQueue(movieData);
   };
+
+  // const span = document.getElementsByClassName('close-modal-movie')[0];
+  // span.onclick = () => {
+  //   modal.style.display = 'none';
+  // };
 
   // // Obsługa zdarzenia kliknięcia przycisku "Trailer"
   // const trailerButton = document.querySelector('#movieTrailerButton');

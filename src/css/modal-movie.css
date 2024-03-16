@@ -28,8 +28,9 @@
 .close {
   color: #aaaaaa;
   float: right;
-  font-size: 54px;
+  font-size: 50px;
   font-weight: 100;
+  margin: 0;
 }
 
 .close:hover,
@@ -90,7 +91,7 @@
   background-color: #2980b9;
 }
 
-.movieData.title {
+.modal-movie-title {
   font-size: 20px;
   font-weight: 500;
   text-transform: uppercase;
@@ -100,7 +101,9 @@
 .info-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  margin-top: 20px;
+
+  gap: 0px;
 }
 
 .average-vote {
@@ -119,6 +122,9 @@
   /*margin-left: 8px;*/
 }
 
+.slash-color {
+  color: var(--vote-color);
+}
 .pernament-item {
   font-size: 12px;
   font-weight: 500;
@@ -126,18 +132,17 @@
   color: var(--vote-color);
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  margin-bottom: 12px;
+  gap: 15px;
 }
 .variables-item {
-  /*color: var(--footer-bg);*/
+  color: var(--movieDetails-color);
   font-size: 12px;
   font-weight: 500;
   line-height: 1.3;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  margin-bottom: 12px;
+  gap: 15px;
+  padding-right: 30px;
 }
 .original-title {
   text-transform: uppercase;
@@ -162,6 +167,27 @@
   gap: 20px;
 }
 
+.movie-trailer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.movie-trailer button {
+  border-radius: 5px;
+  width: 110px;
+  height: 44px;
+  color: var(--bg-color);
+  cursor: pointer;
+  border: none;
+  color: var(--bg-color);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  text-align: center;
+}
 .watchedButton {
   border-radius: 5px;
   width: 110px;
@@ -187,7 +213,6 @@
   height: 44px;
   background-color: var(--bg-color);
   cursor: pointer;
-
   color: var(--movieDetails-color);
   font-weight: 500;
   font-size: 12px;
@@ -200,7 +225,9 @@
 .watchedButton:hover,
 .watchedButton:focus,
 .queuedButton:hover,
-.queuedButton:focus {
+.queuedButton:focus,
+.movie-trailer button:hover,
+.movie-trailer button:focus {
   transform: scale(1.1);
 }
 
@@ -208,10 +235,22 @@
   text-transform: uppercase;
 }
 
+.movie-poster-modal img {
+  width: 100%;
+  height: 357px;
+  margin-top: 48px;
+  padding: 0;
+  margin: 0;
+}
+
+.modal-container {
+  display: block;
+}
+
 @media screen and (min-width: 768px) {
   .modal-content {
     max-width: 704px;
-    height: 552px;
+    min-height: 552px;
   }
   .modal-container {
     display: flex;
@@ -219,16 +258,48 @@
 
   .movie-poster-modal {
     margin-right: 68px;
+    margin-top: 40px;
+  }
+  .movie-poster-modal img {
+    width: 264px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .modal-movie-info {
+    margin-top: 41px;
+  }
+  .info-item {
+    margin-top: 20px;
   }
 }
 
 @media (min-width: 1280px) {
   .modal-content {
     max-width: 806px;
-    height: 558px;
+    min-height: 558px;
+  }
+  .modal-container {
+    margin-bottom: 30px;
   }
   .movieData.title {
     font-size: 30px;
   }
+  .movie-poster-modal {
+    margin-right: 16px;
+  }
+  .movie-poster-modal img {
+    width: 375px;
+    height: 100%;
+  }
+  .about-movie {
+    max-width: 391px;
+  }
+  .variables-item {
+    padding-right: 0;
+  }
+  .modal-movie-title {
+    font-size: 30px;
+  }
 }
-/* przenioslem CCS modala do modal-registration.css
