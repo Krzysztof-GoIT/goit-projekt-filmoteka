@@ -17,10 +17,10 @@
 .footer-wrapper {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  row-gap: 10px;
+  column-gap: 4px;
   color: var(--footer-text);
   font-size: 14px;
 }
@@ -30,7 +30,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  column-gap: 10px;
+  column-gap: 8px;
   margin: 0;
   padding: 0;
 }

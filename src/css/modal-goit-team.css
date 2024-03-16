@@ -18,7 +18,7 @@
   background-color: black;
   margin: 15% auto; /* 15% od góry i wyśrodkowane w poziomie */
   padding: 20px;
-  border: 1px solid #888;
+  border-radius: 14px;
   width: 80%; /* Możesz dostosować szerokość */
   height: auto;
 }
@@ -42,6 +42,7 @@
 /* Styl dla przycisku, który otwiera okno modalne */
 .footer-btn {
   cursor: pointer;
+  width: auto;
 }
 
 .footer-btn:hover {
