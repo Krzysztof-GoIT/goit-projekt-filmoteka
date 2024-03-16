@@ -24,12 +24,6 @@ button, input {
   padding: 0 20px;
 }
 
-@media screen and (width >= 320px) {
-  .container {
-    max-width: 320px;
-  }
-}
-
 @media screen and (width >= 768px) {
   .container {
     max-width: 768px;
@@ -960,4 +954,4 @@ button:hover {
   cursor: pointer;
   text-decoration: none;
 }
-/*# sourceMappingURL=index.169585dc.css.map */
+/*# sourceMappingURL=index.3b581825.css.map */
