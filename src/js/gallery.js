@@ -156,7 +156,7 @@ const renderGallery = (dataGallery, rating) => {
             posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
           } else {
             posterPath =
-              'https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.png?raw=true';
+              'https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.jpg?raw=true';
           }
 
           // Inicjalizacja zmiennej przechowującej informacje o gatunkach filmu
