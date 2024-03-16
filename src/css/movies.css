@@ -83,8 +83,6 @@ body {
 .movie-poster:focus,
 .movie-poster:hover {
   transform: scale(1.03);
-  /* opacity: 0.8; */
-  /* border: 5px solid #ff001b; */
   border: thick double #ff001b;
   padding: 6px;
 }
