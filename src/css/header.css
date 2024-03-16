@@ -169,6 +169,13 @@
   border: none;
 }
 
+/* bez tytułu na ekranie telefonu */
+@media screen and (max-width: 767px) {
+  header h2 {
+    display: none;
+  }
+}
+
 /* style dla ekranów tabletów i komputerów */
 @media screen and (min-width: 768px) {
   .header-navibox {
