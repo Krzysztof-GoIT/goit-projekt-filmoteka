@@ -5001,7 +5001,7 @@ const openModal = (movieData)=>{
       <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" alt="${movieData.title} Photo">
     </div>
     <div class="modal-movie-info">
-      <h2>${movieData.title}</h2>
+      <div class="modal-movie-title"><h2>${movieData.title}</h2></div>
 
       <div class="info-item">
         <div class="pernament-item">
@@ -5012,7 +5012,7 @@ const openModal = (movieData)=>{
         </div>
 
         <div class="variables-item">
-          <p><span class="average-vote">${movieData.vote_average.toFixed(1)} </span>/ <span class="count-vote">${movieData.vote_count}</span></p>
+          <p><span class="average-vote">${movieData.vote_average.toFixed(1)} </span><span class="slash-color">/ </span><span class="count-vote">${movieData.vote_count}</span></p>
             <p>${movieData.popularity}</p>
             <p>${movieData.original_title}</p>
             <p>${movieData.genres.map((genre)=>genre.name).join(", ")}</p>
@@ -5025,7 +5025,10 @@ const openModal = (movieData)=>{
       <div class="modal-buttons">
         <button class="watchedButton">Add to Watched</button>
         <button class="queuedButton">Add to Queue</button>
-        <button id="movieTrailerButton">Trailer</button>
+        
+      </div>
+      <div class="movie-trailer">
+      <button id="movieTrailerButton">Trailer</button>
       </div>
     </div>
   </div>
@@ -5038,6 +5041,10 @@ const openModal = (movieData)=>{
     queuedButton.onclick = ()=>{
         (0, _localstorage.addToQueue)(movieData);
     };
+    // const span = document.getElementsByClassName('close-modal-movie')[0];
+    // span.onclick = () => {
+    //   modal.style.display = 'none';
+    // };
     // // Obsługa zdarzenia kliknięcia przycisku "Trailer"
     // const trailerButton = document.querySelector('#movieTrailerButton');
     // trailerButton.addEventListener('click', async () => {
@@ -32676,4 +32683,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.1a09d960.js.map
+//# sourceMappingURL=index.7e41388d.js.map

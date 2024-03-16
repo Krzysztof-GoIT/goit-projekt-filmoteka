@@ -601,7 +601,8 @@ button, input {
 .close {
   color: #aaa;
   float: right;
-  font-size: 54px;
+  margin: 0;
+  font-size: 50px;
   font-weight: 100;
 }
 
@@ -662,7 +663,7 @@ button, input {
   background-color: #2980b9;
 }
 
-.movieData.title {
+.modal-movie-title {
   text-transform: uppercase;
   color: var(--movieDetails-color);
   margin-bottom: 20px;
@@ -672,7 +673,8 @@ button, input {
 
 .info-item {
   justify-content: space-between;
-  align-items: center;
+  gap: 0;
+  margin-top: 20px;
   display: flex;
 }
 
@@ -680,7 +682,7 @@ button, input {
   background-color: var(--details-contrast);
   color: var(--bg-color);
   border-radius: 5px;
-  padding: 1px 8px;
+  padding: 1px 7px;
 }
 
 .count-vote {
@@ -691,11 +693,14 @@ button, input {
   padding: 1px 8px;
 }
 
+.slash-color {
+  color: var(--vote-color);
+}
+
 .pernament-item {
   color: var(--vote-color);
   flex-direction: column;
-  gap: 20px;
-  margin-bottom: 12px;
+  gap: 15px;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.3;
@@ -703,10 +708,10 @@ button, input {
 }
 
 .variables-item {
-  color: var(--footer-bg);
+  color: var(--movieDetails-color);
   flex-direction: column;
-  gap: 20px;
-  margin-bottom: 12px;
+  gap: 15px;
+  padding-right: 30px;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.3;
@@ -735,6 +740,27 @@ button, input {
 
 .modal-buttons button {
   gap: 20px;
+}
+
+.movie-trailer {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.movie-trailer button {
+  color: var(--bg-color);
+  cursor: pointer;
+  text-transform: uppercase;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  width: 110px;
+  height: 44px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
 }
 
 .watchedButton {
@@ -771,7 +797,7 @@ button, input {
   transition: transform .3s;
 }
 
-.watchedButton:hover, .watchedButton:focus, .queuedButton:hover, .queuedButton:focus {
+.watchedButton:hover, .watchedButton:focus, .queuedButton:hover, .queuedButton:focus, .movie-trailer button:hover, .movie-trailer button:focus {
   transform: scale(1.1);
 }
 
@@ -779,10 +805,21 @@ button, input {
   text-transform: uppercase;
 }
 
+.movie-poster-modal img {
+  width: 100%;
+  height: 357px;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-container {
+  display: block;
+}
+
 @media screen and (width >= 768px) {
   .modal-content {
     max-width: 704px;
-    height: 552px;
+    min-height: 552px;
   }
 
   .modal-container {
@@ -790,17 +827,58 @@ button, input {
   }
 
   .movie-poster-modal {
+    margin-top: 40px;
     margin-right: 68px;
+  }
+
+  .movie-poster-modal img {
+    width: 264px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .modal-movie-info {
+    margin-top: 41px;
+  }
+
+  .info-item {
+    margin-top: 20px;
   }
 }
 
 @media (width >= 1280px) {
   .modal-content {
     max-width: 806px;
-    height: 558px;
+    min-height: 558px;
+  }
+
+  .modal-container {
+    margin-bottom: 30px;
   }
 
   .movieData.title {
+    font-size: 30px;
+  }
+
+  .movie-poster-modal {
+    margin-right: 16px;
+  }
+
+  .movie-poster-modal img {
+    width: 375px;
+    height: 100%;
+  }
+
+  .about-movie {
+    max-width: 391px;
+  }
+
+  .variables-item {
+    padding-right: 0;
+  }
+
+  .modal-movie-title {
     font-size: 30px;
   }
 }
@@ -964,4 +1042,4 @@ button:hover {
   cursor: pointer;
   text-decoration: none;
 }
-/*# sourceMappingURL=index.e42d5856.css.map */
+/*# sourceMappingURL=index.0854ebed.css.map */
