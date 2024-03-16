@@ -89,6 +89,7 @@ export const getHomepage = async pageNo => {
     clearGallery();
     renderGallery(response.results, 0);
     homePageNo = pageNo;
+    setCurrentPage(pageNo);
     createPagination(response.total_pages);
   } catch (error) {
     console.error('Error fetching trending movies:', error);
