@@ -5672,6 +5672,14 @@ document.getElementById("logout-button").addEventListener("click", logout);
 document.getElementById("login-button").addEventListener("click", logIn);
 document.getElementById("register-button").addEventListener("click", register);
 document.addEventListener("keydown", handleKeyPress);
+/* dodanie zamykania modala poprzez x */ document.getElementById("logout-button").addEventListener("click", logout);
+document.getElementById("login-button").addEventListener("click", logIn);
+document.getElementById("register-button").addEventListener("click", register);
+document.addEventListener("keydown", handleKeyPress);
+document.querySelector(".close-modal-reg").addEventListener("click", closeSignInModal);
+document.body.addEventListener("click", function(event) {
+    if (event.target.classList.contains("close-modal-reg")) closeSignInModal();
+});
 
 },{"firebase/app":"k1P3B","firebase/analytics":"iMJCs","firebase/auth":"8TAqx","firebase/database":"bwie7","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"k1P3B":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -32548,4 +32556,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.663d3f30.js.map
+//# sourceMappingURL=index.3e33e957.js.map

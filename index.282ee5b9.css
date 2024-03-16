@@ -692,76 +692,6 @@ body, .movies {
   }
 }
 
-.sign-in-container {
-  background-color: #00000080;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-
-#form-content-inner-container {
-  text-align: center;
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
-}
-
-input[type="email"], input[type="password"] {
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-}
-
-label {
-  text-align: left;
-  margin-bottom: 5px;
-  display: block;
-}
-
-#button-container {
-  justify-content: space-between;
-  display: flex;
-}
-
-button {
-  color: #fff;
-  cursor: pointer;
-  background-color: #007bff;
-  border: none;
-  border-radius: 4px;
-  width: calc(33.33% - 5px);
-  padding: 10px;
-  transition: background-color .3s;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-#logout-button {
-  background-color: #dc3545;
-}
-
-#logout-button:hover {
-  background-color: #bd2130;
-  display: none;
-}
-
-#login-status {
-  text-align: center;
-  text-align: center;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-
 .modal-team-goit {
   z-index: 1;
   border: 50%;
@@ -830,4 +760,94 @@ button:hover {
   color: #fff;
   text-align: center;
 }
-/*# sourceMappingURL=index.fbd6c5a9.css.map */
+
+.sign-in-container {
+  z-index: 1000;
+  background-color: #000;
+  border-radius: 2cqb;
+  width: 500px;
+  height: auto;
+  margin-top: 5px;
+  padding: 20px;
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  box-shadow: 0 4px 8px #0000001a;
+}
+
+#login-status {
+  color: #fff;
+}
+
+#form-content-inner-container {
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+input[type="email"], input[type="password"] {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+label {
+  text-align: left;
+  margin-bottom: 5px;
+  display: block;
+}
+
+#button-container {
+  justify-content: space-between;
+  display: flex;
+}
+
+button {
+  color: #fff;
+  cursor: pointer;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  width: calc(33.33% - 5px);
+  padding: 10px;
+  transition: background-color .3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#logout-button {
+  background-color: #dc3545;
+}
+
+#logout-button:hover {
+  background-color: #bd2130;
+  display: none;
+}
+
+#login-status {
+  text-align: center;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.close-modal-reg {
+  color: #fff;
+  float: right;
+  font-size: 38px;
+  font-weight: bold;
+}
+
+.close-modal-reg, .close-modal-reg {
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+}
+/*# sourceMappingURL=index.282ee5b9.css.map */
