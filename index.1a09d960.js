@@ -4838,6 +4838,7 @@ const getHomepage = async (pageNo)=>{
         clearGallery();
         renderGallery(response.results, 0);
         homePageNo = pageNo;
+        (0, _pagination.setCurrentPage)(pageNo);
         (0, _pagination.createPagination)(response.total_pages);
     } catch (error) {
         console.error("Error fetching trending movies:", error);
@@ -32675,4 +32676,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.bd8eb73f.js.map
+//# sourceMappingURL=index.1a09d960.js.map
