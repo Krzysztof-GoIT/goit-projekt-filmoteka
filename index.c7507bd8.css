@@ -170,10 +170,10 @@ button, input {
   margin: 0;
 }
 
-.search-form button {
+.search-button {
   background-color: #0000;
   border: none;
-  margin: 0;
+  width: 14px;
   padding: 0;
 }
 
@@ -215,6 +215,12 @@ button, input {
   background: #ff6b01;
   border: none;
   box-shadow: 0 8px 43px #ff6b0199;
+}
+
+@media screen and (width <= 767px) {
+  .header h2 {
+    display: none;
+  }
 }
 
 @media screen and (width >= 768px) {
@@ -953,4 +959,4 @@ button:hover {
   cursor: pointer;
   text-decoration: none;
 }
-/*# sourceMappingURL=index.a178a392.css.map */
+/*# sourceMappingURL=index.c7507bd8.css.map */
