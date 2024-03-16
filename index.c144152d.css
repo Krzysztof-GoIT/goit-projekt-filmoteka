@@ -596,6 +596,7 @@ button, input {
 
 .modal-movie-info {
   margin-top: 20px;
+  margin-left: -40px;
 }
 
 .close {
@@ -682,14 +683,14 @@ button, input {
   background-color: var(--details-contrast);
   color: var(--bg-color);
   border-radius: 5px;
-  padding: 1px 7px;
+  margin-right: 4px;
+  padding: 1px 8px;
 }
 
 .count-vote {
   background-color: var(--footer-bg);
   color: var(--movieDetails-color);
   border-radius: 5px;
-  margin-left: 8px;
   padding: 1px 8px;
 }
 
@@ -1042,4 +1043,4 @@ button:hover {
   cursor: pointer;
   text-decoration: none;
 }
-/*# sourceMappingURL=index.0854ebed.css.map */
+/*# sourceMappingURL=index.c144152d.css.map */
