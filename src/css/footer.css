@@ -1,41 +1,64 @@
+/* sekcja stopki */
 .footer {
-  background-color:var(--footer-bg);
+  background-color: var(--footer-bg);
+  height: 100px;
 }
 
+/* kontener na zawartość stopki */
 .footer-container {
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.footer-wrapper{
-text-align: center;
-padding-top: 29px;
-padding-bottom: 28px;
-color: var(--footer-text);
-font-family: 'Roboto';
-font-size: 14px;
+/* zawartość stopki */
+.footer-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  row-gap: 10px;
+  color: var(--footer-text);
+  font-size: 14px;
 }
 
+/* element tekstowy stopki */
+.footer-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+/* przycisk do okna modalnego ekipy GoIT */
+.footer-btn {
+  text-decoration: underline;
+  color: var(--footer-text);
+  cursor: pointer;
+  border: none;
+  display: inline;
+  background: transparent;
+}
+
+/* aktywny przycisk do okna modalnego ekipy GoIT */
+.footer-btn:hover {
+  opacity: 1;
+}
+
+/* style dla tabletów i komputerów */
 @media screen and (min-width: 768px) {
+  .footer {
+    height: 79px;
+  }
   .footer-wrapper {
-    display: flex;
-    justify-content: center;
-    padding-top: 30px;
-    padding-bottom: 30px;
-
+    flex-direction: row;
+    column-gap: 10px;
     font-size: 16px;
     line-height: 1.19;
   }
-}
-
-.copyRights {
-  margin-bottom: 10px;
-}
-
-.footer-btn{
-    text-decoration: underline;
-    color:var(--footer-text) ;
-    cursor: pointer;
-    border: none;
-    display: inline-block;
-    background: transparent;
 }
