@@ -5519,7 +5519,7 @@ const modal = document.getElementById("modalGoit");
 // Pobranie przycisku, który otwiera okno modalne
 const btn = document.querySelector(".footer-btn"); // Zmiana na pobranie przycisku po klasie
 // Pobranie elementu <span>, który zamyka okno modalne
-const span = document.querySelector(".close-modal-btn"); // Zmienione na querySelector dla spójności
+const span = document.querySelector(".close-modal-btn-goit"); // Zmienione na querySelector dla spójności
 // Kiedy użytkownik kliknie na przycisk, otwórz okno modalne
 btn.onclick = function() {
     modal.style.display = "block";
@@ -32548,4 +32548,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.262c56e0.js.map
+//# sourceMappingURL=index.663d3f30.js.map
