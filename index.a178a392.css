@@ -469,17 +469,57 @@ body, .movies {
   transition: background-color .3s;
 }
 
-.pagination a.active {
-  color: var(--movieDetails-color);
-  background-color: #ff6c28;
-}
-
-.pagination a:hover:not(.active) {
+.pagin-btn:focus, .pagin-btn:hover {
   background-color: var(--pagination-bg);
 }
 
 .pagination-arrow {
   color: var(--movieDetails-color);
+}
+
+.pagin-btn {
+  color: var(--movieDetails-color);
+  float: left;
+  flex-shrink: 0, 5;
+  background-color: #fff;
+  border: none;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  margin: auto 0;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  display: flex;
+}
+
+.current-page {
+  color: var(--movieDetails-color);
+  background-color: #ff6c28;
+}
+
+.hidden {
+  display: none;
+}
+
+.dots {
+  color: var(--movieDetails-color);
+  float: left;
+  flex-shrink: 0, 5;
+  background-color: #fff;
+  border: none;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  margin: auto 0;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  display: flex;
 }
 
 .footer {
@@ -913,4 +953,4 @@ button:hover {
   cursor: pointer;
   text-decoration: none;
 }
-/*# sourceMappingURL=index.575203f2.css.map */
+/*# sourceMappingURL=index.a178a392.css.map */

@@ -4764,10 +4764,13 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "homePageNo", ()=>homePageNo);
 parcelHelpers.export(exports, "getGenres", ()=>getGenres);
 parcelHelpers.export(exports, "getHomepage", ()=>getHomepage);
+parcelHelpers.export(exports, "getSearchResult", ()=>getSearchResult);
 parcelHelpers.export(exports, "clearGallery", ()=>clearGallery);
 var _api = require("./api");
 var _localstorage = require("./localstorage");
+var _pagination = require("./pagination");
 let homePageNo = 0;
+let totalPages;
 const getGenres = (genreIds)=>{
     // Pobranie nazw gatunków z listy genresName zdefiniowanej w api.js
     const genres = genreIds.map((genreId)=>{
@@ -4832,8 +4835,10 @@ window.addEventListener("DOMContentLoaded", ()=>{
 const getHomepage = async (pageNo)=>{
     try {
         const response = await (0, _api.fetchTrendingMovies)(pageNo);
+        clearGallery();
         renderGallery(response.results, 0);
         homePageNo = pageNo;
+        (0, _pagination.createPagination)(response.total_pages);
     } catch (error) {
         console.error("Error fetching trending movies:", error);
     }
@@ -4844,37 +4849,48 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const searchInput = document.querySelector(".search-form input");
     const notResult = document.getElementById("not-result");
     searchForm.addEventListener("submit", async (event)=>{
-        event.preventDefault();
-        const searchQuery = searchInput.value.trim().toLowerCase().split(" ").join("+");
-        if (searchQuery) try {
-            clearGallery(); // Wyczyszczenie galerii
-            const response = await (0, _api.fetchSearchMovies)(searchQuery, 1);
-            renderGallery(response.results, 0);
-            searchInput.value = ""; // Wyczyszczenie pola wyszukiwania
-            if (response.results.length > 0) notResult.style.display = "none"; // Ukrycie komunikatu o braku wyników
-            else {
-                notResult.style.display = "block"; // Wyświetlenie komunikatu o braku wyników
-                clearGallery(); // Wyczyszczenie galerii
-            }
-        } catch (error) {
-            console.error("Error fetching search movies:", error);
-        }
+        (0, _pagination.setCurrentPage)(1);
+        getSearchResult(event, 1);
     });
 });
+const getSearchResult = async (event, pageNo)=>{
+    event.preventDefault();
+    homePageNo = pageNo;
+    const searchInput = document.querySelector(".search-form input");
+    const notResult = document.getElementById("not-result");
+    const searchQuery = searchInput.value.trim().toLowerCase().split(" ").join("+");
+    if (searchQuery) try {
+        const response = await (0, _api.fetchSearchMovies)(searchQuery, homePageNo);
+        totalPages = response.total_pages;
+        movies = response.results;
+        (0, _pagination.createPagination)(totalPages); //Wywołanie paginacji
+        //searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
+        if (response.results.length > 0) {
+            notResult.style.display = "none"; // Ukrycie komunikatu o braku wyników
+            clearGallery();
+            renderGallery(movies);
+        } else {
+            notResult.style.display = "block"; // Wyświetlenie komunikatu o braku wyników
+            clearGallery(); // Wyczyszczenie galerii
+        }
+    } catch (error) {
+        console.error("Error fetching search movies:", error);
+    }
+};
 // Renderowanie Galerii
 const renderGallery = (dataGallery, rating)=>{
     try {
         // Pobranie danych o filmach z galerii
-        const movies = dataGallery;
+        const movies1 = dataGallery;
         // Znalezienie kontenera dla galerii filmów
         const galleryContainer = document.getElementById("gallery-container");
         // Ukrycie komunikatu o braku wyników na start
         const notResult = document.getElementById("not-result");
         notResult.style.display = "none";
         // Sprawdzenie czy lista filmów nie jest pusta
-        if (movies.length > 0) {
+        if (movies1.length > 0) {
             // Pobranie danych o najbardziej popularnych filmach
-            const newContent = movies.map((movie)=>{
+            const newContent = movies1.map((movie)=>{
                 let posterPath;
                 if (movie.poster_path) posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
                 else posterPath = "https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.png?raw=true";
@@ -5243,7 +5259,7 @@ infinityScroll.addEventListener("click", ()=>{
     infinityScroll.removeEventListener("click", loadMoreContent);
 });
 
-},{"./api":"5mmx6","./localstorage":"ippo7","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"ippo7":[function(require,module,exports) {
+},{"./api":"5mmx6","./localstorage":"ippo7","./pagination":"iC8Tx","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"ippo7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "addToWatchedMovies", ()=>addToWatchedMovies);
@@ -5286,7 +5302,103 @@ const refreshView = ()=>{
 //Z queue do watched
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"6K7Vw":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"iC8Tx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "currentPage", ()=>currentPage);
+parcelHelpers.export(exports, "itemsPerPage", ()=>itemsPerPage);
+parcelHelpers.export(exports, "setCurrentPage", ()=>setCurrentPage);
+parcelHelpers.export(exports, "updatePageView", ()=>updatePageView);
+parcelHelpers.export(exports, "createPagination", ()=>createPagination);
+var _gallery = require("./gallery");
+let currentPage = 1;
+const itemsPerPage = 20;
+const setCurrentPage = (value)=>{
+    currentPage = value;
+};
+const updatePageView = (currentPage)=>{
+    const paginationButtons = document.querySelectorAll(".pagin-btn");
+    paginationButtons.forEach((button)=>{
+        if (parseInt(button.textContent) === currentPage) button.classList.add("current-page");
+        else button.classList.remove("current-page");
+    });
+};
+const createPagination = (totalPages)=>{
+    // const paginationContainer = document.getElementById('pagination-container');
+    const paginationPages = document.querySelector(".pagination-pages");
+    paginationPages.innerHTML = ""; // Wyczyszczenie paginacji
+    currentPage = parseInt(currentPage);
+    if (totalPages <= 5) for(let i = 1; i <= totalPages; i++){
+        let displayPage = i;
+        const pageButton = document.createElement("button");
+        pageButton.textContent = displayPage;
+        pageButton.classList.add("pagin-btn");
+        paginationPages.appendChild(pageButton);
+    }
+    else {
+        // Dodanie trzech kropek po pierwszej stronie
+        const firstShownPage = Math.max(currentPage - 2, 1);
+        const lastShownPage = Math.min(currentPage + 2, totalPages);
+        if (firstShownPage > 1) {
+            // Dodanie pierwszej strony
+            const firstPageButton = document.createElement("button");
+            firstPageButton.textContent = 1;
+            firstPageButton.classList.add("pagin-btn");
+            paginationPages.appendChild(firstPageButton);
+            const dots1 = document.createElement("span");
+            dots1.textContent = "...";
+            dots1.classList.add("dots");
+            dots1.setAttribute("disabled", true);
+            paginationPages.appendChild(dots1);
+        }
+        for(let i = firstShownPage; i <= lastShownPage; i++){
+            const pageButton = document.createElement("button");
+            pageButton.textContent = i;
+            pageButton.classList.add("pagin-btn");
+            paginationPages.appendChild(pageButton);
+        }
+        // Dodanie trzech kropek przed ostatnią stroną
+        if (currentPage < lastShownPage) {
+            const dots2 = document.createElement("span");
+            dots2.textContent = "...";
+            dots2.classList.add("dots");
+            dots2.setAttribute("disabled", true);
+            paginationPages.appendChild(dots2);
+            // Dodanie ostatniej strony
+            const lastPageButton = document.createElement("button");
+            lastPageButton.textContent = totalPages;
+            lastPageButton.classList.add("pagin-btn");
+            paginationPages.appendChild(lastPageButton);
+        }
+    }
+    if (currentPage === 1) document.querySelector("#icon-arrow-left2").classList.add("hidden");
+    else document.querySelector("#icon-arrow-left2").classList.remove("hidden");
+    if (currentPage == totalPages) document.querySelector("#icon-arrow-right2").classList.add("hidden");
+    else document.querySelector("#icon-arrow-right2").classList.remove("hidden");
+    updatePageView(currentPage);
+};
+const loadPage = (e, currentPage)=>{
+    const searchInput = document.querySelector(".search-form input");
+    if (searchInput.value !== "") (0, _gallery.getSearchResult)(e, currentPage);
+    else (0, _gallery.getHomepage)(currentPage);
+};
+document.querySelector("#pagination-container").addEventListener("click", (e)=>{
+    e.preventDefault();
+    if (e.target.tagName == "BUTTON") {
+        currentPage = e.target.innerHTML;
+        loadPage(e, currentPage);
+    } else if (e.target.tagName == "A") {
+        if (e.target.firstElementChild.id === "icon-arrow-left2") {
+            currentPage -= 1;
+            loadPage(e, currentPage);
+        } else if (e.target.firstElementChild.id === "icon-arrow-right2") {
+            currentPage += 1;
+            loadPage(e, currentPage);
+        }
+    }
+});
+
+},{"./gallery":"bA31f","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"6K7Vw":[function(require,module,exports) {
 
 },{}],"kxv7b":[function(require,module,exports) {
 var _gallery = require("./gallery");
@@ -5302,6 +5414,7 @@ const logoutButton = document.getElementById("logout-button");
 const myLibrary = document.querySelector(".header-library");
 const headerSearch = document.querySelector(".header-search");
 const watchedButton = document.getElementById("watchedHeader");
+const paginationButtons = document.getElementById("pagination-container");
 const logo = document.getElementById("logo");
 const toggleVisibility = (elementToShow, elementToHide)=>{
     elementToShow.style.visibility = "visible";
@@ -5337,6 +5450,7 @@ const homeButtonClick = (event)=>{
     homeLink.classList.add("active");
     libraryLink.classList.remove("active");
     setHeaderBackground();
+    paginationButtons.style.display = "flex";
     (0, _gallery.clearGallery)();
     (0, _gallery.getHomepage)(1);
 };
@@ -5346,6 +5460,7 @@ const myLibraryButtonClick = (event)=>{
     homeLink.classList.remove("active");
     libraryLink.classList.add("active");
     setHeaderBackground();
+    paginationButtons.style.display = "none";
     libraryClick(watchedButton);
 };
 logo.addEventListener("click", homeButtonClick);
@@ -32560,4 +32675,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.d870b0f7.js.map
+//# sourceMappingURL=index.bd8eb73f.js.map
