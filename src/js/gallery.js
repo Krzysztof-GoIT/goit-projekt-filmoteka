@@ -300,7 +300,7 @@ const openModal = movieData => {
     <div class="modal-buttons">
     <button class="watchedButton">Add to Watched</button>
     <button class="queuedButton">Add to Queue</button>
-    <button id="movieTrailerButton">Movie Trailer</button>
+    <button id="movieTrailerButton">Trailer</button>
     </div>
 
     </div>
