@@ -23,6 +23,7 @@
 
 .modal-movie-info {
   margin-top: 20px;
+  margin-left: -40px;
 }
 .close {
   color: #aaaaaa;
@@ -109,7 +110,8 @@
   background-color: var(--details-contrast);
   border-radius: 5px;
   color: var(--bg-color);
-  padding: 1px 7px;
+  padding: 1px 8px;
+  margin-right: 4px;
 }
 
 .count-vote {
@@ -117,7 +119,7 @@
   border-radius: 5px;
   color: var(--movieDetails-color);
   padding: 1px 8px;
-  margin-left: 8px;
+  /*margin-left: 8px;*/
 }
 
 .slash-color {
