@@ -8,11 +8,10 @@ import {
   genresName,
 } from './api';
 import { addToQueue, addToWatchedMovies } from './localstorage';
-// import './modalTrailer'; // Importujemy funkcję otwierającą modal z zwiastunem
-// import { openModalPlayer } from './modalTrailer.js';
-// import * as basicLightbox from 'basiclightbox';
+import { createPagination, currentPage, setCurrentPage } from './pagination';
 
 export let homePageNo = 0;
+let totalPages;
 
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
 export const getGenres = genreIds => {
@@ -87,8 +86,10 @@ window.addEventListener('DOMContentLoaded', () => {
 export const getHomepage = async pageNo => {
   try {
     const response = await fetchTrendingMovies(pageNo);
+    clearGallery();
     renderGallery(response.results, 0);
     homePageNo = pageNo;
+    createPagination(response.total_pages);
   } catch (error) {
     console.error('Error fetching trending movies:', error);
   }
@@ -101,26 +102,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const notResult = document.getElementById('not-result');
 
   searchForm.addEventListener('submit', async event => {
-    event.preventDefault();
-    const searchQuery = searchInput.value.trim().toLowerCase().split(' ').join('+');
-    if (searchQuery) {
-      try {
-        clearGallery(); // Wyczyszczenie galerii
-        const response = await fetchSearchMovies(searchQuery, 1);
-        renderGallery(response.results, 0);
-        searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
-        if (response.results.length > 0) {
-          notResult.style.display = 'none'; // Ukrycie komunikatu o braku wyników
-        } else {
-          notResult.style.display = 'block'; // Wyświetlenie komunikatu o braku wyników
-          clearGallery(); // Wyczyszczenie galerii
-        }
-      } catch (error) {
-        console.error('Error fetching search movies:', error);
-      }
-    }
+    setCurrentPage(1);
+    getSearchResult(event, 1);
   });
 });
+
+export const getSearchResult = async (event, pageNo) => {
+  event.preventDefault();
+  homePageNo = pageNo;
+  const searchInput = document.querySelector('.search-form input');
+  const notResult = document.getElementById('not-result');
+  const searchQuery = searchInput.value.trim().toLowerCase().split(' ').join('+');
+  if (searchQuery) {
+    try {
+      const response = await fetchSearchMovies(searchQuery, homePageNo);
+      totalPages = response.total_pages;
+      movies = response.results;
+      createPagination(totalPages); //Wywołanie paginacji
+      //searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
+      if (response.results.length > 0) {
+        notResult.style.display = 'none'; // Ukrycie komunikatu o braku wyników
+        clearGallery();
+        renderGallery(movies);
+      } else {
+        notResult.style.display = 'block'; // Wyświetlenie komunikatu o braku wyników
+        clearGallery(); // Wyczyszczenie galerii
+      }
+    } catch (error) {
+      console.error('Error fetching search movies:', error);
+    }
+  }
+};
 
 // Renderowanie Galerii
 const renderGallery = (dataGallery, rating) => {

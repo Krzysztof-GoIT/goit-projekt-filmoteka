@@ -5,13 +5,14 @@ const homeLink = headerNaviElements[0].getElementsByTagName('a')[0];
 const libraryLink = headerNaviElements[0].getElementsByTagName('a')[1];
 const logIn = headerNaviElements[0].getElementsByTagName('a')[2];
 const logInContainer = document.querySelector('.sign-in-container');
-const registerButton = document.getElementById("register-button");
-const loginButton = document.getElementById("login-button");
-const logoutButton = document.getElementById("logout-button");
+const registerButton = document.getElementById('register-button');
+const loginButton = document.getElementById('login-button');
+const logoutButton = document.getElementById('logout-button');
 
 const myLibrary = document.querySelector('.header-library');
 const headerSearch = document.querySelector('.header-search');
 const watchedButton = document.getElementById('watchedHeader');
+const paginationButtons = document.getElementById('pagination-container');
 const logo = document.getElementById('logo');
 import { getHomepage, clearGallery } from './gallery';
 
@@ -75,6 +76,7 @@ const homeButtonClick = event => {
   homeLink.classList.add('active');
   libraryLink.classList.remove('active');
   setHeaderBackground();
+  paginationButtons.style.display = 'flex';
   clearGallery();
   getHomepage(1);
 };
@@ -85,28 +87,28 @@ const myLibraryButtonClick = event => {
   homeLink.classList.remove('active');
   libraryLink.classList.add('active');
   setHeaderBackground();
+  paginationButtons.style.display = 'none';
   libraryClick(watchedButton);
 };
 
 logo.addEventListener('click', homeButtonClick);
 homeLink.addEventListener('click', homeButtonClick);
 libraryLink.addEventListener('click', myLibraryButtonClick);
-logIn.addEventListener('click', (event) => {
+logIn.addEventListener('click', event => {
   event.preventDefault();
   logInContainer.style.display = 'block';
 });
-loginButton.addEventListener('click', (event) => {
+loginButton.addEventListener('click', event => {
   event.preventDefault();
-  logInContainer.style.display = "none";
-
+  logInContainer.style.display = 'none';
 });
-registerButton.addEventListener('click', (event) => {
+registerButton.addEventListener('click', event => {
   event.preventDefault();
-  logInContainer.style.display = "none";
+  logInContainer.style.display = 'none';
 });
-logoutButton.addEventListener('click', (event) => {
+logoutButton.addEventListener('click', event => {
   event.preventDefault();
-  logInContainer.style.display = "none";
+  logInContainer.style.display = 'none';
 });
 
 window.addEventListener('resize', setHeaderBackground);
