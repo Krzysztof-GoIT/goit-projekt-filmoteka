@@ -13,12 +13,14 @@
 .pagination a {
   color: var(--movieDetails-color);
   float: left;
-  padding: 8px 16px;
+  padding: 12px 12px;
   text-decoration: none;
   transition: background-color 0.3s;
   border-radius: 5px;
   width: 40px;
   height: 40px;
+  background-color:#F7F7F7;
+  margin: 0 10px;
 }
 
 .pagin-btn:focus,
@@ -28,6 +30,8 @@
 
 .pagination-arrow {
   color: var(--movieDetails-color);
+  height: 16px;
+  width: 16px;
 }
 
 .pagin-btn {
