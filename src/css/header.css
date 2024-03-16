@@ -1,23 +1,14 @@
-header {
+/* nagłówek strony */
+.header {
   border: 0.01px solid transparent;
   background-color: black;
-  height: 216px;
-  display: block;
-  margin: 0;
-}
-
-#headerBG {
   background-size: 100%;
   background-position: center;
+  height: 230px;
+  display: block;
 }
 
-.header-navibox {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 40px 20px;
-}
-
+/* kontener na logo strony */
 .header-logo {
   display: flex;
   gap: 10px;
@@ -26,7 +17,15 @@ header {
   text-decoration: none;
 }
 
-header h2 {
+/* logo strony */
+.header svg {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+}
+
+/* tytuł strony */
+.header h2 {
   opacity: 0;
   margin: 0;
   color: #ffffff;
@@ -35,10 +34,15 @@ header h2 {
   font-size: 30px;
 }
 
-.header-navi a.active {
-  text-decoration: underline 2.5px #ff001b;
+/* kontener z menu */
+.header-navibox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px 20px;
 }
 
+/* element menu */
 .header-navi {
   display: flex;
   gap: 39px;
@@ -46,12 +50,7 @@ header h2 {
   align-items: center;
 }
 
-header svg {
-  width: 24px;
-  height: 24px;
-  margin: 0;
-}
-
+/* odnośnik w elemencie menu */
 .header-navi a {
   color: #ffffff;
   font-size: 12px;
@@ -61,6 +60,12 @@ header svg {
   text-decoration: none;
 }
 
+/* aktywny odnośnik w elemencie menu */
+.header-navi a.active {
+  text-decoration: underline 2.5px #ff001b;
+}
+
+/* kontener na formularz z polem wyszukiwania */
 .header-search {
   display: flex;
   margin: 0;
@@ -70,6 +75,7 @@ header svg {
   gap: 16px;
 }
 
+/* formularz z polem wyszukiwania */
 .search-form {
   width: 280px;
   height: 20px;
@@ -80,7 +86,8 @@ header svg {
   justify-content: center;
 }
 
-input {
+/* pole wyszukiwania */
+.search-form input {
   background-color: transparent;
   size: 100%;
   width: 380px;
@@ -89,7 +96,16 @@ input {
   color: #ffffff;
 }
 
-input:focus-within {
+/* tekst podpowiedzi w polu wyszukiwania */
+.search-form input::placeholder {
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: Roboto;
+}
+
+/* aktywne pole wyszukiwania */
+.search-form input:focus-within {
   background-color: transparent;
   size: 100%;
   width: 380px;
@@ -99,25 +115,21 @@ input:focus-within {
   outline: transparent;
 }
 
-form svg {
-  width: 12px;
-  height: 12px;
-}
-
-form button {
+/* kontener na ikone wyszukiwania */
+.search-form button {
   margin: 0;
   border: none;
   background-color: transparent;
   padding: 0;
 }
 
-input::placeholder {
-  font-weight: 400;
-  color: #ffffff;
-  font-size: 14px;
-  font-family: Roboto;
+/* ikona wyszukiwania */
+.search-form svg {
+  width: 12px;
+  height: 12px;
 }
 
+/* kontener na informację o braku trafień */
 .header-not-result {
   font-size: 14px;
   line-height: 16px;
@@ -127,12 +139,14 @@ input::placeholder {
   width: 280px;
 }
 
+/* kontener na przycisku dla podstrony my library */
 .header-library {
   display: flex;
   justify-content: center;
   gap: 20px;
 }
 
+/* przyciski dla podstrony my library */
 .library-button {
   font-weight: 500;
   font-size: 12px;
@@ -147,6 +161,7 @@ input::placeholder {
   border-radius: 5;
 }
 
+/* wskazane przyciski dla podstrony my library */
 .library-button:focus,
 .library-button:hover {
   box-shadow: 0 8px 43px 0 rgba(255, 107, 1, 0.6);
@@ -154,11 +169,12 @@ input::placeholder {
   border: none;
 }
 
+/* style dla ekranów tabletów i komputerów */
 @media screen and (min-width: 768px) {
   .header-navibox {
     margin: 40px 32px;
   }
-  header h2 {
+  .header h2 {
     opacity: 1;
   }
   .header-navi {
