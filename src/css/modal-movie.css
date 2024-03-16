@@ -23,6 +23,7 @@
 
 .modal-movie-info {
   margin-top: 20px;
+  margin-left: -40px;
 }
 .close {
   color: #aaaaaa;
@@ -268,6 +269,7 @@
 
   .modal-movie-info {
     margin-top: 41px;
+    margin-left: auto;
   }
   .info-item {
     margin-top: 20px;
