@@ -67,24 +67,13 @@ button, input {
   }
 }
 
-header {
+.header {
   background-color: #000;
-  border: .01px solid #0000;
-  height: 216px;
-  margin: 0;
-  display: block;
-}
-
-#headerBG {
   background-position: center;
   background-size: 100%;
-}
-
-.header-navibox {
-  justify-content: space-between;
-  align-items: center;
-  margin: 40px 20px;
-  display: flex;
+  border: .01px solid #0000;
+  height: 230px;
+  display: block;
 }
 
 .header-logo {
@@ -95,7 +84,13 @@ header {
   display: flex;
 }
 
-header h2 {
+.header svg {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+}
+
+.header h2 {
   opacity: 0;
   color: #fff;
   margin: 0;
@@ -104,8 +99,11 @@ header h2 {
   font-weight: 500;
 }
 
-.header-navi a.active {
-  text-decoration: underline 2.5px #ff001b;
+.header-navibox {
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px 20px;
+  display: flex;
 }
 
 .header-navi {
@@ -115,12 +113,6 @@ header h2 {
   display: flex;
 }
 
-header svg {
-  width: 24px;
-  height: 24px;
-  margin: 0;
-}
-
 .header-navi a {
   color: #fff;
   text-transform: uppercase;
@@ -128,6 +120,10 @@ header svg {
   font-size: 12px;
   font-weight: 500;
   text-decoration: none;
+}
+
+.header-navi a.active {
+  text-decoration: underline 2.5px #ff001b;
 }
 
 .header-search {
@@ -148,7 +144,7 @@ header svg {
   display: flex;
 }
 
-input {
+.search-form input {
   size: 100%;
   color: #fff;
   background-color: #0000;
@@ -157,7 +153,14 @@ input {
   margin: 0;
 }
 
-input:focus-within {
+.search-form input::placeholder {
+  color: #fff;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.search-form input:focus-within {
   size: 100%;
   color: #fff;
   background-color: #0000;
@@ -167,23 +170,16 @@ input:focus-within {
   margin: 0;
 }
 
-form svg {
-  width: 12px;
-  height: 12px;
-}
-
-form button {
+.search-form button {
   background-color: #0000;
   border: none;
   margin: 0;
   padding: 0;
 }
 
-input::placeholder {
-  color: #fff;
-  font-family: Roboto;
-  font-size: 14px;
-  font-weight: 400;
+.search-form svg {
+  width: 12px;
+  height: 12px;
 }
 
 .header-not-result {
@@ -226,7 +222,7 @@ input::placeholder {
     margin: 40px 32px;
   }
 
-  header h2 {
+  .header h2 {
     opacity: 1;
   }
 
@@ -917,4 +913,4 @@ button:hover {
   cursor: pointer;
   text-decoration: none;
 }
-/*# sourceMappingURL=index.38157493.css.map */
+/*# sourceMappingURL=index.575203f2.css.map */

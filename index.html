@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><link rel="stylesheet" href="/goit-projekt-filmoteka/index.38157493.css">
+  <head><link rel="stylesheet" href="/goit-projekt-filmoteka/index.575203f2.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filmoteka</title>
@@ -8,32 +8,40 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/goit-projekt-filmoteka/favicon-32x32.9496c61b.png">
   </head>
   <body data-mode="light">
-    <header id="headerBG">
-  <div class="header-navibox">
-    <a href="/goit-projekt-filmoteka/index.html" class="header-logo" id="logo"><svg>
-        <use href="/goit-projekt-filmoteka/icons.c2a80957.svg#icon-film"></use>
-      </svg>
-      <h2 id="logo">Filmoteka</h2></a>
-    <div class="header-navi">
-      <a href="/goit-projekt-filmoteka/index.html">Home</a> <a href="/goit-projekt-filmoteka/index.html">My Library</a><a href="/goit-projekt-filmoteka/index.html">Sign In</a>
-    </div>
-  </div>
-  <div class="header-library">
-    <button class="library-button" id="watchedHeader" type="submit">Watched</button>
-    <button class="library-button" id="queueHeader" type="submit">Queue</button>
-  </div>
-  <div class="header-search">
-    <form class="search-form" id="search-form">
-      <input type="text" name="searchQuery" autocomplete="off" placeholder="Movie search">
-      <button type="submit">
+    <header id="headerBG" class="header">
+  <div class="container header-container">
+    <!-- kontener na logo i menu -->
+    <div class="header-navibox">
+      <a href="/goit-projekt-filmoteka/index.html" class="header-logo" id="logo">
         <svg>
-          <use href="/goit-projekt-filmoteka/icons.c2a80957.svg#icon-search-2"></use>
+          <use href="/goit-projekt-filmoteka/icons.c2a80957.svg#icon-film"></use>
         </svg>
-      </button>
-    </form>
-    <p id="not-result" class="header-not-result">
-      Search result not successful. Enter the correct movie name and
-    </p>
+        <h2 id="logo">Filmoteka</h2>
+      </a>
+      <div class="header-navi">
+        <a href="/goit-projekt-filmoteka/index.html">Home</a>
+        <a href="/goit-projekt-filmoteka/index.html">My Library</a><a href="/goit-projekt-filmoteka/index.html">Sign In</a>
+      </div>
+    </div><!-- kontener wyświetlany, gdy wybrana jest strona główna z formularzem wyszukiwania -->
+    <div class="header-search">
+      <form class="search-form" id="search-form">
+        <input type="text" name="searchQuery" autocomplete="off" placeholder="Movie search">
+        <button type="submit">
+          <svg>
+            <use href="/goit-projekt-filmoteka/icons.c2a80957.svg#icon-search-2"></use>
+          </svg>
+        </button>
+      </form>
+      <!-- komunikat wyświetlany, gdy brak rezultatów wyszukiwania -->
+      <p id="not-result" class="header-not-result">
+        Search result not successful. Enter the correct movie name and
+      </p>
+    </div>
+    <!-- kontener wyświetlany, gdy wybrana jest my library -->
+    <div class="header-library">
+      <button class="library-button" id="watchedHeader" type="submit">Watched</button>
+      <button class="library-button" id="queueHeader" type="submit">Queue</button>
+    </div>
   </div>
 </header>
 
