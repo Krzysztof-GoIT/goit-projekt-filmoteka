@@ -1,0 +1,95 @@
+/*
+breakpoints:
+320px , 768px, 1280px, 1720px, 2280px, 2560px, 3000px
+*/
+
+/* czcionka */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* kolory - tryb jasny */
+[data-mode='light'] {
+  --movieDetails-color: #000;
+  --bg-color: #ffffff;
+  --pagination-bg: #ddd;
+  --body-bg: #ffffff;
+  --footer-bg: #f7f7f7;
+  --footer-text: #545454;
+  --details-contrast: #ff6b08;
+  --vote-color: #8c8c8c;
+}
+
+/* kolory - tryb ciemny */
+[data-mode='dark'] {
+  --movieDetails-color: #ffffff;
+  --bg-color: #000;
+  --pagination-bg: #353030;
+  --body-bg: #532e2e;
+  --footer-bg: #8b8b8b;
+  --footer-text: #fff;
+  --details-contrast: #ff6b08;
+  --vote-color: #8c8c8c;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  scroll-behavior: smooth;
+}
+
+/* reset domyślnych ustawień przycisków i inputów */
+button,
+input {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  outline: none;
+}
+
+/* kontenery na sekcje */
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+@media screen and (min-width: 320px) {
+  .container {
+    max-width: 320px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 0 32px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+@media screen and (min-width: 1720px) {
+  .container {
+    max-width: 1720px;
+  }
+}
+@media screen and (min-width: 2280px) {
+  .container {
+    max-width: 2280px;
+  }
+}
+@media screen and (min-width: 2560px) {
+  .container {
+    max-width: 2560px;
+  }
+}
+@media screen and (min-width: 3000px) {
+  .container {
+    max-width: 3000px;
+  }
+}
