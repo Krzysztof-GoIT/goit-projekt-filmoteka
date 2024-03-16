@@ -227,35 +227,35 @@ export const clearGallery = () => {
   galleryContainer.innerHTML = ''; // Wyczyszczenie zawartości galerii
 };
 
-// Przeniesienie nasłuchiwania zdarzenia kliknięcia przycisku "Trailer" poza funkcję openModal
-document.addEventListener('DOMContentLoaded', () => {
-  const trailerButton = document.querySelector('#movieTrailerButton');
-  trailerButton.target = '_blank';
-  trailerButton.addEventListener('click', async () => {
-    try {
-      // Pobranie identyfikatora filmu
-      const movieId = movieData.id;
-      // Wysłanie żądania do API w celu pobrania zwiastunu filmu
-      const trailersResponse = await fetchMovieTrailers(movieId);
-      // Wyświetlenie danych zwiastunu w konsoli
-      console.log('Trailers:', trailersResponse);
+// // Przeniesienie nasłuchiwania zdarzenia kliknięcia przycisku "Trailer" poza funkcję openModal
+// document.addEventListener('DOMContentLoaded', () => {
+//   const trailerButton = document.querySelector('#movieTrailerButton');
+//   trailerButton.target = '_blank';
+//   trailerButton.addEventListener('click', async () => {
+//     try {
+//       // Pobranie identyfikatora filmu
+//       const movieId = movieData.id;
+//       // Wysłanie żądania do API w celu pobrania zwiastunu filmu
+//       const trailersResponse = await fetchMovieTrailers(movieId);
+//       // Wyświetlenie danych zwiastunu w konsoli
+//       console.log('Trailers:', trailersResponse);
 
-      // Sprawdzenie, czy istnieją zwiastuny
-      if (trailersResponse.results && trailersResponse.results.length > 0) {
-        // Iteracja przez zwiastuny i otwarcie ich w nowej karcie przeglądarki
-        trailersResponse.results.forEach(trailer => {
-          if (trailer.site === 'YouTube') {
-            window.open(`https://www.youtube.com/watch?v=${trailer.key}`, '_blank');
-          }
-        });
-      } else {
-        console.log('No trailers available');
-      }
-    } catch (error) {
-      console.error('Error fetching movie trailers:', error);
-    }
-  });
-});
+//       // Sprawdzenie, czy istnieją zwiastuny
+//       if (trailersResponse.results && trailersResponse.results.length > 0) {
+//         // Iteracja przez zwiastuny i otwarcie ich w nowej karcie przeglądarki
+//         trailersResponse.results.forEach(trailer => {
+//           if (trailer.site === 'YouTube') {
+//             window.open(`https://www.youtube.com/watch?v=${trailer.key}`, '_blank');
+//           }
+//         });
+//       } else {
+//         console.log('No trailers available');
+//       }
+//     } catch (error) {
+//       console.error('Error fetching movie trailers:', error);
+//     }
+//   });
+// });
 
 // Funkcja openModal
 
@@ -273,17 +273,17 @@ const openModal = movieData => {
   </div>
   <div class="modal-movie-info">
     <h2>${movieData.title}</h2>
-      
-    
+
+
     <div class="info-item">
-    
+
     <div class="pernament-item">
     <p>Vote / Votes </p>
     <p>Popularity </p>
     <p>Orginal Title </p>
     <p>Genre </p>
     </div>
-       
+
     <div class="variables-item">
     <p><span class="average-vote">${movieData.vote_average.toFixed(
       1,
@@ -300,8 +300,9 @@ const openModal = movieData => {
     <div class="modal-buttons">
     <button class="watchedButton">Add to Watched</button>
     <button class="queuedButton">Add to Queue</button>
+    <button id="movieTrailerButton">Movie Trailer</button>
     </div>
-    
+
     </div>
   `;
 
