@@ -116,8 +116,8 @@
 }
 
 /* kontener na ikone wyszukiwania */
-.search-form button {
-  margin: 0;
+.search-button {
+  width: 14px;
   border: none;
   background-color: transparent;
   padding: 0;
@@ -167,6 +167,13 @@
   box-shadow: 0 8px 43px 0 rgba(255, 107, 1, 0.6);
   background: #ff6b01;
   border: none;
+}
+
+/* bez tytułu dla telefonów */
+@media screen and (max-width: 767px) {
+  .header h2 {
+    display: none;
+  }
 }
 
 /* style dla ekranów tabletów i komputerów */
