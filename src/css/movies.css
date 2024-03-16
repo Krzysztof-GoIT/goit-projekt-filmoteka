@@ -1,76 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-p {
-  margin: 0;
-}
-
-[data-mode='light'] {
-  --movieDetails-color: #000;
-  --bg-color: #ffffff;
-  --pagination-bg: #ddd;
-  --body-bg: #ffffff;
-  --footer-bg: #f7f7f7;
-  --footer-text: #545454;
-  --details-contrast: #ff6b08;
-  --vote-color: #8c8c8c;
-}
-
-[data-mode='dark'] {
-  --movieDetails-color: #ffffff;
-  --bg-color: #000;
-  --pagination-bg: #353030;
-  --body-bg: #532e2e;
-  --footer-bg: #8b8b8b;
-  --footer-text: #fff;
-  --details-contrast: #ff6b08;
-  --vote-color: #8c8c8c;
-}
-body {
-  background-color: var(--bg-color);
-}
-
+/* sekcja z filmami */
 .movies {
   background-color: var(--bg-color);
 }
 
+/* kontener na galerię filmów */
 #gallery-container {
   display: grid;
   grid-template-columns: 1fr;
   padding-top: 20px;
+  padding-bottom: 20px;
   background-color: var(--bg-color);
+}
+
+/* karta filmu */
+.movie-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: auto;
 }
 
-.movie-details {
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.3;
-  color: var(--movieDetails-color);
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
+/* wskazana karta filmu */
 .movie-card:hover,
 .movie-card:focus {
   cursor: pointer;
 }
-.movie-title {
-  font-family: 'Roboto', sans-serif;
-  text-transform: uppercase;
-  --movieDetails-color: #000;
-}
 
-.movie-title:hover,
-.movie-title:focus {
-  transform: scale(1) translateX(1%);
-}
-
-.movie-info {
-  font-family: 'Roboto', sans-serif;
-  color: var(--details-contrast);
-}
+/* plakat filmu */
 .movie-poster {
   width: 280px;
   height: 100%;
@@ -80,28 +34,47 @@ body {
   transition: transform 0.3s ease;
 }
 
+/* wskazany plakat filmu */
 .movie-poster:focus,
 .movie-poster:hover {
   transform: scale(1.03);
-  /* opacity: 0.8; */
-  /* border: 5px solid #ff001b; */
   border: thick double #ff001b;
   padding: 6px;
 }
 
-@media (min-width: 768px) {
+/* szczegóły filmu */
+.movie-details {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--movieDetails-color);
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+/* tytuł filmu */
+.movie-title {
+  text-transform: uppercase;
+  --movieDetails-color: #000;
+}
+
+/* wskazany tytuł filmu */
+.movie-title:hover,
+.movie-title:focus {
+  transform: scale(1) translateX(1%);
+}
+
+/* pozostałe informacje filmie */
+.movie-info {
+  color: var(--details-contrast);
+}
+
+/* style dla tabletów i komputerów */
+@media screen and (min-width: 768px) {
   #gallery-container {
-    display: grid;
     grid-template-columns: repeat(2, 1fr);
-    margin-top: 59px;
-    justify-items: center;
+    padding-top: 59px;
   }
-
-  .movie-details {
-    margin-top: 8px;
-    margin-bottom: 32px;
-  }
-
   .movie-poster {
     width: 336px;
     height: 100%;
@@ -109,16 +82,18 @@ body {
     display: flex;
     justify-content: center;
   }
+  .movie-details {
+    margin-top: 8px;
+    margin-bottom: 32px;
+  }
 }
 
-@media (min-width: 1280px) {
+@media screen and (min-width: 1280px) {
   #gallery-container {
-    display: grid;
     grid-template-columns: repeat(3, 1fr);
     padding-top: 60px;
     max-width: 1280px;
   }
-
   .movie-poster {
     width: 395px;
     height: 574px;
@@ -131,47 +106,41 @@ body {
   }
 }
 
-/* Wide Monitor Options*/
-@media (min-width: 1600px) {
-  #gallery-container.monitor-wide {
+/* dodatkowe style dla szerokich ekranów*/
+@media screen and (min-width: 1720px) {
+  #gallery-container {
     grid-template-columns: repeat(4, 1fr);
-    padding-top: 20px;
-    background-color: var(--bg-color);
-    justify-content: center;
-    gap: 30px;
-    max-width: 1919px;
+    max-width: 1720px;
   }
 }
-@media (min-width: 1920px) {
-  #gallery-container.monitor-wide {
-    grid-template-columns: repeat(4, 1fr);
-    max-width: 2559px;
-    gap: 30px;
-  }
-}
-
-@media (min-width: 2560px) {
-  #gallery-container.monitor-wide {
+@media screen and (min-width: 2180px) {
+  #gallery-container {
     grid-template-columns: repeat(5, 1fr);
-    gap: 40px;
-    max-width: 2999px;
+    max-width: 2180px;
   }
 }
 
-@media (min-width: 3000px) {
-  #gallery-container .monitor-wide {
+@media screen and (min-width: 2560px) {
+  #gallery-container {
     grid-template-columns: repeat(6, 1fr);
-    gap: 50px;
+    max-width: 2560px;
   }
 }
-/* scrollToTop by Marek */
+
+@media screen and (min-width: 3000px) {
+  #gallery-container {
+    grid-template-columns: repeat(7, 1fr);
+    max-width: 3000px;
+  }
+}
+
+/* przycisk do przewijania ekranu do góry */
 #scrollToTopButton {
   font-size: 0.9em;
   position: fixed;
-  display: none;
   bottom: 20px;
   right: 20px;
-  display: none; /* Początkowo ukryj przycisk */
+  display: none; /* początkowe ukrycie przycisku */
   padding: 10px 10px;
   background-color: #007bff;
   color: #fff;
@@ -179,9 +148,10 @@ body {
   border-radius: 10px;
   cursor: pointer;
   visibility: hidden;
-  z-index: 999; /* Ustawienie przycisk jest na wierzchu innych elementów */
+  z-index: 999; /* przycisk na wierzchu innych elementów */
 }
 
+/* wskazany przycisk do przewijania ekranu do góry */
 #scrollToTopButton:hover {
   background-color: #0056b3;
 }
