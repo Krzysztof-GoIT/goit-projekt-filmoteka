@@ -266,38 +266,42 @@ const openModal = movieData => {
   const modalContent = document.getElementById('modalContent');
   modalContent.innerHTML = `
   <div class="modal-container">
-    <div class="movie-poster-modal">
-      <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${
-        movieData.poster_path
-      }" alt="${movieData.title} Photo">
-     </div>
-    <div>
-      <h2>${movieData.title}</h2>
-      <div class="info-item">
-      <p>Vote / Votes
-      <span>
-      <span class="average-vote">${movieData.vote_average}</span> /<span class="count-vote">${
-    movieData.vote_count
-  }</span>
-        </span>
-      </p>
-      <p>Popularity <span class="info-item-color" >${movieData.popularity}</span></p>
-      <p>Orginal Title <span class="info-item-color original-title">${
-        movieData.original_title
-      }</span></p>
-      <p>Genre <span class="info-item-color">${movieData.genres
-        .map(genre => genre.name)
-        .join(', ')}</span></p>
-      </div>
-      <div class="about-movie">
-      <p><span class="about-movie-details">About</span></br> ${movieData.overview}</p>
-      </div>
-      <div class="modal-buttons">
-        <button class="watchedButton">Add to Watched</button>
-        <button class="queuedButton">Add to Queue</button>
-        <button id="movieTrailerButton" class="trailerButton" target="_blank">Trailer</button>
-      </div>
+  <div class="movie-poster-modal">
+  <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" alt="${
+    movieData.title
+  } Photo">
+  </div>
+  <div class="modal-movie-info">
+    <h2>${movieData.title}</h2>
+      
+    
+    <div class="info-item">
+    
+    <div class="pernament-item">
+    <p>Vote / Votes </p>
+    <p>Popularity </p>
+    <p>Orginal Title </p>
+    <p>Genre </p>
     </div>
+       
+    <div class="variables-item">
+    <p><span class="average-vote">${movieData.vote_average.toFixed(
+      1,
+    )} </span>/ <span class="count-vote">${movieData.vote_count}</span></p>
+    <p>${movieData.popularity}</p>
+    <p>${movieData.original_title}</p>
+    <p>${movieData.genres.map(genre => genre.name).join(', ')}</p>
+     </div>
+</div>
+    <div class="about-movie">
+    <p><span class="about-movie-details">About</span></br> ${movieData.overview}</p>
+    </div>
+
+    <div class="modal-buttons">
+    <button class="watchedButton">Add to Watched</button>
+    <button class="queuedButton">Add to Queue</button>
+    </div>
+    
     </div>
   `;
 
