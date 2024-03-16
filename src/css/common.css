@@ -98,3 +98,23 @@ input {
     max-width: 3000px;
   }
 }
+
+/* przezroczysty kontener na cały ekran na okno modalne */
+.modal {
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+/* widoczna zawartość okna modalnego na śrdoku ekranu */
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: auto;
+}
