@@ -538,10 +538,10 @@ body, .movies {
 
 .footer-wrapper {
   color: var(--footer-text);
-  flex-flow: column wrap;
+  flex-flow: column;
   justify-content: center;
   align-items: center;
-  row-gap: 10px;
+  column-gap: 4px;
   font-size: 14px;
   display: flex;
 }
@@ -549,7 +549,7 @@ body, .movies {
 .footer-text {
   justify-content: center;
   align-items: center;
-  column-gap: 10px;
+  column-gap: 8px;
   margin: 0;
   padding: 0;
   display: flex;
@@ -824,7 +824,7 @@ body, .movies {
 
 .modal-content-goit {
   background-color: #000;
-  border: 1px solid #888;
+  border-radius: 14px;
   width: 80%;
   height: auto;
   margin: 15% auto;
@@ -847,6 +847,7 @@ body, .movies {
 
 .footer-btn {
   cursor: pointer;
+  width: auto;
 }
 
 .footer-btn:hover {
@@ -967,4 +968,4 @@ button:hover {
   cursor: pointer;
   text-decoration: none;
 }
-/*# sourceMappingURL=index.6a3f4cf1.css.map */
+/*# sourceMappingURL=index.36fb60cb.css.map */
