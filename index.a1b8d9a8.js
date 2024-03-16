@@ -4894,7 +4894,7 @@ const renderGallery = (dataGallery, rating)=>{
             const newContent = movies1.map((movie)=>{
                 let posterPath;
                 if (movie.poster_path) posterPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-                else posterPath = "https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.png?raw=true";
+                else posterPath = "https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.jpg?raw=true";
                 // Inicjalizacja zmiennej przechowującej informacje o gatunkach filmu
                 let categories = "Without category";
                 // Ustalenie roku wydania filmu
@@ -32683,4 +32683,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.7e41388d.js.map
+//# sourceMappingURL=index.a1b8d9a8.js.map
