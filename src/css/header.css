@@ -90,9 +90,8 @@
 /* pole wyszukiwania */
 .search-form input {
   background-color: transparent;
-  size: 100%;
   width: 380px;
-  margin: 0;
+  padding-bottom: 4px;
   border: none;
   color: #ffffff;
 }
