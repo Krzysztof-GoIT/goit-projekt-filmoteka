@@ -8,7 +8,7 @@ import {
   genresName,
 } from './api';
 import { addToQueue, addToWatchedMovies } from './localstorage';
-import { createPagination, currentPage, setCurrentPage } from './pagination';
+import { createPagination, setCurrentPage } from './pagination';
 
 export let homePageNo = 0;
 export let searPageNo = 1;
@@ -129,7 +129,7 @@ export const getSearchResult = async (event, pageNo) => {
       totalPages = response.total_pages;
       movies = response.results;
       createPagination(totalPages); //Wywołanie paginacji
-      //searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
+      searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
       if (response.results.length > 0) {
         notResult.style.display = 'none'; // Ukrycie komunikatu o braku wyników
         clearGallery();
