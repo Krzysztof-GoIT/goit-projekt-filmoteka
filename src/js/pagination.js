@@ -2,10 +2,12 @@ export let currentPage = 1;
 export const itemsPerPage = 20;
 import { getSearchResult, getHomepage } from './gallery';
 
+// ustawianie numeru bieżącej strony
 export const setCurrentPage = value => {
   currentPage = value;
 };
 
+// ustawianie stylu dla przycisku z numerem bieżącej strony
 export const updatePageView = currentPage => {
   const paginationButtons = document.querySelectorAll('.pagin-btn');
 
@@ -18,6 +20,7 @@ export const updatePageView = currentPage => {
   });
 };
 
+// generowanie paginacji dla podanej liczby stron
 export const createPagination = totalPages => {
   // const paginationContainer = document.getElementById('pagination-container');
   const paginationPages = document.querySelector('.pagination-pages');
@@ -92,23 +95,25 @@ export const createPagination = totalPages => {
   updatePageView(currentPage);
 };
 
+// ładowanie strony o podanym nummerze
 const loadPage = (e, currentPage) => {
   const searchInput = document.querySelector('.search-form input');
 
   if (searchInput.value !== '') {
-    getSearchResult(e, currentPage);
+    getSearchResult(e, currentPage); // ładowanie podanej strony z szukanymi filmami
   } else {
-    getHomepage(currentPage);
+    getHomepage(currentPage); // ładowanie podanej strony z popularnymi filmami
   }
 };
 
+// obsługa zdarzenia kliknięcia w przyciski paginacji
 document.querySelector('#pagination-container').addEventListener('click', e => {
   e.preventDefault();
 
-  if (e.target.tagName == 'BUTTON') {
+  if (e.target.tagName == 'BUTTON') { // kliknięty przycisk z numerem strony
     currentPage = e.target.innerHTML;
     loadPage(e, currentPage);
-  } else if (e.target.tagName == 'A') {
+  } else if (e.target.tagName == 'A') { // kliknięty przycisk poprzedniej/kolejnej strony
     if (e.target.firstElementChild.id === 'icon-arrow-left2') {
       currentPage -= 1;
       loadPage(e, currentPage);
