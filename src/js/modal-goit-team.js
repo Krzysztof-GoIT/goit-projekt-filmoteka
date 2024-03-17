@@ -1,32 +1,30 @@
-// Pobranie okna modalnego
+// pobranie wskażnika okna modalnego
 const modal = document.getElementById("modalGoit");
+// pobranie wskażnika przycisku, który otwiera okno modalne
+const btn = document.querySelector(".footer-btn");
+// pobranie wskażnika elementu <span>, który zamyka okno modalne
+const span = document.querySelector(".close-modal-btn-goit");
 
-// Pobranie przycisku, który otwiera okno modalne
-const btn = document.querySelector(".footer-btn"); // Zmiana na pobranie przycisku po klasie
-
-// Pobranie elementu <span>, który zamyka okno modalne
-const span = document.querySelector(".close-modal-btn-goit"); // Zmienione na querySelector dla spójności
-
-// Kiedy użytkownik kliknie na przycisk, otwórz okno modalne
+// obsługa kliknięcia na przycisk otwierający okno modalne 'goit-team'
 btn.onclick = function() {
   modal.style.display = "block";
 }
 
-// Kiedy użytkownik kliknie na <span> (x), zamknij okno modalne
+// obsługa kliknięcia na przycisk zamykający okno modalne
 span.onclick = function() {
   modal.style.display = "none";
 }
 
-// Kiedy użytkownik kliknie poza oknem modalnym, zamknij je
+// obsługa kliknięcia poza okno modalne zamykającego to okno
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
 }
 
-// Dodanie obsługi zamknięcia okna modalnego przez naciśnięcie klawisza Esc
+// obsługa zdarzenia naciśnięcia klawisza Esc zamkykającego okno modalne
 document.onkeydown = function(event) {
-  if (event.key === "Escape") { // Sprawdzenie, czy naciśnięty klawisz to Escape
+  if (event.key === "Escape") {
     modal.style.display = "none";
   }
 }

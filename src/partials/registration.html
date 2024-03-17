@@ -1,0 +1,23 @@
+<div class="sign-in-container hidden">
+  <span class="close-modal-reg">&times;</span>
+  <div id="login-status"></div>
+  <div class="sign-in-wrapper">
+
+    <div id="form-content-container">
+
+      <div id="form-content-inner-container">
+        <input type="email" id="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          title="(example@example.com)" required />
+        <input type="password" id="password" placeholder="New password"
+          pattern="(?=.*\d)(?=.*[A-Z])(?=.*\W)(?=.*[a-z]).{8,}"
+          title="Hasło musi zawierać co najmniej 6 znaków, w tym co najmniej jedną dużą literę, jedną małą literę, jedną cyfrę i jeden znak specjalny"
+          required />
+        <div id="button-container">
+          <button id="login-button">Login</button>
+          <button id="register-button">Register</button>
+          <button id="logout-button">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
