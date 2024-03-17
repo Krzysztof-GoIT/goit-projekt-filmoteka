@@ -4852,7 +4852,7 @@ const getSearchResult = async (event, pageNo)=>{
         totalPages = response.total_pages;
         movies = response.results;
         (0, _pagination.createPagination)(totalPages); //Wywołanie paginacji
-        //searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
+        searchInput.value = ""; // Wyczyszczenie pola wyszukiwania
         if (response.results.length > 0) {
             notResult.style.display = "none"; // Ukrycie komunikatu o braku wyników
             clearGallery();
@@ -4875,8 +4875,6 @@ const getSearchResult2 = async (searchQuery, searPageNo)=>{
         const response = await (0, _api.fetchSearchMovies)(searchQuery, searPageNo);
         totalPages = response.total_pages;
         movies = response.results;
-        //createPagination(totalPages); //Wywołanie paginacji
-        //searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
         if (response.results.length > 0) {
             notResult.style.display = "none"; // Ukrycie komunikatu o braku wyników
             renderGallery(movies);
@@ -32708,4 +32706,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.59d0afd6.js.map
+//# sourceMappingURL=index.d8ad9dcc.js.map
