@@ -465,7 +465,7 @@ button, input {
   display: flex;
 }
 
-.arrow-left, .arrow-right {
+a.arrow-left, a.arrow-right {
   color: var(--movieDetails-color);
   float: left;
   background-color: #f7f7f7;
@@ -476,10 +476,6 @@ button, input {
   padding: 12px;
   text-decoration: none;
   transition: background-color .3s;
-}
-
-.pagin-btn:focus, .pagin-btn:hover {
-  background-color: var(--pagination-bg);
 }
 
 .pagination-arrow {
@@ -506,13 +502,13 @@ button, input {
   display: flex;
 }
 
+.pagin-btn:focus, .pagin-btn:hover {
+  background-color: var(--pagination-bg);
+}
+
 .current-page {
   color: var(--movieDetails-color);
   background-color: #ff6c28;
-}
-
-.hidden {
-  display: none;
 }
 
 .dots {
@@ -1080,4 +1076,8 @@ button:hover {
     min-width: 100%;
   }
 }
-/*# sourceMappingURL=index.88e4f221.css.map */
+
+.hidden {
+  display: none;
+}
+/*# sourceMappingURL=index.6033e181.css.map */

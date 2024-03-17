@@ -5408,11 +5408,13 @@ const createPagination = (totalPages)=>{
     }
     updatePageView(currentPage);
 };
+// ładowanie strony o podanym nummerze
 const loadPage = (e, currentPage)=>{
     const searchInput = document.querySelector(".search-form input");
-    if (searchInput.value !== "") (0, _gallery.getSearchResult)(e, currentPage);
-    else (0, _gallery.getHomepage)(currentPage);
+    if (searchInput.value !== "") (0, _gallery.getSearchResult)(e, currentPage); // ładowanie podanej strony z szukanymi filmami
+    else (0, _gallery.getHomepage)(currentPage); // ładowanie podanej strony z popularnymi filmami
 };
+// obsługa zdarzenia kliknięcia w przyciski paginacji
 document.querySelector("#pagination-container").addEventListener("click", (e)=>{
     e.preventDefault();
     if (e.target.tagName == "BUTTON") {
@@ -32706,4 +32708,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.a6ac7500.js.map
+//# sourceMappingURL=index.59d0afd6.js.map
