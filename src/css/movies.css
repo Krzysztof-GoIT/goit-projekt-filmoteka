@@ -108,27 +108,27 @@
 
 /* dodatkowe style dla szerokich ekranów*/
 @media screen and (min-width: 1720px) {
-  #gallery-container {
+  #gallery-container.monitor-wide {
     grid-template-columns: repeat(4, 1fr);
     max-width: 1720px;
   }
 }
 @media screen and (min-width: 2180px) {
-  #gallery-container {
+  #gallery-container.monitor-wide {
     grid-template-columns: repeat(5, 1fr);
     max-width: 2180px;
   }
 }
 
 @media screen and (min-width: 2560px) {
-  #gallery-container {
+  #gallery-container.monitor-wide {
     grid-template-columns: repeat(6, 1fr);
     max-width: 2560px;
   }
 }
 
 @media screen and (min-width: 3000px) {
-  #gallery-container {
+  #gallery-container.monitor-wide {
     grid-template-columns: repeat(7, 1fr);
     max-width: 3000px;
   }
