@@ -963,7 +963,6 @@ button, input {
   z-index: 1000;
   background-color: #000;
   border-radius: 2cqb;
-  width: 500px;
   height: auto;
   margin-top: 5px;
   padding: 20px;
@@ -1048,4 +1047,10 @@ button:hover {
   cursor: pointer;
   text-decoration: none;
 }
-/*# sourceMappingURL=index.ddb6da51.css.map */
+
+@media screen and (width <= 767px) {
+  .sign-in-container {
+    min-width: 100%;
+  }
+}
+/*# sourceMappingURL=index.5415eb5a.css.map */
