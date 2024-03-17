@@ -945,6 +945,7 @@ button, input {
 }
 
 .modal-team-img-goit {
+  border-radius: 50%;
   justify-content: space-around;
   width: 150px;
   height: 150px;
@@ -959,6 +960,24 @@ button, input {
 .modal-team-text-goit {
   color: #fff;
   text-align: center;
+  margin-top: 10px;
+}
+
+@media screen and (width <= 767px) {
+  .modal-team-list-goit {
+    margin-top: 10px;
+    display: block;
+  }
+
+  .modal-team-list-goit .modal-team-img-goit {
+    margin-top: 30px;
+  }
+
+  .list-member-goit {
+    box-sizing: border-box;
+    flex-basis: calc(50% - 10px);
+    margin: 10px;
+  }
 }
 
 .sign-in-container {
@@ -1055,4 +1074,4 @@ button:hover {
     min-width: 100%;
   }
 }
-/*# sourceMappingURL=index.63e607a8.css.map */
+/*# sourceMappingURL=index.35cd3671.css.map */
