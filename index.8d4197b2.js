@@ -5279,47 +5279,54 @@ infinityScroll.addEventListener("click", ()=>{
 });
 
 },{"./api":"5mmx6","./localstorage":"ippo7","./pagination":"iC8Tx","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"ippo7":[function(require,module,exports) {
+// dodanie podanego filmu do listy obejrzanych filmów
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "addToWatchedMovies", ()=>addToWatchedMovies);
 parcelHelpers.export(exports, "addToQueue", ()=>addToQueue);
 const addToWatchedMovies = (movieDetails)=>{
-    // Pobierz listę obejrzanych filmów z localStorage lub utwórz nową listę, jeśli nie istnieje
+    // pobiera listę obejrzanych filmów z localStorage lub tworzy nową, jeśli nie istnieje
     let watchedMovies = JSON.parse(localStorage.getItem("watchedMovies")) || [];
-    if (!Array.isArray(watchedMovies)) watchedMovies = [];
+    // prawdopodobnie niepotrzebny fragment kodu ============== do usunięcia
+    // if (!Array.isArray(watchedMovies)) {
+    //   watchedMovies = [];
+    // }
+    // sprawdza, czy film jest już na liście obejrzanych
     let isMovieAlreadyWatched = watchedMovies.find((movie)=>movie.id === movieDetails.id);
-    //pobierz liste filmów z kolejki z local storage zeby ussunąć w razie wuz
+    //  pobiera listę filmów do oglądnięcia z localStorage lub tworzy nową, jeśli nie istnieje
     let queuedMovies = JSON.parse(localStorage.getItem("queuedMovies")) || [];
-    // Jeśli film jeszcze nie został obejrzany, dodaj go do listy
+    // jeśli filmu nie ma na liście obejrzanych
     if (!isMovieAlreadyWatched) {
+        // dodaje film do listy obejrzanych i przesyła zaktualizowaną listę do localStorage
         watchedMovies.push(movieDetails);
         localStorage.setItem("watchedMovies", JSON.stringify(watchedMovies));
-        //console.log(`Added "${movieDetails.title}" to Watched Movies`);
-        //usuwa filmy jeśli znadjują sie w kolejce
+        // usuwa film z listy filmów do obejrzenia, jeśli na niej jest i przesyła zaktualizowaną listę do localStorage
         queuedMovies = queuedMovies.filter((movie)=>movie.id !== movieDetails.id);
         localStorage.setItem("queuedMovies", JSON.stringify(queuedMovies));
-        refreshView();
+    // refreshView(); 
     }
 };
 const addToQueue = (movieDetails)=>{
+    //  pobiera listę filmów do oglądnięcia z localStorage lub tworzy nową, jeśli nie istnieje
     let queuedMovies = JSON.parse(localStorage.getItem("queuedMovies")) || [];
+    // sprawdza, czy film jest już na liście filmó do obejrzenia
     let isMovieInQueue = queuedMovies.find((movie)=>movie.id === movieDetails.id);
-    //pobierz liste filmów z obejrzanych z local storage zeby ussunąć w razie wu
+    // pobiera listę obejrzanych filmów z localStorage lub tworzy nową, jeśli nie istnieje
     let watchedMovies = JSON.parse(localStorage.getItem("watchedMovies")) || [];
+    // jeśli filmu nie ma na liście filmów do obejrzenia
     if (!isMovieInQueue) {
+        // dodaje film do listy obejrzanych i przesyła zaktualizowaną listę do localStorage
         queuedMovies.push(movieDetails);
         localStorage.setItem("queuedMovies", JSON.stringify(queuedMovies));
-        //console.log(`Added "${movieDetails.title}" to Queue `);
-        //usuwa filmy dodane do obejrzanych
+        // usuwa film z listy filmów do obejrzenia, jeśli na niej jest i przesyła zaktualizowaną listę do localStorage
         watchedMovies = watchedMovies.filter((movie)=>movie.id !== movieDetails.id);
         localStorage.setItem("watchedMovies", JSON.stringify(watchedMovies));
-        refreshView();
+    // refreshView();
     }
-};
-const refreshView = ()=>{
-//Tutaj wstawię później funkcje która będzie odświerzać widok po zmianie
-//Z queue do watched
-};
+}; // const refreshView = () => {
+ //Tutaj wstawię później funkcje która będzie odświerzać widok po zmianie
+ //Z queue do watched
+ // };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"iC8Tx":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -32706,4 +32713,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.d8ad9dcc.js.map
+//# sourceMappingURL=index.8d4197b2.js.map
