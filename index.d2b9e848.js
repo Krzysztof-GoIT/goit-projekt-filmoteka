@@ -4766,11 +4766,11 @@ parcelHelpers.export(exports, "getGenres", ()=>getGenres);
 parcelHelpers.export(exports, "getHomepage", ()=>getHomepage);
 parcelHelpers.export(exports, "getSearchResult", ()=>getSearchResult);
 parcelHelpers.export(exports, "clearGallery", ()=>clearGallery);
-parcelHelpers.export(exports, "isInfinityScrollActive", ()=>isInfinityScrollActive);
 var _api = require("./api");
 var _localstorage = require("./localstorage");
 var _pagination = require("./pagination");
 let homePageNo = 0;
+let isInfinityScrollActive = 0;
 let totalPages;
 const getGenres = (genreIds)=>{
     // Pobranie nazw gatunków z listy genresName zdefiniowanej w api.js
@@ -4794,6 +4794,7 @@ const displayWatchedMovies = ()=>{
         });
         homePageNo = 0;
         clearGallery();
+        isInfinityScrollActive = 0;
         renderGallery(moviesWithGenres, 1);
     } catch (error) {
         console.error("Error displaying watched movies:", error);
@@ -4812,6 +4813,7 @@ const displayQueuedMovies = ()=>{
         });
         homePageNo = 0;
         clearGallery();
+        isInfinityScrollActive = 0;
         renderGallery(moviesWithGenres, 1);
     } catch (error) {
         console.error("Error displaying queued movies:", error);
@@ -4870,6 +4872,7 @@ const getSearchResult = async (event, pageNo)=>{
         if (response.results.length > 0) {
             notResult.style.display = "none"; // Ukrycie komunikatu o braku wyników
             clearGallery();
+            isInfinityScrollActive = 0;
             renderGallery(movies);
         } else {
             notResult.style.display = "block"; // Wyświetlenie komunikatu o braku wyników
@@ -5240,17 +5243,19 @@ function isNearBottom(element, threshold) {
     const rect = element.getBoundingClientRect();
     return rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + threshold;
 }
-let isInfinityScrollActive = 0;
+// Event scroll na oknie przeglądarki
 const loadMoreContent = ()=>{
     // Element, który monitorujemy, np. kontener na treści
     const contentContainer = document.querySelector(".movie-card:last-child");
     // Threshold - odległość od dolnej krawędzi, przy której chcemy zacząć ładować więcej treści
     const threshold = 800; // w pikselach
     // Sprawdzamy, czy element jest blisko dolnej krawędzi okna przeglądarki
-    if (isNearBottom(contentContainer, threshold)) {
-        // Jeśli tak, ładujemy więcej treści
-        if (homePageNo > 0 && isInfinityScrollActive == 1) homePageNo++;
-        getHomepage(homePageNo, true);
+    if (isNearBottom(contentContainer, threshold)) // Jeśli tak, ładujemy więcej treści
+    {
+        if (homePageNo >= 1 && isInfinityScrollActive == 1) {
+            homePageNo++;
+            getHomepage(homePageNo, true);
+        }
     }
 };
 const infinityScroll = document.getElementById("infinityScroll");
@@ -5258,11 +5263,11 @@ const infinityScroll = document.getElementById("infinityScroll");
 infinityScroll.addEventListener("click", ()=>{
     if (isInfinityScrollActive) {
         // Jeżeli infinity scroll jest aktywny, usuwamy nasłuchiwanie zdarzenia scroll
-        document.removeEventListener("scroll", loadMoreContent);
+        window.removeEventListener("scroll", loadMoreContent);
         isInfinityScrollActive = 0;
     } else {
         // Jeżeli infinity scroll nie jest aktywny, dodajemy nasłuchiwanie zdarzenia scroll
-        document.addEventListener("scroll", loadMoreContent);
+        window.addEventListener("scroll", loadMoreContent);
         isInfinityScrollActive = 1;
     }
 });
@@ -32683,4 +32688,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.7c0109a5.js.map
+//# sourceMappingURL=index.d2b9e848.js.map
