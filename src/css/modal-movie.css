@@ -23,7 +23,7 @@
 
 .modal-movie-info {
   margin-top: 20px;
-  margin-left: -40px;
+  margin-left: auto;
 }
 .close {
   color: #aaaaaa;
@@ -269,7 +269,7 @@
 
   .modal-movie-info {
     margin-top: 41px;
-    margin-left: auto;
+    margin-left: -41px;
   }
   .info-item {
     margin-top: 20px;
@@ -293,6 +293,10 @@
   .movie-poster-modal img {
     width: 375px;
     height: 100%;
+  }
+  .modal-movie-info {
+    margin-top: 41px;
+    margin-left: auto;
   }
   .about-movie {
     max-width: 391px;
