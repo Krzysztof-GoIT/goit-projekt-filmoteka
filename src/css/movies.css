@@ -140,6 +140,7 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
+  width: auto;
   display: none; /* początkowe ukrycie przycisku */
   padding: 10px 10px;
   background-color: #007bff;
