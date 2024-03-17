@@ -4995,10 +4995,13 @@ const openModal = (movieData)=>{
     const modal = document.getElementById("myModal");
     modal.style.display = "block";
     const modalContent = document.getElementById("modalContent");
+    let posterPath;
+    if (movieData.poster_path) posterPath = `https://image.tmdb.org/t/p/w500${movieData.poster_path}`;
+    else posterPath = "https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.jpg?raw=true";
     modalContent.innerHTML = `
   <div class="modal-container">
     <div class="movie-poster-modal">
-      <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${movieData.poster_path}" alt="${movieData.title} Photo">
+      <img class="movie-poster" src="${posterPath}" alt="${movieData.title} Photo">
     </div>
     <div class="modal-movie-info">
       <div class="modal-movie-title"><h2>${movieData.title}</h2></div>
@@ -32683,4 +32686,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.404d3d57.js.map
+//# sourceMappingURL=index.6e692fff.js.map
