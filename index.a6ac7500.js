@@ -161,28 +161,30 @@ var _firebaseAuthorization = require("./js/firebaseAuthorization");
 },{"./sass/main.scss":"clpGj","./js/api":"5mmx6","./js/gallery":"bA31f","./js/markup":"6K7Vw","./js/localstorage":"ippo7","./js/visibilityHeader":"kxv7b","./js/onOffModal":"hLtdZ","./js/devTools":"kw7nM","./js/darkMode":"3DurW","./js/modal-goit-team":"8Mni5","./js/firebaseAuthorization":"fukWk"}],"clpGj":[function() {},{}],"5mmx6":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-// Genres
-// https://api.themoviedb.org/3/genre/movie/list?language=en
+// Genres, np. https://api.themoviedb.org/3/genre/movie/list?language=en
+// pobieranie listy gatunków filmów
 parcelHelpers.export(exports, "fetchGenres", ()=>fetchGenres);
-// Trending:
-// https://api.themoviedb.org/3/trending/movie/day?language=en-US
+// Trending, np. https://api.themoviedb.org/3/trending/movie/day?language=en-US
+// pobieranie listy popularnych filmów
 parcelHelpers.export(exports, "fetchTrendingMovies", ()=>fetchTrendingMovies);
-// Search
-// https://api.themoviedb.org/3/search/movie?query=avengers&include_adult=false&language=en-US&page=1
+// Search, np. https://api.themoviedb.org/3/search/movie?query=avengers&include_adult=false&language=en-US&page=1
+// pobieranie listy filmów wyszukanych na podstawie słów kluczowych
 parcelHelpers.export(exports, "fetchSearchMovies", ()=>fetchSearchMovies);
-// Movie Details
-// https://api.themoviedb.org/3/movie/12345?language=en-US
+// Movie Details, np. https://api.themoviedb.org/3/movie/12345?language=en-US
+// pobieranie szczegółowych informacji o podanym filmie
 parcelHelpers.export(exports, "fetchMovieDetails", ()=>fetchMovieDetails);
-// Movie Trailer
-// 'https://api.themoviedb.org/3/movie/123455/videos?language=en-US
+// Movie Trailer, np. 'https://api.themoviedb.org/3/movie/123455/videos?language=en-US
+// pobiernie listy trailerów dla podanego filmu
 parcelHelpers.export(exports, "fetchMovieTrailers", ()=>fetchMovieTrailers);
 parcelHelpers.export(exports, "genresName", ()=>genresName);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
+// stałe parametry połączenia z API The Movie Data Base
 const BASE_URL = "https://api.themoviedb.org/3/";
 const API_KEY = "2c31d985c0705d4cec824ff15c12500a";
 const AUTHORIZATION = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYzMxZDk4NWMwNzA1ZDRjZWM4MjRmZjE1YzEyNTAwYSIsInN1YiI6IjY1ZTg0MWVjM2ZlMTYwMDE2MjVjZTAzZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5HPQhM5yRj3vRPDY3tSFgGEmeCi69HNN3M4_g94gH5c";
-let options = {
+const options = {
+    method: "GET",
     headers: {
         accept: "application/json",
         Authorization: AUTHORIZATION
@@ -198,22 +200,14 @@ async function fetchGenres() {
     // console.log('response: ', response);
     return response.data;
 }
-// Posters
-// https://image.tmdb.org/t/p/original/hu40Uxp9WtpL34jv3zyWLb5zEVY.jpg
+// Posters, np. https://image.tmdb.org/t/p/original/hu40Uxp9WtpL34jv3zyWLb5zEVY.jpg
+// pobieranie plakatu na podstawie adresu
 async function getPoster(posterUrl) {
-    options = {
-        method: "GET"
-    };
     const url = `POSTERS_URL${posterUrl}`;
     const response = await (0, _axiosDefault.default)(url, options);
-    // console.log('response: ', response);
     return response.data;
 }
 async function fetchTrendingMovies(pageNo) {
-    options = {
-        method: "GET"
-    };
-    // console.log('fetchPopularMovies starts...');
     const endpointUrl = "trending/movie/day";
     const searchParams = new URLSearchParams({
         api_key: API_KEY,
@@ -222,14 +216,9 @@ async function fetchTrendingMovies(pageNo) {
     });
     const url = `${BASE_URL}${endpointUrl}?${searchParams}`;
     const response = await (0, _axiosDefault.default)(url, options);
-    // console.log('response: ', response);
     return response.data;
 }
 async function fetchSearchMovies(keywords, pageNo) {
-    options = {
-        method: "GET"
-    };
-    // console.log('fetchSearchMovies starts...');
     const endpointUrl = "search/movie";
     const searchParams = new URLSearchParams({
         api_key: API_KEY,
@@ -240,14 +229,9 @@ async function fetchSearchMovies(keywords, pageNo) {
     });
     const url = `${BASE_URL}${endpointUrl}?${searchParams}`;
     const response = await (0, _axiosDefault.default)(url, options);
-    // console.log('response: ', response);
     return response.data;
 }
 async function fetchMovieDetails(movieId) {
-    options = {
-        method: "GET"
-    };
-    // console.log('fetchMovieDetails starts...');
     const endpointUrl = "movie";
     const searchParams = new URLSearchParams({
         api_key: API_KEY,
@@ -255,14 +239,9 @@ async function fetchMovieDetails(movieId) {
     });
     const url = `${BASE_URL}${endpointUrl}/${movieId}?${searchParams}`;
     const response = await (0, _axiosDefault.default)(url, options);
-    // console.log('response: ', response);
     return response.data;
 }
 async function fetchMovieTrailers(movieId) {
-    options = {
-        method: "GET"
-    };
-    // console.log('fetchMovieDetails starts...');
     const endpointUrl = "movie";
     const searchParams = new URLSearchParams({
         api_key: API_KEY,
@@ -270,7 +249,6 @@ async function fetchMovieTrailers(movieId) {
     });
     const url = `${BASE_URL}${endpointUrl}/${movieId}/videos?${searchParams}`;
     const response = await (0, _axiosDefault.default)(url, options);
-    // console.log('response: ', response);
     return response.data;
 }
 const genresName = [
@@ -32728,4 +32706,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.fd623986.js.map
+//# sourceMappingURL=index.a6ac7500.js.map
