@@ -1,6 +1,6 @@
 .pagination {
   display: flex;
-  padding: 8px 16px;
+  padding-bottom: 40px;
   margin: auto 0;
   border: none;
   border-radius: 5px;
@@ -10,7 +10,8 @@
   color: var(--movieDetails-color);
 }
 
-.pagination a {
+.arrow-left,
+.arrow-right {
   color: var(--movieDetails-color);
   float: left;
   padding: 12px 12px;
@@ -19,7 +20,7 @@
   border-radius: 5px;
   width: 40px;
   height: 40px;
-  background-color:#F7F7F7;
+  background-color: #f7f7f7;
   margin: 0 10px;
 }
 
@@ -79,4 +80,10 @@
   flex-shrink: 0, 5;
   background-color: #fff;
   transition: background-color 0.3s;
+}
+
+@media screen and (min-width: 768px) {
+  .pagination {
+    padding-bottom: 60px;
+  }
 }

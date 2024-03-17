@@ -75,14 +75,18 @@ export const createPagination = totalPages => {
 
   if (currentPage === 1) {
     document.querySelector('#icon-arrow-left2').classList.add('hidden');
+    document.querySelector('.arrow-left').classList.add('hidden');
   } else {
     document.querySelector('#icon-arrow-left2').classList.remove('hidden');
+    document.querySelector('.arrow-left').classList.remove('hidden');
   }
 
   if (currentPage == totalPages) {
     document.querySelector('#icon-arrow-right2').classList.add('hidden');
+    document.querySelector('.arrow-right').classList.add('hidden');
   } else {
     document.querySelector('#icon-arrow-right2').classList.remove('hidden');
+    document.querySelector('.arrow-right').classList.remove('hidden');
   }
 
   updatePageView(currentPage);
