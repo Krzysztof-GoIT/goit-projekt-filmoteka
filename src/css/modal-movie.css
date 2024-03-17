@@ -188,7 +188,8 @@
   text-transform: uppercase;
   text-align: center;
 }
-.watchedButton {
+.watchedButton,
+.queuedButton {
   border-radius: 5px;
   width: 110px;
   height: 44px;
@@ -204,22 +205,6 @@
   margin-right: 20px;
   transition: transform 0.3s ease;
   padding: 6px 27px;
-}
-
-.queuedButton {
-  border: 1px solid #000;
-  border-radius: 5px;
-  width: 110px;
-  height: 44px;
-  background-color: var(--bg-color);
-  cursor: pointer;
-  color: var(--movieDetails-color);
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.3;
-  text-transform: uppercase;
-  text-align: center;
-  transition: transform 0.3s ease;
 }
 
 .watchedButton:hover,
