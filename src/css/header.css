@@ -39,7 +39,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 40px 20px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 /* element menu */
@@ -179,12 +180,6 @@
 
 /* style dla ekranów tabletów i komputerów */
 @media screen and (min-width: 768px) {
-  .header-navibox {
-    margin: 40px 32px;
-  }
-  .header h2 {
-    opacity: 1;
-  }
   .header-navi {
     gap: 40px;
   }
