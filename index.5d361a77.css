@@ -602,6 +602,7 @@ button, input {
 .modal-content {
   background-color: #fefefe;
   border: 1px solid #888;
+  border-radius: 15px;
   max-width: 320px;
   margin: auto;
   padding: 8px 20px 40px;
@@ -850,6 +851,7 @@ button, input {
 @media (width >= 1280px) {
   .modal-content {
     min-height: 558px;
+    padding: 0 20px;
   }
 
   .modal-container {
@@ -1051,4 +1053,4 @@ button:hover {
     min-width: 100%;
   }
 }
-/*# sourceMappingURL=index.16d8ffed.css.map */
+/*# sourceMappingURL=index.5d361a77.css.map */
