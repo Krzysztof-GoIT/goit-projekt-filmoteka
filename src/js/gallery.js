@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const notResult = document.getElementById('not-result');
 
   searchForm.addEventListener('submit', async event => {
+    searchForm.preventDefault();
     setCurrentPage(1);
     getSearchResult(event, 1);
   });
