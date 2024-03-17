@@ -161,7 +161,7 @@
   margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .modal-buttons button {
@@ -203,7 +203,6 @@
   line-height: 1.3;
   text-transform: uppercase;
   text-align: center;
-  margin-right: 20px;
   transition: transform 0.3s ease;
   padding: 6px 27px;
 }
@@ -264,7 +263,6 @@
 
 @media (min-width: 1280px) {
   .modal-content {
-    max-width: 806px;
     min-height: 558px;
   }
   .modal-container {
