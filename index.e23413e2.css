@@ -458,10 +458,12 @@ button, input {
 .pagination a {
   color: var(--movieDetails-color);
   float: left;
+  background-color: #f7f7f7;
   border-radius: 5px;
   width: 40px;
   height: 40px;
-  padding: 8px 16px;
+  margin: 0 10px;
+  padding: 12px;
   text-decoration: none;
   transition: background-color .3s;
 }
@@ -472,6 +474,8 @@ button, input {
 
 .pagination-arrow {
   color: var(--movieDetails-color);
+  width: 16px;
+  height: 16px;
 }
 
 .pagin-btn {
@@ -1044,4 +1048,4 @@ button:hover {
   cursor: pointer;
   text-decoration: none;
 }
-/*# sourceMappingURL=index.6b081f9c.css.map */
+/*# sourceMappingURL=index.e23413e2.css.map */
