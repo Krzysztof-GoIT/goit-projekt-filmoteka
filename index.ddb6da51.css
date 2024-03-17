@@ -779,7 +779,7 @@ button, input {
   line-height: 1.3;
 }
 
-.watchedButton {
+.watchedButton, .queuedButton {
   background-color: var(--details-contrast);
   cursor: pointer;
   color: var(--bg-color);
@@ -791,22 +791,6 @@ button, input {
   height: 44px;
   margin-right: 20px;
   padding: 6px 27px;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.3;
-  transition: transform .3s;
-}
-
-.queuedButton {
-  background-color: var(--bg-color);
-  cursor: pointer;
-  color: var(--movieDetails-color);
-  text-transform: uppercase;
-  text-align: center;
-  border: 1px solid #000;
-  border-radius: 5px;
-  width: 110px;
-  height: 44px;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.3;
@@ -1064,4 +1048,4 @@ button:hover {
   cursor: pointer;
   text-decoration: none;
 }
-/*# sourceMappingURL=index.c478cb10.css.map */
+/*# sourceMappingURL=index.ddb6da51.css.map */
