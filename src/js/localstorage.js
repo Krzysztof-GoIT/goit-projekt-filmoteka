@@ -1,51 +1,55 @@
+// dodanie podanego filmu do listy obejrzanych filmów
 export const addToWatchedMovies = movieDetails => {
-  // Pobierz listę obejrzanych filmów z localStorage lub utwórz nową listę, jeśli nie istnieje
+  // pobiera listę obejrzanych filmów z localStorage lub tworzy nową, jeśli nie istnieje
   let watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
 
-  if (!Array.isArray(watchedMovies)) {
-    watchedMovies = [];
-  }
+  // prawdopodobnie niepotrzebny fragment kodu ============== do usunięcia
+  // if (!Array.isArray(watchedMovies)) {
+  //   watchedMovies = [];
+  // }
 
+  // sprawdza, czy film jest już na liście obejrzanych
   let isMovieAlreadyWatched = watchedMovies.find(movie => movie.id === movieDetails.id);
-
-  //pobierz liste filmów z kolejki z local storage zeby ussunąć w razie wuz
+  //  pobiera listę filmów do oglądnięcia z localStorage lub tworzy nową, jeśli nie istnieje
   let queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
-  // Jeśli film jeszcze nie został obejrzany, dodaj go do listy
+  // jeśli filmu nie ma na liście obejrzanych
   if (!isMovieAlreadyWatched) {
+    // dodaje film do listy obejrzanych i przesyła zaktualizowaną listę do localStorage
     watchedMovies.push(movieDetails);
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
-    //console.log(`Added "${movieDetails.title}" to Watched Movies`);
-
-    //usuwa filmy jeśli znadjują sie w kolejce
-
+    // usuwa film z listy filmów do obejrzenia, jeśli na niej jest i przesyła zaktualizowaną listę do localStorage
     queuedMovies = queuedMovies.filter(movie => movie.id !== movieDetails.id);
     localStorage.setItem('queuedMovies', JSON.stringify(queuedMovies));
-    refreshView();
+    // refreshView(); 
   } else {
     //console.log(`"${movieDetails.title}" is already in Watched Movies`);
   }
 };
 
+// dodanie podanego filmu do listy filmów do oglądnięcia
 export const addToQueue = movieDetails => {
+  //  pobiera listę filmów do oglądnięcia z localStorage lub tworzy nową, jeśli nie istnieje
   let queuedMovies = JSON.parse(localStorage.getItem('queuedMovies')) || [];
+  // sprawdza, czy film jest już na liście filmó do obejrzenia
   let isMovieInQueue = queuedMovies.find(movie => movie.id === movieDetails.id);
 
-  //pobierz liste filmów z obejrzanych z local storage zeby ussunąć w razie wu
+  // pobiera listę obejrzanych filmów z localStorage lub tworzy nową, jeśli nie istnieje
   let watchedMovies = JSON.parse(localStorage.getItem('watchedMovies')) || [];
+  // jeśli filmu nie ma na liście filmów do obejrzenia
   if (!isMovieInQueue) {
+    // dodaje film do listy obejrzanych i przesyła zaktualizowaną listę do localStorage
     queuedMovies.push(movieDetails);
     localStorage.setItem('queuedMovies', JSON.stringify(queuedMovies));
-    //console.log(`Added "${movieDetails.title}" to Queue `);
-
-    //usuwa filmy dodane do obejrzanych
+    // usuwa film z listy filmów do obejrzenia, jeśli na niej jest i przesyła zaktualizowaną listę do localStorage
     watchedMovies = watchedMovies.filter(movie => movie.id !== movieDetails.id);
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
-    refreshView();
+    // refreshView();
   } else {
     //console.log(`"${movieDetails.title}" is already in Queue`);
   }
 };
-const refreshView = () => {
+
+// const refreshView = () => {
   //Tutaj wstawię później funkcje która będzie odświerzać widok po zmianie
   //Z queue do watched
-};
+// };
