@@ -5384,10 +5384,20 @@ const createPagination = (totalPages)=>{
             paginationPages.appendChild(lastPageButton);
         }
     }
-    if (currentPage === 1) document.querySelector("#icon-arrow-left2").classList.add("hidden");
-    else document.querySelector("#icon-arrow-left2").classList.remove("hidden");
-    if (currentPage == totalPages) document.querySelector("#icon-arrow-right2").classList.add("hidden");
-    else document.querySelector("#icon-arrow-right2").classList.remove("hidden");
+    if (currentPage === 1) {
+        document.querySelector("#icon-arrow-left2").classList.add("hidden");
+        document.querySelector(".arrow-left").classList.add("hidden");
+    } else {
+        document.querySelector("#icon-arrow-left2").classList.remove("hidden");
+        document.querySelector(".arrow-left").classList.remove("hidden");
+    }
+    if (currentPage == totalPages) {
+        document.querySelector("#icon-arrow-right2").classList.add("hidden");
+        document.querySelector(".arrow-right").classList.add("hidden");
+    } else {
+        document.querySelector("#icon-arrow-right2").classList.remove("hidden");
+        document.querySelector(".arrow-right").classList.remove("hidden");
+    }
     updatePageView(currentPage);
 };
 const loadPage = (e, currentPage)=>{
@@ -32688,4 +32698,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.d2b9e848.js.map
+//# sourceMappingURL=index.32b5ce76.js.map

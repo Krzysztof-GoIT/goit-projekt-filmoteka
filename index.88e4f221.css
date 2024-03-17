@@ -461,11 +461,11 @@ button, input {
   justify-content: center;
   align-items: center;
   margin: auto 0;
-  padding: 8px 16px;
+  padding-bottom: 40px;
   display: flex;
 }
 
-.pagination a {
+.arrow-left, .arrow-right {
   color: var(--movieDetails-color);
   float: left;
   background-color: #f7f7f7;
@@ -531,6 +531,12 @@ button, input {
   text-decoration: none;
   transition: background-color .3s;
   display: flex;
+}
+
+@media screen and (width >= 768px) {
+  .pagination {
+    padding-bottom: 60px;
+  }
 }
 
 .footer {
@@ -1074,4 +1080,4 @@ button:hover {
     min-width: 100%;
   }
 }
-/*# sourceMappingURL=index.35cd3671.css.map */
+/*# sourceMappingURL=index.88e4f221.css.map */
