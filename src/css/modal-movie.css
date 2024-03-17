@@ -15,6 +15,7 @@
 .modal-content {
   background-color: #fefefe;
   margin: auto;
+  border-radius: 15px;
   padding: 8px 20px 40px 20px;
   border: 1px solid #888;
   max-width: 320px;
@@ -264,6 +265,7 @@
 @media (min-width: 1280px) {
   .modal-content {
     min-height: 558px;
+    padding: 0 20px;
   }
   .modal-container {
     margin-bottom: 30px;
