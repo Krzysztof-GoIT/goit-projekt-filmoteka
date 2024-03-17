@@ -568,6 +568,7 @@ function isNearBottom(element, threshold) {
 }
 
 // Event scroll na oknie przeglądarki
+export let isInfinityScrollActive = 0;
 const loadMoreContent = () => {
   // Element, który monitorujemy, np. kontener na treści
   const contentContainer = document.querySelector('.movie-card:last-child');
@@ -577,32 +578,21 @@ const loadMoreContent = () => {
   // Sprawdzamy, czy element jest blisko dolnej krawędzi okna przeglądarki
   if (isNearBottom(contentContainer, threshold)) {
     // Jeśli tak, ładujemy więcej treści
-    if (homePageNo > 0) homePageNo++;
+    if (homePageNo > 0 && isInfinityScrollActive == 1) homePageNo++;
     getHomepage(homePageNo, true);
   }
 };
 const infinityScroll = document.getElementById('infinityScroll');
 
-let isInfinityScrollActive = false;
-
 // Obsługa zdarzenia kliknięcia przycisku
 infinityScroll.addEventListener('click', () => {
   if (isInfinityScrollActive) {
     // Jeżeli infinity scroll jest aktywny, usuwamy nasłuchiwanie zdarzenia scroll
-    window.removeEventListener('scroll', loadMoreContent);
+    document.removeEventListener('scroll', loadMoreContent);
+    isInfinityScrollActive = 0;
   } else {
     // Jeżeli infinity scroll nie jest aktywny, dodajemy nasłuchiwanie zdarzenia scroll
-    window.addEventListener('scroll', loadMoreContent);
+    document.addEventListener('scroll', loadMoreContent);
+    isInfinityScrollActive = 1;
   }
-  // Zmiana stanu - włącz/wyłącz
-  isInfinityScrollActive = !isInfinityScrollActive;
-
-  // Początkowe ładowanie treści
-  getHomepage(homePageNo);
-
-  // Event scroll na oknie przeglądarki po kliknięciu przycisku
-  window.addEventListener('scroll', loadMoreContent);
-
-  // Usuń obsługę zdarzenia kliknięcia przycisku, aby nie powtarzać ładowania po kliknięciu
-  infinityScroll.removeEventListener('click', loadMoreContent);
 });
