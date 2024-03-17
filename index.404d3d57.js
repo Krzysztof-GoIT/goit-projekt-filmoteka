@@ -4832,10 +4832,10 @@ window.addEventListener("DOMContentLoaded", ()=>{
 // const libraryQueuedButton = document.getElementById('queueModal');
 // libraryQueuedButton.addEventListener('click', displayQueuedMovies);
 });
-const getHomepage = async (pageNo)=>{
+const getHomepage = async (pageNo, infinity)=>{
     try {
         const response = await (0, _api.fetchTrendingMovies)(pageNo);
-        clearGallery();
+        if (!infinity) clearGallery();
         renderGallery(response.results, 0);
         homePageNo = pageNo;
         (0, _pagination.setCurrentPage)(pageNo);
@@ -5246,7 +5246,7 @@ const loadMoreContent = ()=>{
     if (isNearBottom(contentContainer, threshold)) {
         // Jeśli tak, ładujemy więcej treści
         if (homePageNo > 0) homePageNo++;
-        getHomepage(homePageNo);
+        getHomepage(homePageNo, true);
     }
 };
 const infinityScroll = document.getElementById("infinityScroll");
@@ -32683,4 +32683,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.5f995422.js.map
+//# sourceMappingURL=index.404d3d57.js.map
