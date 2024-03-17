@@ -748,7 +748,7 @@ button, input {
 }
 
 .modal-buttons {
-  justify-content: center;
+  justify-content: space-between;
   margin-top: 20px;
   margin-bottom: 20px;
   display: flex;
@@ -789,7 +789,6 @@ button, input {
   border-radius: 5px;
   width: 110px;
   height: 44px;
-  margin-right: 20px;
   padding: 6px 27px;
   font-size: 12px;
   font-weight: 500;
@@ -850,7 +849,6 @@ button, input {
 
 @media (width >= 1280px) {
   .modal-content {
-    max-width: 806px;
     min-height: 558px;
   }
 
@@ -1053,4 +1051,4 @@ button:hover {
     min-width: 100%;
   }
 }
-/*# sourceMappingURL=index.11029fbc.css.map */
+/*# sourceMappingURL=index.16d8ffed.css.map */
