@@ -610,6 +610,7 @@ button, input {
 }
 
 .modal-movie-info {
+  max-width: 260px;
   margin-top: 20px;
   margin-left: auto;
 }
@@ -685,6 +686,7 @@ button, input {
   margin-bottom: 20px;
   font-size: 20px;
   font-weight: 500;
+  overflow: hidden;
 }
 
 .info-item {
@@ -1053,4 +1055,4 @@ button:hover {
     min-width: 100%;
   }
 }
-/*# sourceMappingURL=index.5d361a77.css.map */
+/*# sourceMappingURL=index.5e1afc11.css.map */
