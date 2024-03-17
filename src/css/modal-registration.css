@@ -3,11 +3,9 @@
   border-radius: 2cqb;
   margin-top: 5px;
   background-color: black;
-
+right: 0;
   position: fixed;
   top: 0;
-  right: 0;
-  width: 500px;
   height: auto;
   padding: 20px;
 
@@ -97,4 +95,9 @@ button:hover {
   color: rgb(255, 255, 255);
   text-decoration: none;
   cursor: pointer;
+}
+@media screen and (max-width: 767px) {
+  .sign-in-container {
+    min-width: 100%;
+  }
 }
