@@ -4762,15 +4762,20 @@ exports.default = HttpStatusCode;
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "homePageNo", ()=>homePageNo);
+parcelHelpers.export(exports, "searPageNo", ()=>searPageNo);
 parcelHelpers.export(exports, "getGenres", ()=>getGenres);
 parcelHelpers.export(exports, "getHomepage", ()=>getHomepage);
 parcelHelpers.export(exports, "getSearchResult", ()=>getSearchResult);
+parcelHelpers.export(exports, "getSearchResult2", ()=>getSearchResult2);
 parcelHelpers.export(exports, "clearGallery", ()=>clearGallery);
 var _api = require("./api");
 var _localstorage = require("./localstorage");
 var _pagination = require("./pagination");
 let homePageNo = 0;
+let searPageNo = 1;
 let isInfinityScrollActive = 0;
+let isInfinityScrollEnable = 0;
+let searchQuery;
 let totalPages;
 const getGenres = (genreIds)=>{
     // Pobranie nazw gatunków z listy genresName zdefiniowanej w api.js
@@ -4839,9 +4844,10 @@ const getHomepage = async (pageNo, infinity)=>{
     try {
         const response = await (0, _api.fetchTrendingMovies)(pageNo);
         if (!infinity) clearGallery();
-        renderGallery(response.results, 0);
         homePageNo = pageNo;
         (0, _pagination.setCurrentPage)(pageNo);
+        isInfinityScrollActive = 1;
+        renderGallery(response.results, 0);
         (0, _pagination.createPagination)(response.total_pages);
     } catch (error) {
         console.error("Error fetching trending movies:", error);
@@ -4862,7 +4868,7 @@ const getSearchResult = async (event, pageNo)=>{
     homePageNo = pageNo;
     const searchInput = document.querySelector(".search-form input");
     const notResult = document.getElementById("not-result");
-    const searchQuery = searchInput.value.trim().toLowerCase().split(" ").join("+");
+    searchQuery = searchInput.value.trim().toLowerCase().split(" ").join("+");
     if (searchQuery) try {
         const response = await (0, _api.fetchSearchMovies)(searchQuery, homePageNo);
         totalPages = response.total_pages;
@@ -4872,7 +4878,29 @@ const getSearchResult = async (event, pageNo)=>{
         if (response.results.length > 0) {
             notResult.style.display = "none"; // Ukrycie komunikatu o braku wyników
             clearGallery();
-            isInfinityScrollActive = 0;
+            isInfinityScrollActive = 2;
+            searPageNo = 2;
+            renderGallery(movies);
+        } else {
+            notResult.style.display = "block"; // Wyświetlenie komunikatu o braku wyników
+            clearGallery(); // Wyczyszczenie galerii
+        }
+    } catch (error) {
+        console.error("Error fetching search movies:", error);
+    }
+};
+const getSearchResult2 = async (searchQuery, searPageNo)=>{
+    const searchInput = document.querySelector(".search-form input");
+    const notResult = document.getElementById("not-result");
+    searchQuery = searchInput.value.trim().toLowerCase().split(" ").join("+");
+    if (searchQuery) try {
+        const response = await (0, _api.fetchSearchMovies)(searchQuery, searPageNo);
+        totalPages = response.total_pages;
+        movies = response.results;
+        //createPagination(totalPages); //Wywołanie paginacji
+        //searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
+        if (response.results.length > 0) {
+            notResult.style.display = "none"; // Ukrycie komunikatu o braku wyników
             renderGallery(movies);
         } else {
             notResult.style.display = "block"; // Wyświetlenie komunikatu o braku wyników
@@ -5250,25 +5278,27 @@ const loadMoreContent = ()=>{
     // Threshold - odległość od dolnej krawędzi, przy której chcemy zacząć ładować więcej treści
     const threshold = 800; // w pikselach
     // Sprawdzamy, czy element jest blisko dolnej krawędzi okna przeglądarki
-    if (isNearBottom(contentContainer, threshold)) // Jeśli tak, ładujemy więcej treści
-    {
-        if (homePageNo >= 1 && isInfinityScrollActive == 1) {
+    if (isNearBottom(contentContainer, threshold)) {
+        // Jeśli tak, ładujemy więcej treści z Home Page
+        if (homePageNo >= 1 && isInfinityScrollActive == 1 && isInfinityScrollEnable == 1) {
             homePageNo++;
             getHomepage(homePageNo, true);
         }
+        // Jeśli tak, ładujemy więcej treści z Search
+        if (homePageNo >= 1 && isInfinityScrollActive == 2 && isInfinityScrollEnable == 1) getSearchResult2(searchQuery, searPageNo++);
     }
 };
 const infinityScroll = document.getElementById("infinityScroll");
 // Obsługa zdarzenia kliknięcia przycisku
 infinityScroll.addEventListener("click", ()=>{
-    if (isInfinityScrollActive) {
+    if (isInfinityScrollEnable) {
         // Jeżeli infinity scroll jest aktywny, usuwamy nasłuchiwanie zdarzenia scroll
         window.removeEventListener("scroll", loadMoreContent);
-        isInfinityScrollActive = 0;
+        isInfinityScrollEnable = 0;
     } else {
         // Jeżeli infinity scroll nie jest aktywny, dodajemy nasłuchiwanie zdarzenia scroll
         window.addEventListener("scroll", loadMoreContent);
-        isInfinityScrollActive = 1;
+        isInfinityScrollEnable = 1;
     }
 });
 
@@ -32698,4 +32728,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.32b5ce76.js.map
+//# sourceMappingURL=index.fd623986.js.map
