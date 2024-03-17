@@ -62,7 +62,7 @@ const displayQueuedMovies = () => {
 
 const displayMovieDetails = movieDetails => {
   // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
-  console.log(movieDetails);
+  // console.log(movieDetails);
 };
 
 //Obsługa HomePage i Buttonów
@@ -175,7 +175,7 @@ const renderGallery = (dataGallery, rating) => {
               categories = 'Without category';
             }
           }
-          console.log('rating: ', rating);
+          // console.log('rating: ', rating);
           let rate = rating
             ? ` <span class="average-vote">${movie.vote_average.toFixed(1)}</span>`
             : ``;
@@ -384,7 +384,7 @@ const openModal = movieData => {
       // Wysłanie żądania do API w celu pobrania zwiastunu filmu
       const trailersResponse = await fetchMovieTrailers(movieId);
       // Wyświetlenie danych zwiastunu w konsoli
-      console.log('Trailers:', trailersResponse);
+      // console.log('Trailers:', trailersResponse);
 
       // Sprawdzenie, czy istnieją zwiastuny
       if (trailersResponse.results && trailersResponse.results.length > 0) {

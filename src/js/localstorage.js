@@ -14,7 +14,7 @@ export const addToWatchedMovies = movieDetails => {
   if (!isMovieAlreadyWatched) {
     watchedMovies.push(movieDetails);
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
-    console.log(`Added "${movieDetails.title}" to Watched Movies`);
+    //console.log(`Added "${movieDetails.title}" to Watched Movies`);
 
     //usuwa filmy jeśli znadjują sie w kolejce
 
@@ -22,7 +22,7 @@ export const addToWatchedMovies = movieDetails => {
     localStorage.setItem('queuedMovies', JSON.stringify(queuedMovies));
     refreshView();
   } else {
-    console.log(`"${movieDetails.title}" is already in Watched Movies`);
+    //console.log(`"${movieDetails.title}" is already in Watched Movies`);
   }
 };
 
@@ -35,14 +35,14 @@ export const addToQueue = movieDetails => {
   if (!isMovieInQueue) {
     queuedMovies.push(movieDetails);
     localStorage.setItem('queuedMovies', JSON.stringify(queuedMovies));
-    console.log(`Added "${movieDetails.title}" to Queue `);
+    //console.log(`Added "${movieDetails.title}" to Queue `);
 
     //usuwa filmy dodane do obejrzanych
     watchedMovies = watchedMovies.filter(movie => movie.id !== movieDetails.id);
     localStorage.setItem('watchedMovies', JSON.stringify(watchedMovies));
     refreshView();
   } else {
-    console.log(`"${movieDetails.title}" is already in Queue`);
+    //console.log(`"${movieDetails.title}" is already in Queue`);
   }
 };
 const refreshView = () => {
