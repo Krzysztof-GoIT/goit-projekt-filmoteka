@@ -1,3 +1,4 @@
+/* sekcja paginacji */
 .pagination {
   display: flex;
   padding-bottom: 40px;
@@ -10,8 +11,9 @@
   color: var(--movieDetails-color);
 }
 
-.arrow-left,
-.arrow-right {
+/* odnośniki do popradniej i kolejnej strony */
+a.arrow-left,
+a.arrow-right {
   color: var(--movieDetails-color);
   float: left;
   padding: 12px 12px;
@@ -24,17 +26,14 @@
   margin: 0 10px;
 }
 
-.pagin-btn:focus,
-.pagin-btn:hover {
-  background-color: var(--pagination-bg);
-}
-
+/* ikony strzałek do poprzedniej i kolejnej strony */
 .pagination-arrow {
   color: var(--movieDetails-color);
   height: 16px;
   width: 16px;
 }
 
+/* przycisk z numerem strony */
 .pagin-btn {
   color: var(--movieDetails-color);
   float: left;
@@ -54,15 +53,19 @@
   transition: background-color 0.3s;
 }
 
+/* wskazany przycisk z numerem strony */
+.pagin-btn:focus,
+.pagin-btn:hover {
+  background-color: var(--pagination-bg);
+}
+
+/* przycisk z numerem aktualnej strony */
 .current-page {
   background-color: #ff6c28;
   color: var(--movieDetails-color);
 }
 
-.hidden {
-  display: none;
-}
-
+/* przycisk z niedostępnymi w bieżącej paginacji numerami stron */
 .dots {
   color: var(--movieDetails-color);
   float: left;
@@ -82,6 +85,7 @@
   transition: background-color 0.3s;
 }
 
+/* style dla tabletu i komputera */
 @media screen and (min-width: 768px) {
   .pagination {
     padding-bottom: 60px;
