@@ -175,7 +175,7 @@ const renderGallery = (dataGallery, rating) => {
           }
           console.log('rating: ', rating);
           let rate = rating
-            ? ` <span class="movie-info-rating">${movie.vote_average.toFixed(1)}</span>`
+            ? ` <span class="average-vote">${movie.vote_average.toFixed(1)}</span>`
             : ``;
 
           // Zbudowanie kodu HTML dla karty filmu
@@ -313,7 +313,7 @@ const openModal = movieData => {
       <div class="modal-buttons">
         <button class="watchedButton">Add to Watched</button>
         <button class="queuedButton">Add to Queue</button>
-        
+
       </div>
       <div class="movie-trailer">
       <button id="movieTrailerButton">Trailer</button>
