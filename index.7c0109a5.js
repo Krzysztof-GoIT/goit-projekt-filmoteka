@@ -4766,6 +4766,7 @@ parcelHelpers.export(exports, "getGenres", ()=>getGenres);
 parcelHelpers.export(exports, "getHomepage", ()=>getHomepage);
 parcelHelpers.export(exports, "getSearchResult", ()=>getSearchResult);
 parcelHelpers.export(exports, "clearGallery", ()=>clearGallery);
+parcelHelpers.export(exports, "isInfinityScrollActive", ()=>isInfinityScrollActive);
 var _api = require("./api");
 var _localstorage = require("./localstorage");
 var _pagination = require("./pagination");
@@ -5239,7 +5240,7 @@ function isNearBottom(element, threshold) {
     const rect = element.getBoundingClientRect();
     return rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + threshold;
 }
-// Event scroll na oknie przeglądarki
+let isInfinityScrollActive = 0;
 const loadMoreContent = ()=>{
     // Element, który monitorujemy, np. kontener na treści
     const contentContainer = document.querySelector(".movie-card:last-child");
@@ -5248,26 +5249,22 @@ const loadMoreContent = ()=>{
     // Sprawdzamy, czy element jest blisko dolnej krawędzi okna przeglądarki
     if (isNearBottom(contentContainer, threshold)) {
         // Jeśli tak, ładujemy więcej treści
-        if (homePageNo > 0) homePageNo++;
+        if (homePageNo > 0 && isInfinityScrollActive == 1) homePageNo++;
         getHomepage(homePageNo, true);
     }
 };
 const infinityScroll = document.getElementById("infinityScroll");
-let isInfinityScrollActive = false;
 // Obsługa zdarzenia kliknięcia przycisku
 infinityScroll.addEventListener("click", ()=>{
-    if (isInfinityScrollActive) // Jeżeli infinity scroll jest aktywny, usuwamy nasłuchiwanie zdarzenia scroll
-    window.removeEventListener("scroll", loadMoreContent);
-    else // Jeżeli infinity scroll nie jest aktywny, dodajemy nasłuchiwanie zdarzenia scroll
-    window.addEventListener("scroll", loadMoreContent);
-    // Zmiana stanu - włącz/wyłącz
-    isInfinityScrollActive = !isInfinityScrollActive;
-    // Początkowe ładowanie treści
-    getHomepage(homePageNo);
-    // Event scroll na oknie przeglądarki po kliknięciu przycisku
-    window.addEventListener("scroll", loadMoreContent);
-    // Usuń obsługę zdarzenia kliknięcia przycisku, aby nie powtarzać ładowania po kliknięciu
-    infinityScroll.removeEventListener("click", loadMoreContent);
+    if (isInfinityScrollActive) {
+        // Jeżeli infinity scroll jest aktywny, usuwamy nasłuchiwanie zdarzenia scroll
+        document.removeEventListener("scroll", loadMoreContent);
+        isInfinityScrollActive = 0;
+    } else {
+        // Jeżeli infinity scroll nie jest aktywny, dodajemy nasłuchiwanie zdarzenia scroll
+        document.addEventListener("scroll", loadMoreContent);
+        isInfinityScrollActive = 1;
+    }
 });
 
 },{"./api":"5mmx6","./localstorage":"ippo7","./pagination":"iC8Tx","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"ippo7":[function(require,module,exports) {
@@ -32686,4 +32683,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.83da4fab.js.map
+//# sourceMappingURL=index.7c0109a5.js.map
