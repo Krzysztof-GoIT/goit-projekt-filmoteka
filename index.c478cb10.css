@@ -611,7 +611,7 @@ button, input {
 
 .modal-movie-info {
   margin-top: 20px;
-  margin-left: -40px;
+  margin-left: auto;
 }
 
 .close {
@@ -856,7 +856,7 @@ button, input {
 
   .modal-movie-info {
     margin-top: 41px;
-    margin-left: auto;
+    margin-left: -41px;
   }
 
   .info-item {
@@ -885,6 +885,11 @@ button, input {
   .movie-poster-modal img {
     width: 375px;
     height: 100%;
+  }
+
+  .modal-movie-info {
+    margin-top: 41px;
+    margin-left: auto;
   }
 
   .about-movie {
@@ -1059,4 +1064,4 @@ button:hover {
   cursor: pointer;
   text-decoration: none;
 }
-/*# sourceMappingURL=index.0dcac2ff.css.map */
+/*# sourceMappingURL=index.c478cb10.css.map */
