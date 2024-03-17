@@ -4817,8 +4817,8 @@ const displayQueuedMovies = ()=>{
     }
 };
 const displayMovieDetails = (movieDetails)=>{
-    // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
-    console.log(movieDetails);
+// Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
+// console.log(movieDetails);
 };
 //Obsługa HomePage i Buttonów
 window.addEventListener("DOMContentLoaded", ()=>{
@@ -4905,7 +4905,7 @@ const renderGallery = (dataGallery, rating)=>{
                     categories = getGenres(movie.genre_ids);
                     if (!categories) categories = "Without category";
                 }
-                console.log("rating: ", rating);
+                // console.log('rating: ', rating);
                 let rate = rating ? ` <span class="average-vote">${movie.vote_average.toFixed(1)}</span>` : ``;
                 // Zbudowanie kodu HTML dla karty filmu
                 const movieCard = `
@@ -5087,7 +5087,7 @@ const openModal = (movieData)=>{
             // Wysłanie żądania do API w celu pobrania zwiastunu filmu
             const trailersResponse = await (0, _api.fetchMovieTrailers)(movieId);
             // Wyświetlenie danych zwiastunu w konsoli
-            console.log("Trailers:", trailersResponse);
+            // console.log('Trailers:', trailersResponse);
             // Sprawdzenie, czy istnieją zwiastuny
             if (trailersResponse.results && trailersResponse.results.length > 0) // Iteracja przez zwiastuny i otwarcie ich w nowej karcie przeglądarki
             trailersResponse.results.forEach((trailer)=>{
@@ -5286,12 +5286,12 @@ const addToWatchedMovies = (movieDetails)=>{
     if (!isMovieAlreadyWatched) {
         watchedMovies.push(movieDetails);
         localStorage.setItem("watchedMovies", JSON.stringify(watchedMovies));
-        console.log(`Added "${movieDetails.title}" to Watched Movies`);
+        //console.log(`Added "${movieDetails.title}" to Watched Movies`);
         //usuwa filmy jeśli znadjują sie w kolejce
         queuedMovies = queuedMovies.filter((movie)=>movie.id !== movieDetails.id);
         localStorage.setItem("queuedMovies", JSON.stringify(queuedMovies));
         refreshView();
-    } else console.log(`"${movieDetails.title}" is already in Watched Movies`);
+    }
 };
 const addToQueue = (movieDetails)=>{
     let queuedMovies = JSON.parse(localStorage.getItem("queuedMovies")) || [];
@@ -5301,12 +5301,12 @@ const addToQueue = (movieDetails)=>{
     if (!isMovieInQueue) {
         queuedMovies.push(movieDetails);
         localStorage.setItem("queuedMovies", JSON.stringify(queuedMovies));
-        console.log(`Added "${movieDetails.title}" to Queue `);
+        //console.log(`Added "${movieDetails.title}" to Queue `);
         //usuwa filmy dodane do obejrzanych
         watchedMovies = watchedMovies.filter((movie)=>movie.id !== movieDetails.id);
         localStorage.setItem("watchedMovies", JSON.stringify(watchedMovies));
         refreshView();
-    } else console.log(`"${movieDetails.title}" is already in Queue`);
+    }
 };
 const refreshView = ()=>{
 //Tutaj wstawię później funkcje która będzie odświerzać widok po zmianie
@@ -32686,4 +32686,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.6e692fff.js.map
+//# sourceMappingURL=index.83da4fab.js.map
