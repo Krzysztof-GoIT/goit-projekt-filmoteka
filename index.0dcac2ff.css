@@ -441,6 +441,7 @@ button, input {
   background-color: #007bff;
   border: none;
   border-radius: 10px;
+  width: auto;
   padding: 10px;
   font-size: .9em;
   display: none;
@@ -1058,4 +1059,4 @@ button:hover {
   cursor: pointer;
   text-decoration: none;
 }
-/*# sourceMappingURL=index.c9900a63.css.map */
+/*# sourceMappingURL=index.0dcac2ff.css.map */
