@@ -25,6 +25,7 @@
 .modal-movie-info {
   margin-top: 20px;
   margin-left: auto;
+  max-width: 260px;
 }
 .close {
   color: #aaaaaa;
@@ -98,6 +99,7 @@
   text-transform: uppercase;
   color: var(--movieDetails-color);
   margin-bottom: 20px;
+  overflow: hidden;
 }
 .info-item {
   display: flex;
