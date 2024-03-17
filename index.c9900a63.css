@@ -144,7 +144,8 @@ button, input {
 .header-navibox {
   justify-content: space-between;
   align-items: center;
-  margin: 40px 20px;
+  padding-top: 40px;
+  padding-bottom: 40px;
   display: flex;
 }
 
@@ -187,12 +188,11 @@ button, input {
 }
 
 .search-form input {
-  size: 100%;
   color: #fff;
   background-color: #0000;
   border: none;
   width: 380px;
-  margin: 0;
+  padding-bottom: 4px;
 }
 
 .search-form input::placeholder {
@@ -267,14 +267,6 @@ button, input {
 }
 
 @media screen and (width >= 768px) {
-  .header-navibox {
-    margin: 40px 32px;
-  }
-
-  .header h2 {
-    opacity: 1;
-  }
-
   .header-navi {
     gap: 40px;
   }
@@ -1066,4 +1058,4 @@ button:hover {
   cursor: pointer;
   text-decoration: none;
 }
-/*# sourceMappingURL=index.7c42ebde.css.map */
+/*# sourceMappingURL=index.c9900a63.css.map */
