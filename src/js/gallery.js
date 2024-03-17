@@ -11,7 +11,10 @@ import { addToQueue, addToWatchedMovies } from './localstorage';
 import { createPagination, currentPage, setCurrentPage } from './pagination';
 
 export let homePageNo = 0;
+export let searPageNo = 1;
 let isInfinityScrollActive = 0;
+let isInfinityScrollEnable = 0;
+let searchQuery;
 let totalPages;
 
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
@@ -92,9 +95,10 @@ export const getHomepage = async (pageNo, infinity) => {
     if (!infinity) {
       clearGallery();
     }
-    renderGallery(response.results, 0);
     homePageNo = pageNo;
     setCurrentPage(pageNo);
+    isInfinityScrollActive = 1;
+    renderGallery(response.results, 0);
     createPagination(response.total_pages);
   } catch (error) {
     console.error('Error fetching trending movies:', error);
@@ -118,7 +122,7 @@ export const getSearchResult = async (event, pageNo) => {
   homePageNo = pageNo;
   const searchInput = document.querySelector('.search-form input');
   const notResult = document.getElementById('not-result');
-  const searchQuery = searchInput.value.trim().toLowerCase().split(' ').join('+');
+  searchQuery = searchInput.value.trim().toLowerCase().split(' ').join('+');
   if (searchQuery) {
     try {
       const response = await fetchSearchMovies(searchQuery, homePageNo);
@@ -129,7 +133,32 @@ export const getSearchResult = async (event, pageNo) => {
       if (response.results.length > 0) {
         notResult.style.display = 'none'; // Ukrycie komunikatu o braku wyników
         clearGallery();
-        isInfinityScrollActive = 0;
+        isInfinityScrollActive = 2;
+        searPageNo = 2;
+        renderGallery(movies);
+      } else {
+        notResult.style.display = 'block'; // Wyświetlenie komunikatu o braku wyników
+        clearGallery(); // Wyczyszczenie galerii
+      }
+    } catch (error) {
+      console.error('Error fetching search movies:', error);
+    }
+  }
+};
+
+export const getSearchResult2 = async (searchQuery, searPageNo) => {
+  const searchInput = document.querySelector('.search-form input');
+  const notResult = document.getElementById('not-result');
+  searchQuery = searchInput.value.trim().toLowerCase().split(' ').join('+');
+  if (searchQuery) {
+    try {
+      const response = await fetchSearchMovies(searchQuery, searPageNo);
+      totalPages = response.total_pages;
+      movies = response.results;
+      //createPagination(totalPages); //Wywołanie paginacji
+      //searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
+      if (response.results.length > 0) {
+        notResult.style.display = 'none'; // Ukrycie komunikatu o braku wyników
         renderGallery(movies);
       } else {
         notResult.style.display = 'block'; // Wyświetlenie komunikatu o braku wyników
@@ -580,10 +609,14 @@ const loadMoreContent = () => {
 
   // Sprawdzamy, czy element jest blisko dolnej krawędzi okna przeglądarki
   if (isNearBottom(contentContainer, threshold)) {
-    // Jeśli tak, ładujemy więcej treści
-    if (homePageNo >= 1 && isInfinityScrollActive == 1) {
+    // Jeśli tak, ładujemy więcej treści z Home Page
+    if (homePageNo >= 1 && isInfinityScrollActive == 1 && isInfinityScrollEnable == 1) {
       homePageNo++;
       getHomepage(homePageNo, true);
+    }
+    // Jeśli tak, ładujemy więcej treści z Search
+    if (homePageNo >= 1 && isInfinityScrollActive == 2 && isInfinityScrollEnable == 1) {
+      getSearchResult2(searchQuery, searPageNo++);
     }
   }
 };
@@ -591,13 +624,13 @@ const infinityScroll = document.getElementById('infinityScroll');
 
 // Obsługa zdarzenia kliknięcia przycisku
 infinityScroll.addEventListener('click', () => {
-  if (isInfinityScrollActive) {
+  if (isInfinityScrollEnable) {
     // Jeżeli infinity scroll jest aktywny, usuwamy nasłuchiwanie zdarzenia scroll
     window.removeEventListener('scroll', loadMoreContent);
-    isInfinityScrollActive = 0;
+    isInfinityScrollEnable = 0;
   } else {
     // Jeżeli infinity scroll nie jest aktywny, dodajemy nasłuchiwanie zdarzenia scroll
     window.addEventListener('scroll', loadMoreContent);
-    isInfinityScrollActive = 1;
+    isInfinityScrollEnable = 1;
   }
 });
