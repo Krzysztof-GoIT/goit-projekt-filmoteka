@@ -83,10 +83,12 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 //Generujemy trendings movie
-export const getHomepage = async pageNo => {
+export const getHomepage = async (pageNo, infinity) => {
   try {
     const response = await fetchTrendingMovies(pageNo);
-    clearGallery();
+    if (!infinity) {
+      clearGallery();
+    }
     renderGallery(response.results, 0);
     homePageNo = pageNo;
     setCurrentPage(pageNo);
@@ -571,7 +573,7 @@ const loadMoreContent = () => {
   if (isNearBottom(contentContainer, threshold)) {
     // Jeśli tak, ładujemy więcej treści
     if (homePageNo > 0) homePageNo++;
-    getHomepage(homePageNo);
+    getHomepage(homePageNo, true);
   }
 };
 const infinityScroll = document.getElementById('infinityScroll');
