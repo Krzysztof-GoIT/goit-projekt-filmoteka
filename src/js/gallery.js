@@ -279,12 +279,17 @@ const openModal = movieData => {
   modal.style.display = 'block';
 
   const modalContent = document.getElementById('modalContent');
+  let posterPath;
+  if (movieData.poster_path) {
+    posterPath = `https://image.tmdb.org/t/p/w500${movieData.poster_path}`;
+  } else {
+    posterPath =
+      'https://github.com/Krzysztof-GoIT/goit-projekt-filmoteka/blob/main/src/img/kolaz-w-tle-filmu.jpg?raw=true';
+  }
   modalContent.innerHTML = `
   <div class="modal-container">
     <div class="movie-poster-modal">
-      <img class="movie-poster" src="https://image.tmdb.org/t/p/w500${
-        movieData.poster_path
-      }" alt="${movieData.title} Photo">
+      <img class="movie-poster" src="${posterPath}" alt="${movieData.title} Photo">
     </div>
     <div class="modal-movie-info">
       <div class="modal-movie-title"><h2>${movieData.title}</h2></div>
