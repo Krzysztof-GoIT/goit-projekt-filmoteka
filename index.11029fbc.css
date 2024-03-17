@@ -405,28 +405,28 @@ button, input {
 }
 
 @media screen and (width >= 1720px) {
-  #gallery-container {
+  #gallery-container.monitor-wide {
     grid-template-columns: repeat(4, 1fr);
     max-width: 1720px;
   }
 }
 
 @media screen and (width >= 2180px) {
-  #gallery-container {
+  #gallery-container.monitor-wide {
     grid-template-columns: repeat(5, 1fr);
     max-width: 2180px;
   }
 }
 
 @media screen and (width >= 2560px) {
-  #gallery-container {
+  #gallery-container.monitor-wide {
     grid-template-columns: repeat(6, 1fr);
     max-width: 2560px;
   }
 }
 
 @media screen and (width >= 3000px) {
-  #gallery-container {
+  #gallery-container.monitor-wide {
     grid-template-columns: repeat(7, 1fr);
     max-width: 3000px;
   }
@@ -687,7 +687,7 @@ button, input {
 }
 
 .info-item {
-  justify-content: space-between;
+  justify-content: left;
   gap: 0;
   margin-top: 20px;
   display: flex;
@@ -716,6 +716,7 @@ button, input {
   color: var(--vote-color);
   flex-direction: column;
   gap: 15px;
+  min-width: 80px;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.3;
@@ -1052,4 +1053,4 @@ button:hover {
     min-width: 100%;
   }
 }
-/*# sourceMappingURL=index.184649aa.css.map */
+/*# sourceMappingURL=index.11029fbc.css.map */
