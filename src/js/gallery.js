@@ -11,6 +11,7 @@ import { addToQueue, addToWatchedMovies } from './localstorage';
 import { createPagination, currentPage, setCurrentPage } from './pagination';
 
 export let homePageNo = 0;
+let isInfinityScrollActive = 0;
 let totalPages;
 
 // Funkcja pomocnicza do pobrania nazw gatunków na podstawie ich identyfikatorów
@@ -36,6 +37,7 @@ const displayWatchedMovies = () => {
     });
     homePageNo = 0;
     clearGallery();
+    isInfinityScrollActive = 0;
     renderGallery(moviesWithGenres, 1);
   } catch (error) {
     console.error('Error displaying watched movies:', error);
@@ -54,6 +56,7 @@ const displayQueuedMovies = () => {
     });
     homePageNo = 0;
     clearGallery();
+    isInfinityScrollActive = 0;
     renderGallery(moviesWithGenres, 1);
   } catch (error) {
     console.error('Error displaying queued movies:', error);
@@ -126,6 +129,7 @@ export const getSearchResult = async (event, pageNo) => {
       if (response.results.length > 0) {
         notResult.style.display = 'none'; // Ukrycie komunikatu o braku wyników
         clearGallery();
+        isInfinityScrollActive = 0;
         renderGallery(movies);
       } else {
         notResult.style.display = 'block'; // Wyświetlenie komunikatu o braku wyników
@@ -568,7 +572,6 @@ function isNearBottom(element, threshold) {
 }
 
 // Event scroll na oknie przeglądarki
-export let isInfinityScrollActive = 0;
 const loadMoreContent = () => {
   // Element, który monitorujemy, np. kontener na treści
   const contentContainer = document.querySelector('.movie-card:last-child');
@@ -578,8 +581,10 @@ const loadMoreContent = () => {
   // Sprawdzamy, czy element jest blisko dolnej krawędzi okna przeglądarki
   if (isNearBottom(contentContainer, threshold)) {
     // Jeśli tak, ładujemy więcej treści
-    if (homePageNo > 0 && isInfinityScrollActive == 1) homePageNo++;
-    getHomepage(homePageNo, true);
+    if (homePageNo >= 1 && isInfinityScrollActive == 1) {
+      homePageNo++;
+      getHomepage(homePageNo, true);
+    }
   }
 };
 const infinityScroll = document.getElementById('infinityScroll');
@@ -588,11 +593,11 @@ const infinityScroll = document.getElementById('infinityScroll');
 infinityScroll.addEventListener('click', () => {
   if (isInfinityScrollActive) {
     // Jeżeli infinity scroll jest aktywny, usuwamy nasłuchiwanie zdarzenia scroll
-    document.removeEventListener('scroll', loadMoreContent);
+    window.removeEventListener('scroll', loadMoreContent);
     isInfinityScrollActive = 0;
   } else {
     // Jeżeli infinity scroll nie jest aktywny, dodajemy nasłuchiwanie zdarzenia scroll
-    document.addEventListener('scroll', loadMoreContent);
+    window.addEventListener('scroll', loadMoreContent);
     isInfinityScrollActive = 1;
   }
 });
