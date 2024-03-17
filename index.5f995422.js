@@ -4906,7 +4906,7 @@ const renderGallery = (dataGallery, rating)=>{
                     if (!categories) categories = "Without category";
                 }
                 console.log("rating: ", rating);
-                let rate = rating ? ` <span class="movie-info-rating">${movie.vote_average.toFixed(1)}</span>` : ``;
+                let rate = rating ? ` <span class="average-vote">${movie.vote_average.toFixed(1)}</span>` : ``;
                 // Zbudowanie kodu HTML dla karty filmu
                 const movieCard = `
           <div class="movie-card" data-movie-id="${movie.id}">
@@ -5025,7 +5025,7 @@ const openModal = (movieData)=>{
       <div class="modal-buttons">
         <button class="watchedButton">Add to Watched</button>
         <button class="queuedButton">Add to Queue</button>
-        
+
       </div>
       <div class="movie-trailer">
       <button id="movieTrailerButton">Trailer</button>
@@ -32683,4 +32683,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.a1b8d9a8.js.map
+//# sourceMappingURL=index.5f995422.js.map
