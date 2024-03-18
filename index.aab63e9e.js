@@ -147,18 +147,16 @@
 var _mainScss = require("./sass/main.scss");
 //JS Global
 var _api = require("./js/api");
-//import './js/search';
 var _gallery = require("./js/gallery");
-var _markup = require("./js/markup");
 var _localstorage = require("./js/localstorage");
-var _visibilityHeader = require("./js/visibilityHeader");
-var _onOffModal = require("./js/onOffModal");
-var _devTools = require("./js/devTools");
-var _darkMode = require("./js/darkMode");
+var _header = require("./js/header");
+var _modalMovie = require("./js/modal-movie");
+var _devTools = require("./js/dev-tools");
+var _darkMode = require("./js/dark-mode");
 var _modalGoitTeam = require("./js/modal-goit-team");
 var _firebaseAuthorization = require("./js/firebaseAuthorization");
 
-},{"./sass/main.scss":"clpGj","./js/api":"5mmx6","./js/gallery":"bA31f","./js/markup":"6K7Vw","./js/localstorage":"ippo7","./js/visibilityHeader":"kxv7b","./js/onOffModal":"hLtdZ","./js/devTools":"kw7nM","./js/darkMode":"3DurW","./js/modal-goit-team":"8Mni5","./js/firebaseAuthorization":"fukWk"}],"clpGj":[function() {},{}],"5mmx6":[function(require,module,exports) {
+},{"./sass/main.scss":"clpGj","./js/api":"5mmx6","./js/gallery":"bA31f","./js/localstorage":"ippo7","./js/header":"hMCGa","./js/modal-movie":"gpXqf","./js/dev-tools":"wmltl","./js/dark-mode":"b3aTn","./js/modal-goit-team":"8Mni5","./js/firebaseAuthorization":"fukWk"}],"clpGj":[function() {},{}],"5mmx6":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 // Genres, np. https://api.themoviedb.org/3/genre/movie/list?language=en
@@ -4736,7 +4734,6 @@ Object.entries(HttpStatusCode).forEach(([key, value])=>{
 exports.default = HttpStatusCode;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"bA31f":[function(require,module,exports) {
-// gallery.js
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "homePageNo", ()=>homePageNo);
@@ -4756,14 +4753,15 @@ let isInfinityScrollEnable = 0;
 let searchQuery;
 let totalPages;
 const getGenres = (genreIds)=>{
-    // Pobranie nazw gatunków z listy genresName zdefiniowanej w api.js
+    // pobranie psaujących nazw gatunków z listy genresName zdefiniowanej w api.js
     const genres = genreIds.map((genreId)=>{
         const foundGenre = (0, _api.genresName).find((genre)=>genre.id === genreId);
         return foundGenre ? foundGenre.name : "";
     });
-    // Zwrócenie połączonej listy gatunków
+    // zwrócenie połączonej listy gatunków
     return genres.join(", ");
 };
+// wyświetlenie galerii filmów z listy obejrzanych
 const displayWatchedMovies = ()=>{
     try {
         const watchedMovies = JSON.parse(localStorage.getItem("watchedMovies")) || [];
@@ -4783,6 +4781,7 @@ const displayWatchedMovies = ()=>{
         console.error("Error displaying watched movies:", error);
     }
 };
+// wyświetlenie galerii filmów z listy do obejrzenia
 const displayQueuedMovies = ()=>{
     try {
         const queuedMovies = JSON.parse(localStorage.getItem("queuedMovies")) || [];
@@ -4802,11 +4801,11 @@ const displayQueuedMovies = ()=>{
         console.error("Error displaying queued movies:", error);
     }
 };
-const displayMovieDetails = (movieDetails)=>{
-// Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
-// console.log(movieDetails);
-};
-//Obsługa HomePage i Buttonów
+// const displayMovieDetails = movieDetails => {
+//   // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
+//   // console.log(movieDetails);
+// };
+// obsługa zdarzenia kliknięcia przycisków HomePage i Buttonów
 window.addEventListener("DOMContentLoaded", ()=>{
     getHomepage(1); // Wywołujemy funkcję wyświetlającą HomePage
     const libraryWatched = document.getElementById("watchedHeader");
@@ -4831,12 +4830,13 @@ const getHomepage = async (pageNo, infinity)=>{
         console.error("Error fetching trending movies:", error);
     }
 };
-//Obsługa szukajki
+// obsługa zdarzenia kliknięcia formularza wyszukiwania
 document.addEventListener("DOMContentLoaded", ()=>{
     const searchForm = document.getElementById("search-form");
     const searchInput = document.querySelector(".search-form input");
     const notResult = document.getElementById("not-result");
     searchForm.addEventListener("submit", async (event)=>{
+        searchForm.preventDefault();
         (0, _pagination.setCurrentPage)(1);
         getSearchResult(event, 1);
     });
@@ -5034,25 +5034,25 @@ const openModal = (movieData)=>{
       </div>
 
       <div class="modal-buttons">
-        <button class="watchedButton">Add to Watched</button>
-        <button class="queuedButton">Add to Queue</button>
+        <button id="watchedButton" class="watched-button">Add to Watched</button>
+        <button id="queueButton" class="queued-button">Add to Queue</button>
 
       </div>
       <div class="movie-trailer">
-      <button id="movieTrailerButton">Trailer</button>
+      <button id="movieTrailerButton" class="trailer-button">Trailer</button>
       </div>
     </div>
   </div>
   `;
-    const watchedButton = document.getElementsByClassName("watchedButton")[0];
+    const watchedButton = document.getElementsById("watchedButton")[0];
     watchedButton.onclick = ()=>{
         (0, _localstorage.addToWatchedMovies)(movieData);
     };
-    const queuedButton = document.getElementsByClassName("queuedButton")[0];
+    const queuedButton = document.getElementsById("queuedButton")[0];
     queuedButton.onclick = ()=>{
         (0, _localstorage.addToQueue)(movieData);
     };
-    // const span = document.getElementsByClassName('close-modal-movie')[0];
+    // const span = document.getElementsById('close-modal-movie')[0];
     // span.onclick = () => {
     //   modal.style.display = 'none';
     // };
@@ -5110,10 +5110,11 @@ const openModal = (movieData)=>{
     closeButton.onclick = ()=>{
         modal.style.display = "none";
     };
-    // Obsługa zdarzenia keydown
+    // obsługa zdarzenia naciśnięcia klawisza Escape do wyłączenia okna modalnego
     document.addEventListener("keydown", function(event) {
         if (event.key === "Escape") modal.style.display = "none";
     });
+    // obsługa zdarzenia kliknięcia do wyłączenia okna modalnego
     window.onclick = (event)=>{
         if (event.target == modal) modal.style.display = "none";
     };
@@ -5156,11 +5157,11 @@ const openModal = (movieData)=>{
 //     </div>
 //     </div>
 //   `;
-//   const watchedButton = document.getElementsByClassName('watchedButton')[0];
+//   const watchedButton = document.getElementsById('watchedButton')[0];
 //   watchedButton.onclick = () => {
 //     addToWatchedMovies(movieData);
 //   };
-//   const queuedButton = document.getElementsByClassName('queuedButton')[0];
+//   const queuedButton = document.getElementsById('queuedButton')[0];
 //   queuedButton.onclick = () => {
 //     addToQueue(movieData);
 //   };
@@ -5211,7 +5212,7 @@ const openModal = (movieData)=>{
 //       console.error('Error fetching movie trailers:', error);
 //     }
 //   });
-//   const span = document.getElementsByClassName('close')[0];
+//   const span = document.getElementsById('close')[0];
 //   span.onclick = () => {
 //     modal.style.display = 'none';
 //   };
@@ -5265,7 +5266,7 @@ const loadMoreContent = ()=>{
     }
 };
 const infinityScroll = document.getElementById("infinityScroll");
-// Obsługa zdarzenia kliknięcia przycisku
+// obsługa zdarzenia kliknięcia przycisku automatycznego pobierania kolejnych stron w miarę przewijania
 infinityScroll.addEventListener("click", ()=>{
     if (isInfinityScrollEnable) {
         // Jeżeli infinity scroll jest aktywny, usuwamy nasłuchiwanie zdarzenia scroll
@@ -5436,9 +5437,7 @@ document.querySelector("#pagination-container").addEventListener("click", (e)=>{
     }
 });
 
-},{"./gallery":"bA31f","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"6K7Vw":[function(require,module,exports) {
-
-},{}],"kxv7b":[function(require,module,exports) {
+},{"./gallery":"bA31f","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"hMCGa":[function(require,module,exports) {
 var _gallery = require("./gallery");
 const headerNaviElements = document.getElementsByClassName("header-navi");
 const headerBG = document.getElementById("headerBG");
@@ -5454,15 +5453,14 @@ const headerSearch = document.querySelector(".header-search");
 const watchedButton = document.getElementById("watchedHeader");
 const paginationButtons = document.getElementById("pagination-container");
 const logo = document.getElementById("logo");
+// przełączanie widoczności podanych elementów
 const toggleVisibility = (elementToShow, elementToHide)=>{
     elementToShow.style.visibility = "visible";
     elementToHide.style.visibility = "hidden";
     elementToShow.style.display = "flex";
     elementToHide.style.display = "none";
 };
-const libraryClick = ()=>{
-    watchedHeader.click();
-};
+// wybór tła nagłówka w zależności od rozdzielczości i wybranej strony głównej lub 'my library'
 const setHeaderBackground = ()=>{
     const screenWidth = window.innerWidth;
     let backgroundImageUrl = "";
@@ -5481,7 +5479,9 @@ const setHeaderBackground = ()=>{
     }
     headerBG.style.backgroundImage = backgroundImageUrl;
 };
+// wywołanie funkcji wyboru tła nagłówka
 setHeaderBackground();
+// obsługa kliknięcia w 'logo lub 'home'
 const homeButtonClick = (event)=>{
     event.preventDefault();
     toggleVisibility(headerSearch, myLibrary);
@@ -5492,6 +5492,11 @@ const homeButtonClick = (event)=>{
     (0, _gallery.clearGallery)();
     (0, _gallery.getHomepage)(1);
 };
+// obsługa kliknięcia w przycisk 'watched'
+const libraryClick = ()=>{
+    watchedHeader.click();
+};
+// obsługa kliknięcia w przycisk 'my library'
 const myLibraryButtonClick = (event)=>{
     event.preventDefault();
     toggleVisibility(myLibrary, headerSearch);
@@ -5501,6 +5506,7 @@ const myLibraryButtonClick = (event)=>{
     paginationButtons.style.display = "none";
     libraryClick(watchedButton);
 };
+// obsługa zdarzenia kliknięcia w interaktywne elementy nagłówka
 logo.addEventListener("click", homeButtonClick);
 homeLink.addEventListener("click", homeButtonClick);
 libraryLink.addEventListener("click", myLibraryButtonClick);
@@ -5520,7 +5526,9 @@ logoutButton.addEventListener("click", (event)=>{
     event.preventDefault();
     logInContainer.style.display = "none";
 });
+// obsługa zdarzenia zmiany rozmiaru okna
 window.addEventListener("resize", setHeaderBackground);
+// ukrycie wybranych elementów nagłówka, jeśli nie wybrana 'my library'
 if (myLibrary.style.display !== "flex") {
     const headerLibraryElements = document.querySelectorAll(".header-library");
     headerLibraryElements.forEach((element)=>{
@@ -5528,7 +5536,8 @@ if (myLibrary.style.display !== "flex") {
     });
 }
 
-},{"./gallery":"bA31f"}],"hLtdZ":[function(require,module,exports) {
+},{"./gallery":"bA31f"}],"gpXqf":[function(require,module,exports) {
+// przełączanie 
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "toggleModal", ()=>toggleModal);
@@ -5540,9 +5549,9 @@ const toggleModal = (modalId)=>{
 //    if (modal) {
 //     modal.style.visibility = modal.style.visibility === 'visible' ? 'hidden' : 'visible';
 //   }
-// };   
+// };
 const openModalBtns = document.querySelectorAll(".openModalBtn");
-// dla każdego przycisku otwórz modal
+// dodanie obsługi kliknięcia dla każdej karty filmu, które otwiera okno modalne ze szczegółami filmu
 openModalBtns.forEach((btn)=>{
     btn.addEventListener("click", ()=>{
         const modalId = btn.getAttribute("id");
@@ -5550,58 +5559,21 @@ openModalBtns.forEach((btn)=>{
     });
 });
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"kw7nM":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"wmltl":[function(require,module,exports) {
 const devMainButton = document.getElementById("dev-mainButton");
 const devButtonBar = document.querySelector(".dev-button-bar");
 const scrollToTop = document.getElementById("scrollToTop");
 const scrollToTopButton = document.getElementById("scrollToTopButton");
 const wideContainer = document.getElementById("wide-container");
 const galleryContainer = document.getElementById("gallery-container");
-// let isButtonBarVisible = false;
-// devMainButton.addEventListener('click', () => {
-//     if (isButtonBarVisible) {
-//         devButtonBar.style.display = "none"
-//     } else {
-//         devButtonBar.style.display = "flex"
-//     }
-// });
-// devMainButton.addEventListener('mouseenter', () => {
-//     devButtonBar.style.display = "flex";
-//     devButtonBar.style.opacity = "1";
-// });
-// devButtonBar.addEventListener('mouseleave', () => {
-//      devButtonBar.style.display = "none"
-// })
-//wersja druga a pojawiającą sie animacją
-// gsap.set(devButtonBar, { display: "none", opacity: 0 });
-// let isButtonBarVisible = false;
-// devMainButton.addEventListener('click', () => {
-//   isButtonBarVisible = !isButtonBarVisible;
-//   if (isButtonBarVisible) {
-//     gsap.to(devButtonBar, { display: "flex", opacity: 1, duration: 0.3, ease: 'power2.out' });
-//   } else {
-//     gsap.to(devButtonBar, { opacity: 0, duration: 0.3, ease: 'power2.out', onComplete: () => {
-//       devButtonBar.style.display = "none";
-//     } });
-//   }
-// });
-// devMainButton.addEventListener('mouseenter', () => {
-//   gsap.to(devButtonBar, { display: "flex", opacity: 1, duration: 0.3, ease: 'power2.out' });
-// });
-// devButtonBar.addEventListener('mouseleave', () => {
-//   if (!isButtonBarVisible) {
-//     gsap.to(devButtonBar, { opacity: 0, duration: 0.3, ease: 'power2.out', onComplete: () => {
-//       devButtonBar.style.display = "none";
-//     } });
-//   }
-// });
-//wersja trzecia w wysuwającą sie animacją z lewej do prawej
+//wersja trzecia z wysuwającą sie animacją z lewej do prawej
 gsap.set(devButtonBar, {
     display: "none",
     opacity: 0,
     x: "-100%"
 });
 let isButtonBarVisible = false;
+// obsługa zdarzenia kliknięcia w główny przycisk narzędzi deweloperskich
 devMainButton.addEventListener("click", ()=>{
     isButtonBarVisible = !isButtonBarVisible;
     if (isButtonBarVisible) gsap.to(devButtonBar, {
@@ -5621,6 +5593,7 @@ devMainButton.addEventListener("click", ()=>{
         }
     });
 });
+// obsługa zdarzenia umieszczenia kursora myszy nad głównym przyciskiem narzędzi deweloperskich
 devMainButton.addEventListener("mouseenter", ()=>{
     gsap.to(devButtonBar, {
         display: "flex",
@@ -5630,6 +5603,7 @@ devMainButton.addEventListener("mouseenter", ()=>{
         ease: "power2.out"
     });
 });
+// obsługa zdarzenia oddalenia kursora myszy znad głównego przycisku narzędzi deweloperskich
 devButtonBar.addEventListener("mouseleave", ()=>{
     if (!isButtonBarVisible) gsap.to(devButtonBar, {
         opacity: 0,
@@ -5642,18 +5616,59 @@ devButtonBar.addEventListener("mouseleave", ()=>{
     });
 });
 let isButtonVisible = true;
+// obsługa zdarzenia kliknięcia na przycisk włączający/wyłączający dodatkowy przycisk przewijania do góry
 scrollToTop.addEventListener("click", ()=>{
     if (!isButtonVisible) scrollToTopButton.style.visibility = "hidden";
     else scrollToTopButton.style.visibility = "visible";
     isButtonVisible = !isButtonVisible;
 });
+// obsługa kliknięcia na przycisk włączający/wyłączający obsługę szerokiego ekranu
 const toggleMonitorClass = ()=>{
     if (galleryContainer.classList.contains("monitor-wide")) galleryContainer.classList.remove("monitor-wide");
     else galleryContainer.classList.add("monitor-wide");
 };
-wideContainer.addEventListener("click", toggleMonitorClass);
+// obsługa zdarzenia kliknięcia na przycisk włączający/wyłączający obsługę szerokiego ekranu
+wideContainer.addEventListener("click", toggleMonitorClass); //wersja pierwsza z pojawiającą sie animacją
+ // let isButtonBarVisible = false;
+ // devMainButton.addEventListener('click', () => {
+ //     if (isButtonBarVisible) {
+ //         devButtonBar.style.display = "none"
+ //     } else {
+ //         devButtonBar.style.display = "flex"
+ //     }
+ // });
+ // devMainButton.addEventListener('mouseenter', () => {
+ //     devButtonBar.style.display = "flex";
+ //     devButtonBar.style.opacity = "1";
+ // });
+ // devButtonBar.addEventListener('mouseleave', () => {
+ //      devButtonBar.style.display = "none"
+ // })
+ //wersja druga z pojawiającą sie animacją
+ // gsap.set(devButtonBar, { display: "none", opacity: 0 });
+ // let isButtonBarVisible = false;
+ // devMainButton.addEventListener('click', () => {
+ //   isButtonBarVisible = !isButtonBarVisible;
+ //   if (isButtonBarVisible) {
+ //     gsap.to(devButtonBar, { display: "flex", opacity: 1, duration: 0.3, ease: 'power2.out' });
+ //   } else {
+ //     gsap.to(devButtonBar, { opacity: 0, duration: 0.3, ease: 'power2.out', onComplete: () => {
+ //       devButtonBar.style.display = "none";
+ //     } });
+ //   }
+ // });
+ // devMainButton.addEventListener('mouseenter', () => {
+ //   gsap.to(devButtonBar, { display: "flex", opacity: 1, duration: 0.3, ease: 'power2.out' });
+ // });
+ // devButtonBar.addEventListener('mouseleave', () => {
+ //   if (!isButtonBarVisible) {
+ //     gsap.to(devButtonBar, { opacity: 0, duration: 0.3, ease: 'power2.out', onComplete: () => {
+ //       devButtonBar.style.display = "none";
+ //     } });
+ //   }
+ // });
 
-},{}],"3DurW":[function(require,module,exports) {
+},{}],"b3aTn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "changeMode", ()=>changeMode);
@@ -5666,30 +5681,31 @@ const changeMode = ()=>{
     };
     visualBtn.addEventListener("click", handleDarkMode);
 };
+// obsługa przełączania wyglądu strony pomiędzy trybem jasny/ciemny
 window.addEventListener("DOMContentLoaded", ()=>{
     changeMode();
 });
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"8Mni5":[function(require,module,exports) {
-// Pobranie okna modalnego
+// pobranie wskażnika okna modalnego
 const modal = document.getElementById("modalGoit");
-// Pobranie przycisku, który otwiera okno modalne
-const btn = document.querySelector(".footer-btn"); // Zmiana na pobranie przycisku po klasie
-// Pobranie elementu <span>, który zamyka okno modalne
-const span = document.querySelector(".close-modal-btn-goit"); // Zmienione na querySelector dla spójności
-// Kiedy użytkownik kliknie na przycisk, otwórz okno modalne
+// pobranie wskażnika przycisku, który otwiera okno modalne
+const btn = document.querySelector(".footer-btn");
+// pobranie wskażnika elementu <span>, który zamyka okno modalne
+const span = document.querySelector(".close-modal-btn-goit");
+// obsługa kliknięcia na przycisk otwierający okno modalne 'goit-team'
 btn.onclick = function() {
     modal.style.display = "block";
 };
-// Kiedy użytkownik kliknie na <span> (x), zamknij okno modalne
+// obsługa kliknięcia na przycisk zamykający okno modalne
 span.onclick = function() {
     modal.style.display = "none";
 };
-// Kiedy użytkownik kliknie poza oknem modalnym, zamknij je
+// obsługa kliknięcia poza okno modalne zamykającego to okno
 window.onclick = function(event) {
     if (event.target == modal) modal.style.display = "none";
 };
-// Dodanie obsługi zamknięcia okna modalnego przez naciśnięcie klawisza Esc
+// obsługa zdarzenia naciśnięcia klawisza Esc zamkykającego okno modalne
 document.onkeydown = function(event) {
     if (event.key === "Escape") modal.style.display = "none";
 };
@@ -32713,4 +32729,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.8d4197b2.js.map
+//# sourceMappingURL=index.aab63e9e.js.map

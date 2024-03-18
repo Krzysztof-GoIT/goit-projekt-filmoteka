@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><link rel="stylesheet" href="/goit-projekt-filmoteka/index.6033e181.css">
+  <head><link rel="stylesheet" href="/goit-projekt-filmoteka/index.03fd8fba.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filmoteka</title>
@@ -81,6 +81,18 @@
   </div>
 </footer>
 
+    <!-- Aleksander -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="modalContent">
+      <!-- Tutaj będą wyświetlane dynamiczne dane -->
+    </div>
+  </div>
+</div>
+
+
+
     <div class="dev-tools-container">
   <button class="dev-main-button" id="dev-mainButton">⚙️</button>
   <div class="dev-button-bar">
@@ -90,38 +102,6 @@
     <button class="dev-button" id="wide-container">↔️</button>
   </div>
 </div>
-
-<!-- Aleksander -->
-<div id="myModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <div id="modalContent">
-      <!-- Tutaj będą wyświetlane dynamiczne dane -->
-    </div>
-    <!-- <button id="movieTrailerButton">Movie Trailer</button> -->
-  </div>
-</div>
-
-<div class="sign-in-container hidden">
-  <span class="close-modal-reg">&times;</span>
-  <div id="login-status"></div>
-  <div class="sign-in-wrapper">
-    
-    <div id="form-content-container">
-      
-      <div id="form-content-inner-container">
-        <input type="email" id="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="(example@example.com)" required="">
-        <input type="password" id="password" placeholder="New password" pattern="(?=.*\d)(?=.*[A-Z])(?=.*\W)(?=.*[a-z]).{8,}" title="Hasło musi zawierać co najmniej 6 znaków, w tym co najmniej jedną dużą literę, jedną małą literę, jedną cyfrę i jeden znak specjalny" required="">
-        <div id="button-container">
-          <button id="login-button">Login</button>
-          <button id="register-button">Register</button>
-          <button id="logout-button">Logout</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
     <!-- Okno modalne -->
 <div id="modalGoit" class="modal-team-goit">
   <!-- Zawartość okna modalnego -->
@@ -203,9 +183,27 @@
   </div>
 </div>
 
-    
+    <div class="sign-in-container hidden">
+  <span class="close-modal-reg">&times;</span>
+  <div id="login-status"></div>
+  <div class="sign-in-wrapper">
 
-    <script src="/goit-projekt-filmoteka/index.8d4197b2.js" defer=""></script>
+    <div id="form-content-container">
+
+      <div id="form-content-inner-container">
+        <input type="email" id="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="(example@example.com)" required="">
+        <input type="password" id="password" placeholder="New password" pattern="(?=.*\d)(?=.*[A-Z])(?=.*\W)(?=.*[a-z]).{8,}" title="Hasło musi zawierać co najmniej 6 znaków, w tym co najmniej jedną dużą literę, jedną małą literę, jedną cyfrę i jeden znak specjalny" required="">
+        <div id="button-container">
+          <button id="login-button">Login</button>
+          <button id="register-button">Register</button>
+          <button id="logout-button">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script src="/goit-projekt-filmoteka/index.aab63e9e.js" defer=""></script>
     <script src="https://unpkg.com/gsap@3.9.1/dist/gsap.min.js"></script>
     </body>
 </html>
