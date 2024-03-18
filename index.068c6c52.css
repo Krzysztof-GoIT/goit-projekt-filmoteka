@@ -816,7 +816,7 @@ a.arrow-left, a.arrow-right {
 
 @media screen and (width >= 768px) {
   .modal-content {
-    width: 704px;
+    width: 664px;
     min-height: 552px;
   }
 
@@ -847,7 +847,7 @@ a.arrow-left, a.arrow-right {
 
 @media (width >= 1280px) {
   .modal-content {
-    width: 806px;
+    width: 704px;
     min-height: 558px;
     padding: 0 20px;
   }
@@ -866,11 +866,8 @@ a.arrow-left, a.arrow-right {
   }
 
   .modal-movie-info {
+    max-width: 260px;
     margin-top: 41px;
-  }
-
-  .about-movie {
-    width: 391px;
   }
 
   .variables-item {
@@ -1069,4 +1066,4 @@ button:hover {
 .hidden {
   display: none;
 }
-/*# sourceMappingURL=index.03fd8fba.css.map */
+/*# sourceMappingURL=index.068c6c52.css.map */
