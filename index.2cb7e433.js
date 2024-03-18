@@ -4734,6 +4734,7 @@ Object.entries(HttpStatusCode).forEach(([key, value])=>{
 exports.default = HttpStatusCode;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}],"bA31f":[function(require,module,exports) {
+// gallery.js
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "homePageNo", ()=>homePageNo);
@@ -4753,15 +4754,14 @@ let isInfinityScrollEnable = 0;
 let searchQuery;
 let totalPages;
 const getGenres = (genreIds)=>{
-    // pobranie psaujących nazw gatunków z listy genresName zdefiniowanej w api.js
+    // Pobranie nazw gatunków z listy genresName zdefiniowanej w api.js
     const genres = genreIds.map((genreId)=>{
         const foundGenre = (0, _api.genresName).find((genre)=>genre.id === genreId);
         return foundGenre ? foundGenre.name : "";
     });
-    // zwrócenie połączonej listy gatunków
+    // Zwrócenie połączonej listy gatunków
     return genres.join(", ");
 };
-// wyświetlenie galerii filmów z listy obejrzanych
 const displayWatchedMovies = ()=>{
     try {
         const watchedMovies = JSON.parse(localStorage.getItem("watchedMovies")) || [];
@@ -4781,7 +4781,6 @@ const displayWatchedMovies = ()=>{
         console.error("Error displaying watched movies:", error);
     }
 };
-// wyświetlenie galerii filmów z listy do obejrzenia
 const displayQueuedMovies = ()=>{
     try {
         const queuedMovies = JSON.parse(localStorage.getItem("queuedMovies")) || [];
@@ -4801,11 +4800,11 @@ const displayQueuedMovies = ()=>{
         console.error("Error displaying queued movies:", error);
     }
 };
-// const displayMovieDetails = movieDetails => {
-//   // Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
-//   // console.log(movieDetails);
-// };
-// obsługa zdarzenia kliknięcia przycisków HomePage i Buttonów
+const displayMovieDetails = (movieDetails)=>{
+// Tutaj możemy zaimplementować logikę wyświetlania informacji o filmie w modalu
+// console.log(movieDetails);
+};
+//Obsługa HomePage i Buttonów
 window.addEventListener("DOMContentLoaded", ()=>{
     getHomepage(1); // Wywołujemy funkcję wyświetlającą HomePage
     const libraryWatched = document.getElementById("watchedHeader");
@@ -4830,13 +4829,12 @@ const getHomepage = async (pageNo, infinity)=>{
         console.error("Error fetching trending movies:", error);
     }
 };
-// obsługa zdarzenia kliknięcia formularza wyszukiwania
+//Obsługa szukajki
 document.addEventListener("DOMContentLoaded", ()=>{
     const searchForm = document.getElementById("search-form");
     const searchInput = document.querySelector(".search-form input");
     const notResult = document.getElementById("not-result");
     searchForm.addEventListener("submit", async (event)=>{
-        searchForm.preventDefault();
         (0, _pagination.setCurrentPage)(1);
         getSearchResult(event, 1);
     });
@@ -4852,7 +4850,7 @@ const getSearchResult = async (event, pageNo)=>{
         totalPages = response.total_pages;
         movies = response.results;
         (0, _pagination.createPagination)(totalPages); //Wywołanie paginacji
-        searchInput.value = ""; // Wyczyszczenie pola wyszukiwania
+        //searchInput.value = ''; // Wyczyszczenie pola wyszukiwania
         if (response.results.length > 0) {
             notResult.style.display = "none"; // Ukrycie komunikatu o braku wyników
             clearGallery();
@@ -5034,25 +5032,25 @@ const openModal = (movieData)=>{
       </div>
 
       <div class="modal-buttons">
-        <button id="watchedButton" class="watched-button">Add to Watched</button>
-        <button id="queueButton" class="queued-button">Add to Queue</button>
+        <button class="watchedButton">Add to Watched</button>
+        <button class="queuedButton">Add to Queue</button>
 
       </div>
       <div class="movie-trailer">
-      <button id="movieTrailerButton" class="trailer-button">Trailer</button>
+      <button id="movieTrailerButton">Trailer</button>
       </div>
     </div>
   </div>
   `;
-    const watchedButton = document.getElementsById("watchedButton")[0];
+    const watchedButton = document.getElementsByClassName("watchedButton")[0];
     watchedButton.onclick = ()=>{
         (0, _localstorage.addToWatchedMovies)(movieData);
     };
-    const queuedButton = document.getElementsById("queuedButton")[0];
+    const queuedButton = document.getElementsByClassName("queuedButton")[0];
     queuedButton.onclick = ()=>{
         (0, _localstorage.addToQueue)(movieData);
     };
-    // const span = document.getElementsById('close-modal-movie')[0];
+    // const span = document.getElementsByClassName('close-modal-movie')[0];
     // span.onclick = () => {
     //   modal.style.display = 'none';
     // };
@@ -5110,11 +5108,10 @@ const openModal = (movieData)=>{
     closeButton.onclick = ()=>{
         modal.style.display = "none";
     };
-    // obsługa zdarzenia naciśnięcia klawisza Escape do wyłączenia okna modalnego
+    // Obsługa zdarzenia keydown
     document.addEventListener("keydown", function(event) {
         if (event.key === "Escape") modal.style.display = "none";
     });
-    // obsługa zdarzenia kliknięcia do wyłączenia okna modalnego
     window.onclick = (event)=>{
         if (event.target == modal) modal.style.display = "none";
     };
@@ -5157,11 +5154,11 @@ const openModal = (movieData)=>{
 //     </div>
 //     </div>
 //   `;
-//   const watchedButton = document.getElementsById('watchedButton')[0];
+//   const watchedButton = document.getElementsByClassName('watchedButton')[0];
 //   watchedButton.onclick = () => {
 //     addToWatchedMovies(movieData);
 //   };
-//   const queuedButton = document.getElementsById('queuedButton')[0];
+//   const queuedButton = document.getElementsByClassName('queuedButton')[0];
 //   queuedButton.onclick = () => {
 //     addToQueue(movieData);
 //   };
@@ -5212,7 +5209,7 @@ const openModal = (movieData)=>{
 //       console.error('Error fetching movie trailers:', error);
 //     }
 //   });
-//   const span = document.getElementsById('close')[0];
+//   const span = document.getElementsByClassName('close')[0];
 //   span.onclick = () => {
 //     modal.style.display = 'none';
 //   };
@@ -5266,7 +5263,7 @@ const loadMoreContent = ()=>{
     }
 };
 const infinityScroll = document.getElementById("infinityScroll");
-// obsługa zdarzenia kliknięcia przycisku automatycznego pobierania kolejnych stron w miarę przewijania
+// Obsługa zdarzenia kliknięcia przycisku
 infinityScroll.addEventListener("click", ()=>{
     if (isInfinityScrollEnable) {
         // Jeżeli infinity scroll jest aktywny, usuwamy nasłuchiwanie zdarzenia scroll
@@ -32729,4 +32726,4 @@ RepoInfo;
 
 },{"6b38617303e2f7b9":"lV6sG","@firebase/app":"hMa0D","@firebase/component":"j0Bab","@firebase/util":"fNJf0","@firebase/logger":"5Ik4t","@parcel/transformer-js/src/esmodule-helpers.js":"l14Tj"}]},["5rIoY"], "5rIoY", "parcelRequire4e2a")
 
-//# sourceMappingURL=index.aab63e9e.js.map
+//# sourceMappingURL=index.2cb7e433.js.map
