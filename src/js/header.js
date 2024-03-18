@@ -16,6 +16,7 @@ const paginationButtons = document.getElementById('pagination-container');
 const logo = document.getElementById('logo');
 import { getHomepage, clearGallery } from './gallery';
 
+// przełączanie widoczności podanych elementów
 const toggleVisibility = (elementToShow, elementToHide) => {
   elementToShow.style.visibility = 'visible';
   elementToHide.style.visibility = 'hidden';
@@ -23,10 +24,7 @@ const toggleVisibility = (elementToShow, elementToHide) => {
   elementToHide.style.display = 'none';
 };
 
-const libraryClick = () => {
-  watchedHeader.click();
-};
-
+// wybór tła nagłówka w zależności od rozdzielczości i wybranej strony głównej lub 'my library'
 const setHeaderBackground = () => {
   const screenWidth = window.innerWidth;
   let backgroundImageUrl = '';
@@ -68,8 +66,10 @@ const setHeaderBackground = () => {
   headerBG.style.backgroundImage = backgroundImageUrl;
 };
 
+// wywołanie funkcji wyboru tła nagłówka
 setHeaderBackground();
 
+// obsługa kliknięcia w 'logo lub 'home'
 const homeButtonClick = event => {
   event.preventDefault();
   toggleVisibility(headerSearch, myLibrary);
@@ -81,6 +81,12 @@ const homeButtonClick = event => {
   getHomepage(1);
 };
 
+// obsługa kliknięcia w przycisk 'watched'
+const libraryClick = () => {
+  watchedHeader.click();
+};
+
+// obsługa kliknięcia w przycisk 'my library'
 const myLibraryButtonClick = event => {
   event.preventDefault();
   toggleVisibility(myLibrary, headerSearch);
@@ -91,6 +97,7 @@ const myLibraryButtonClick = event => {
   libraryClick(watchedButton);
 };
 
+// obsługa zdarzenia kliknięcia w interaktywne elementy nagłówka
 logo.addEventListener('click', homeButtonClick);
 homeLink.addEventListener('click', homeButtonClick);
 libraryLink.addEventListener('click', myLibraryButtonClick);
@@ -111,8 +118,10 @@ logoutButton.addEventListener('click', event => {
   logInContainer.style.display = 'none';
 });
 
+// obsługa zdarzenia zmiany rozmiaru okna
 window.addEventListener('resize', setHeaderBackground);
 
+// ukrycie wybranych elementów nagłówka, jeśli nie wybrana 'my library'
 if (myLibrary.style.display !== 'flex') {
   const headerLibraryElements = document.querySelectorAll('.header-library');
   headerLibraryElements.forEach(element => {
