@@ -209,7 +209,7 @@
 /* style dla tabletu i komputera */
 @media screen and (min-width: 768px) {
   .modal-content {
-    width: 704px;
+    width: 664px;
     min-height: 552px;
   }
   .modal-container {
@@ -235,7 +235,7 @@
 
 @media (min-width: 1280px) {
   .modal-content {
-    width: 806px;
+    width: 704px;
     min-height: 558px;
     padding: 0 20px;
   }
@@ -253,10 +253,8 @@
     height: 100%;
   }
   .modal-movie-info {
+    max-width: 260px;
     margin-top: 41px;
-  }
-  .about-movie {
-    width: 391px;
   }
   .variables-item {
     padding-right: 0;
