@@ -42,7 +42,7 @@
 
 /* zawartość okna modalnego z informacjami o filmie */
 .modal-container {
-  display: block;
+  /* display: block; #fix 315*/
 }
 
 /* plakat filmu w kontenerze */
@@ -162,8 +162,8 @@
 }
 
 /* przyciski dodawania filmu do listy obejrzanych lub do obejrzenia */
-.watched-button,
-.queued-button {
+.watchedButton,
+.queuedButton {
   border-radius: 5px;
   width: 110px;
   height: 44px;
@@ -181,7 +181,7 @@
 }
 
 /* przycisk do włączenia trailera filmu */
-.trailer-button {
+#movieTrailerButton {
   border-radius: 5px;
   width: 110px;
   height: 44px;

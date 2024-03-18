@@ -35,8 +35,8 @@
 }
 
 /* wskazany plakat filmu */
-.movie-poster:focus,
-.movie-poster:hover {
+div.movie-card > img.movie-poster:focus,
+div.movie-card > img.movie-poster:hover {
   transform: scale(1.03);
   border: thick double #ff001b;
   padding: 6px;
