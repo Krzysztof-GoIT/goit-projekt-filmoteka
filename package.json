@@ -1,7 +1,7 @@
 {
   "name": "goit-projekt-filmoteka",
   "version": "0.3.16-aprove",
-  "description": "",
+  "description": "Projetk JS",
   "homepage": "https://MMolik.github.io/goit-projekt-filmoteka/",
   "scripts": {
     "start": "parcel src/*.html",
