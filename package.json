@@ -2,7 +2,7 @@
   "name": "goit-projekt-filmoteka",
   "version": "0.3.16-aprove",
   "description": "",
-  "homepage": "https://krzysztof-goit.github.io/goit-projekt-filmoteka/",
+  "homepage": "https://MMolik.github.io/goit-projekt-filmoteka/",
   "scripts": {
     "start": "parcel src/*.html",
     "build": "parcel build src/*.html --no-scope-hoist --no-optimize --public-url /goit-projekt-filmoteka/",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://krzysztof-goit.github.io/goit-projekt-filmoteka.git"
+    "url": "git+https://MMolik.github.io/goit-projekt-filmoteka.git"
   },
   "keywords": [],
   "author": "GRUPA 1 <krzysztof-goit@fabrykait.net>",
